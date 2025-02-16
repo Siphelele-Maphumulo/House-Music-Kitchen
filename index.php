@@ -1,45 +1,37 @@
-
 <?php
-// Start session
 session_start();
 
-// Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Database connection
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "bestbrightness_db";
-    $port = 3306; // Your MySQL port number
+    $dbname = "housemusickitchen_db";
+    $port = 3306;
 
-    // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname, $port);
 
-    // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Retrieve form data
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Prepare SQL statement to retrieve user from database
     $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
     $result = $conn->query($sql);
 
     if ($result->num_rows == 1) {
-        // Login successful, set session variables
         $user = $result->fetch_assoc();
         $_SESSION['user'] = $email;
-        $_SESSION['firstname'] = $user['firstname']; // Store user's first name in session
-        $_SESSION['lastname'] = $user['lastname']; // Store user's last name in session
+        $_SESSION['firstname'] = $user['firstname'];
+        $_SESSION['lastname'] = $user['lastname'];
+        
+        // Set a success flag
+        $_SESSION['login_success'] = true;
         header("Location: home.php");
         exit;
     } else {
-        // If login fails, redirect back to login page with an error parameter
-        header("Location: login.php?error=1");
-        exit;
+        $_SESSION['error'] = "Invalid email or password!! Try again";
     }
 
     $conn->close();
@@ -62,8 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<script>document.documentElement.className="js";var supportsCssVars=function(){var e,t=document.createElement("style");return t.innerHTML="root: { --tmp-var: bold; }",document.head.appendChild(t),e=!!(window.CSS&&window.CSS.supports&&window.CSS.supports("font-weight","var(--tmp-var)")),t.parentNode.removeChild(t),e};supportsCssVars()||alert("Please view this demo in a modern browser that supports CSS Variables.");</script>
 	</head>
 
-	<style>
-
+<style>
 
 *{
   margin: 0;
@@ -267,6 +258,7 @@ form .btn input[type="submit"]{
             background-position: center;
             margin-bottom: 10px; /* Adjust the space between images */
         }
+
 </style>
 
 
@@ -378,11 +370,7 @@ form .btn input[type="submit"]{
 							<div class="column__img1" style="background-image:url(img/36.png)"></div>
 							<div class="column__img1" style="background-image:url(img/43.png)"></div>
 							<div class="column__img1" style="background-image:url(img/50.png)"></div>
-							<!--<div class="column__img1" style="background-image:url(img/1.png)"></div>
-							<div class="column__img1" style="background-image:url(img/301.png)"></div>
-							<div class="column__img1" style="background-image:url(img/200.png)"></div>
-							<div class="column__img1" style="background-image:url(img/15.png)"></div>
-							<div class="column__img1" style="background-image:url(img/13.png)"></div>-->
+
 
 						</div>
 
@@ -395,11 +383,7 @@ form .btn input[type="submit"]{
 							<div class="column__img1" style="background-image:url(img/35.png)"></div>
 							<div class="column__img1" style="background-image:url(img/47.png)"></div>
 							<div class="column__img1" style="background-image:url(img/41.png)"></div>
-							<!--<div class="column__img1" style="background-image:url(img/48.png)"></div>
-							<div class="column__img1" style="background-image:url(img/300.png)"></div>
-							<div class="column__img1" style="background-image:url(img/17.png)"></div>
-							<div class="column__img1" style="background-image:url(img/17.png)"></div>
-							<div class="column__img1" style="background-image:url(img/14.png)"></div>-->
+
 
 
 
@@ -413,11 +397,7 @@ form .btn input[type="submit"]{
 							<div class="column__img1" style="background-image:url(img/14.png)"></div>
 							<div class="column__img1" style="background-image:url(img/16.png)"></div>
 							<div class="column__img1" style="background-image:url(img/10.png)"></div>
-							<!--<div class="column__img1" style="background-image:url(img/33.png)"></div>
-							<div class="column__img1" style="background-image:url(img/301.png)"></div>
-							<div class="column__img1" style="background-image:url(img/200.png)"></div>
-							<div class="column__img1" style="background-image:url(img/15.png)"></div>
-							<div class="column__img1" style="background-image:url(img/13.png)"></div>-->
+	
 
 						</div>
 						<div class="column1">
@@ -429,11 +409,7 @@ form .btn input[type="submit"]{
 							<div class="column__img1" style="background-image:url(img/37.png)"></div>
 							<div class="column__img1" style="background-image:url(img/11.png)"></div>
 							<div class="column__img1" style="background-image:url(img/51.png)"></div>
-							<!--<div class="column__img1" style="background-image:url(img/200.png)"></div>
-							<div class="column__img1" style="background-image:url(img/301.png)"></div>
-							<div class="column__img1" style="background-image:url(img/200.png)"></div>
-							<div class="column__img1" style="background-image:url(img/15.png)"></div>
-							<div class="column__img1" style="background-image:url(img/13.png)"></div>-->
+
 
 
 						</div>
@@ -446,31 +422,11 @@ form .btn input[type="submit"]{
 							<div class="column__img1" style="background-image:url(img/38.png)"></div>
 							<div class="column__img1" style="background-image:url(img/19.png)"></div>
 							<div class="column__img1" style="background-image:url(img/4.png)"></div>
-							<!--<div class="column__img1" style="background-image:url(img/4.png)"></div>
-							<div class="column__img1" style="background-image:url(img/1.png)"></div>
-							<div class="column__img1" style="background-image:url(img/200.png)"></div>
-							<div class="column__img1" style="background-image:url(img/15.png)"></div>
-							<div class="column__img1" style="background-image:url(img/13.png)"></div>-->
+
 
 
 						</div>
-						<!--<div class="column1">
-							<div class="column__img1" style="background-image:url(img/7.png)"></div>
-							<div class="column__img1" style="background-image:url(img/43.png)"></div>
-							<div class="column__img1" style="background-image:url(img/6.png)"></div>
-							<div class="column__img1" style="background-image:url(img/26.png)"></div>
-							<div class="column__img1" style="background-image:url(img/32.png)"></div>
-							<div class="column__img1" style="background-image:url(img/40.png)"></div>
-							<div class="column__img1" style="background-image:url(img/46.png)"></div>
-							<div class="column__img1" style="background-image:url(img/105.png)"></div>
-							<div class="column__img1" style="background-image:url(img/44.png)"></div>
-							<div class="column__img1" style="background-image:url(img/5.png)"></div>
-							<div class="column__img1" style="background-image:url(img/200.png)"></div>
-							<div class="column__img1" style="background-image:url(img/15.png)"></div>
-							<div class="column__img1" style="background-image:url(img/13.png)"></div>
 
-
-						</div>-->
     </div><!--/content--move-->
 			</div><!--/content-->
 					<div class="item__content" style="margin-top:-5%">
@@ -492,87 +448,102 @@ form .btn input[type="submit"]{
             </div>
 
 
-        <?php
-        // Display error message if login failed
-        if (isset($_GET['error']) && $_GET['error'] == 1) {
-            echo '<p style="color: red;">Invalid email or password.</p>';
-        }
-        ?>
-        
-          <div class="form-inner">
-          <form class="login" id="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                <div class="field">
-                <input type="email" name="email" placeholder="Email" required>
-                </div>
-                <div class="field">
-                <input type="password" name="password" placeholder="Password" required>
-                </div>
-                <div class="pass-link">
-                   <a href="#">Reset password?</a>
-                </div>
-                <div class="field btn">
-                   <div class="btn-layer"></div>
-                   <input type="submit" value="Login">
-                </div>
-             </form>
 
-            
-             <form class="signup" id="signup-form" action="login.php" method="POST" style="font-size:small">
+			<!-- Display error message if set -->
+			<?php
+			if (isset($_SESSION['error'])) {
+				echo '<p style="color: red;">' . $_SESSION['error'] . '</p>';
+				unset($_SESSION['error']); // Clear the error message after displaying
+			}
+			?>
 
-                <div class="field">
-                    <input type="text" name="firstname" placeholder="First Name" required>
-                </div>
+			<div class="form-inner">
+				<!-- Login Form -->
+				<form class="login" id="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+					<div class="field">
+						<input type="email" name="email" placeholder="Email" required>
+					</div>
+					<div class="field">
+						<input type="password" name="password" placeholder="Password" required>
+					</div>
+					<div class="pass-link">
+						<a href="#">Reset password?</a>
+					</div>
+					<div class="field btn">
+						<div class="btn-layer"></div>
+						<input type="submit" value="Login">
+					</div>
+				</form>
 
-                <div class="field">
-                    <input type="text" name="lastname" placeholder="Last Name" required>
-                </div>
-
-                <div class="field">
-                <input type="text" name="email" placeholder="Email" required>
-                </div>
-
-                <div class="field">
-                <input type="text" name="phone" placeholder="Phone" required>
-                </div>
-
-                <div class="field">
-                <input type="password" name="password" placeholder="Password" required>
-                </div>
-
-                <div class="field">
-                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
-                </div>
-
-                <div class="field btn">
-                   <div class="btn-layer"></div>
-                   <input type="submit" value="SignUp">
-                </div>
-             </form>
-          </div>
+				<!-- Signup Form -->
+				<form class="signup" id="signup-form" action="login.php" method="POST" style="font-size:small">
+					<div class="field">
+						<input type="text" name="firstname" placeholder="First Name" required>
+					</div>
+					<div class="field">
+						<input type="text" name="lastname" placeholder="Last Name" required>
+					</div>
+					<div class="field">
+						<input type="text" name="email" placeholder="Email" required>
+					</div>
+					<div class="field">
+						<input type="text" name="phone" placeholder="Phone" required>
+					</div>
+					<div class="field">
+						<input type="password" name="password" placeholder="Password" required>
+					</div>
+					<div class="field">
+						<input type="password" name="confirm_password" placeholder="Confirm Password" required>
+					</div>
+					<div class="field btn">
+						<div class="btn-layer"></div>
+						<input type="submit" value="SignUp">
+					</div>
+				</form>
+			</div>
        </div>
     </div>
 
     <script>
+        // Function to reset form fields
+        function resetForm(formId) {
+            document.getElementById(formId).reset();
+        }
 
-		const loginText = document.querySelector(".title-text .login");
-		const loginForm = document.querySelector("form.login");
-		const loginBtn = document.querySelector("label.login");
-		const signupBtn = document.querySelector("label.signup");
-		const signupLink = document.querySelector("form .signup-link a");
-		signupBtn.onclick = (()=>{
-		loginForm.style.marginLeft = "-50%";
-		loginText.style.marginLeft = "-50%";
-		});
-		loginBtn.onclick = (()=>{
-		loginForm.style.marginLeft = "0%";
-		loginText.style.marginLeft = "0%";
-		});
-		signupLink.onclick = (()=>{
-		signupBtn.click();
-		return false;
-		});
+        // Check for login success flag and reset the form
+        <?php if (isset($_SESSION['login_success'])) { ?>
+            resetForm('login-form');
+            <?php unset($_SESSION['login_success']); ?>
+        <?php } ?>
 
-    </script>
+        // Check for signup success flag and reset the form
+        <?php if (isset($_SESSION['signup_success'])) { ?>
+            resetForm('signup-form');
+            <?php unset($_SESSION['signup_success']); ?>
+        <?php } ?>
+
+			// Existing form-switching logic
+			const loginText = document.querySelector(".title-text .login");
+			const loginForm = document.querySelector("form.login");
+			const loginBtn = document.querySelector("label.login");
+			const signupBtn = document.querySelector("label.signup");
+			const signupLink = document.querySelector("form .signup-link a");
+
+			signupBtn.onclick = () => {
+				loginForm.style.marginLeft = "-50%";
+				loginText.style.marginLeft = "-50%";
+			};
+
+			loginBtn.onclick = () => {
+				loginForm.style.marginLeft = "0%";
+				loginText.style.marginLeft = "0%";
+			};
+
+			signupLink.onclick = () => {
+				signupBtn.click();
+				return false;
+			};
+		</script>
   </body>
 						</div>
 					</div>
