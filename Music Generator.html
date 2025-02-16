@@ -1,0 +1,612 @@
+<?php
+// Nastic Groove.html (Updated)
+$tracks = [
+    [
+        'artist' => '8nine Muzique',
+        'ft_artist' => 'Lyrik Shoxen',
+        'title' => 'Wherever I Go (Original Mix)',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-12-01',
+        'duration' => '5:54',
+        'price' => '1.99',
+        'image' => 'img/8nineMuzique.png',
+        'audio' => 'tracks/8nine Muzique ft. Lyrik Shoxen - Wherever I Go (Original Mix).mp3',
+        'id' => 1
+    ],
+    [
+        'artist' => 'Artwork Sounds',
+        'ft_artist' => '',
+        'title' => 'Bakone Lebowa (Original Mix)',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-11-15',
+        'duration' => '6:12',
+        'price' => '1.99',
+        'image' => 'img/ArtworkSounds.png',
+        'audio' => 'tracks/Artwork Sounds - Bakone Lebowa (Edit).mp3',
+        'id' => 2
+    ],
+    [
+        'artist' => 'Beebar',
+        'ft_artist' => 'Unknown',
+        'title' => 'Lost in Sound',
+        'label' => 'SoulWave',
+        'genre' => 'Deep House',
+        'release_date' => '2024-12-15',
+        'duration' => '6:50',
+        'price' => '1.99',
+        'image' => 'img/Beebar.png',
+        'audio' => 'tracks/Beebar - Lost in Sound (Original Mix).mp3',
+        'id' => 3
+    ],
+     [
+        'artist' => 'Black Coffee',
+        'ft_artist' => 'Lyrik Shoxen',
+        'title' => 'Wherever I Go (Original Mix)',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-12-01',
+        'duration' => '5:54',
+        'price' => '1.99',
+        'image' => 'img/Black Coffee.png',
+        'audio' => 'tracks/Black Coffee ft. Lyrik Shoxen - Wherever I Go (Original Mix).mp3',
+        'id' => 4
+    ],
+    [
+        'artist' => 'Black Coffee',
+        'ft_artist' => '',
+        'title' => 'Bakone Lebowa (Original Mix)',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-11-15',
+        'duration' => '6:12',
+        'price' => '1.99',
+        'image' => 'img/Black Coffee.png',
+        'audio' => 'tracks/Black Coffee - Bakone Lebowa (Edit).mp3',
+        'id' => 5
+    ],
+    [
+        'artist' => 'Black Coffee',
+        'ft_artist' => '& Moojo',
+        'title' => 'What You Desire',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-11-15',
+        'duration' => '6:12',
+        'price' => '1.99',
+        'image' => 'img/Black Coffee.png',
+        'audio' => 'tracks/Black Coffee & Moojo - What You Desire (Original Mix).mp3',
+        'id' => 6
+    ],
+    [
+        'artist' => 'C-Blak',
+        'ft_artist' => '',
+        'title' => 'Bakone Lebowa (Original Mix)',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-11-15',
+        'duration' => '6:12',
+        'price' => '1.99',
+        'image' => 'img/C-Blak.png',
+        'audio' => 'tracks/C-Blak - Bakone Lebowa (Edit).mp3',
+        'id' => 7
+    ],
+    [
+        'artist' => 'China Charmelon',
+        'ft_artist' => 'Vocalist X',
+        'title' => 'Rhythm of the Night',
+        'label' => 'Electro Records',
+        'genre' => 'Electronic',
+        'release_date' => '2024-12-10',
+        'duration' => '4:45',
+        'price' => '2.49',
+        'image' => 'img/China Charmelon.png',
+        'audio' => 'tracks/futuresounds_rhythmofthenight.mp3',
+        'id' => 8
+    ],
+    [
+        'artist' => 'China Charmelon',
+        'ft_artist' => 'Another Vocalist',
+        'title' => 'Cosmic Waves',
+        'label' => 'Electro Records',
+        'genre' => 'Electronic',
+        'release_date' => '2024-12-01',
+        'duration' => '6:00',
+        'price' => '2.49',
+        'image' => 'img/China Charmelon.png',
+        'audio' => 'tracks/futuresounds_cosmicwaves.mp3',
+        'id' => 9
+    ],
+    [
+        'artist' => 'Citizen Sthee',
+        'ft_artist' => 'Unknown',
+        'title' => 'Nightly Grooves',
+        'label' => 'Soulful Sounds',
+        'genre' => 'Deep House',
+        'release_date' => '2024-11-25',
+        'duration' => '6:45',
+        'price' => '2.19',
+        'image' => 'img/CitizenSthee.png',
+        'audio' => 'tracks/Citizen Sthee - Nightly Grooves (Edit).mp3',
+        'id' => 10
+    ],
+    [
+        'artist' => 'CocoSA',
+        'ft_artist' => 'Unknown',
+        'title' => 'Summer Breeze',
+        'label' => 'Vibe Records',
+        'genre' => 'Deep House',
+        'release_date' => '2024-12-20',
+        'duration' => '6:35',
+        'price' => '1.99',
+        'image' => 'img/CocoSA.png',
+        'audio' => 'tracks/CocoSA - Summer Breeze (Original Mix).mp3',
+        'id' => 11
+    ],
+    [
+        'artist' => 'Culoe De Song',
+        'ft_artist' => 'Lyrik Shoxen',
+        'title' => 'Wherever I Go (Original Mix)',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-12-01',
+        'duration' => '5:54',
+        'price' => '1.99',
+        'image' => 'img/TmADeep.png',
+        'audio' => 'tracks/Da Capo ft. Lyrik Shoxen - Wherever I Go (Original Mix).mp3',
+        'id' => 12
+    ],
+    [
+        'artist' => 'Culoe De Song',
+        'ft_artist' => '',
+        'title' => 'Bakone Lebowa (Original Mix)',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-11-15',
+        'duration' => '6:12',
+        'price' => '1.99',
+        'image' => 'img/TmADeep.png',
+        'audio' => 'tracks/Da Capo - Bakone Lebowa (Edit).mp3',
+        'id' => 13
+    ],
+    [
+        'artist' => 'Culoe De Song',
+        'ft_artist' => '& Moojo',
+        'title' => 'What You Desire',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-11-15',
+        'duration' => '6:12',
+        'price' => '1.99',
+        'image' => 'img/TmADeep.png',
+        'audio' => 'tracks/Da Capo & Moojo - What You Desire (Original Mix).mp3',
+        'id' => 14
+    ],
+    [
+        'artist' => 'Da Capo',
+        'ft_artist' => 'Lyrik Shoxen',
+        'title' => 'Wherever I Go (Original Mix)',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-12-01',
+        'duration' => '5:54',
+        'price' => '1.99',
+        'image' => 'img/DaCapo.png',
+        'audio' => 'tracks/Da Capo ft. Lyrik Shoxen - Wherever I Go (Original Mix).mp3',
+        'id' => 15
+    ],
+    [
+        'artist' => 'Da Capo',
+        'ft_artist' => '',
+        'title' => 'Bakone Lebowa (Original Mix)',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-11-15',
+        'duration' => '6:12',
+        'price' => '1.99',
+        'image' => 'img/DaCapo.png',
+        'audio' => 'tracks/Da Capo - Bakone Lebowa (Edit).mp3',
+        'id' => 16
+    ],
+    [
+        'artist' => 'Da Capo',
+        'ft_artist' => '& Moojo',
+        'title' => 'What You Desire',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-11-15',
+        'duration' => '6:12',
+        'price' => '1.99',
+        'image' => 'img/DaCapo.png',
+        'audio' => 'tracks/Da Capo & Moojo - What You Desire (Original Mix).mp3',
+        'id' => 17
+    ],
+    [
+        'artist' => 'Da Vynalist',
+        'ft_artist' => 'Unknown',
+        'title' => 'The Journey',
+        'label' => 'Pure Beats',
+        'genre' => 'Deep House',
+        'release_date' => '2024-12-05',
+        'duration' => '7:20',
+        'price' => '2.49',
+        'image' => 'img/DaVynalist.png',
+        'audio' => 'tracks/Da Vynalist - The Journey (Original Mix).mp3',
+        'id' => 18
+    ],
+    [
+        'artist' =>  'Drega',
+        'ft_artist' =>  'Unknown',
+        'title' =>  'Soul Vibes',
+        'label' =>  'Deep Essence',
+        'genre' =>  'Deep House',
+        'release_date' =>  '2024-11-20',
+        'duration' =>  '7:05',
+        'price' =>  '2.29',
+        'image' =>  'img/Drega.png',
+        'audio' =>  'tracks/Drega - Soul Vibes (Original Mix).mp3',
+        'id' =>  19
+    ],
+    [
+        'artist' => 'Enosoul',
+        'ft_artist' => 'Lyrik Shoxen',
+        'title' => 'Wherever I Go (Original Mix)',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-12-01',
+        'duration' => '5:54',
+        'price' => '1.99',
+        'image' => 'img/nasticgroove.png',
+        'audio' => 'tracks/nasticgroove_ft_lyrikshoxen_whereverigo_originalmix.mp3',
+        'id' => 20
+    ],
+    [
+        'artist' => 'Enosoul',
+        'ft_artist' => 'Another Artist',
+        'title' => 'Second Track (Original Mix)',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-11-15',
+        'duration' => '6:12',
+        'price' => '1.99',
+        'image' => 'img/nasticgroove.png',
+        'audio' => 'tracks/nasticgroove_ft_anotherartist_secondtrack_originalmix.mp3',
+        'id' => 21
+    ],
+    [
+        'artist' => 'Enosoul',
+        'ft_artist' => 'Yet Another Artist',
+        'title' => 'Third Track (Original Mix)',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-10-20',
+        'duration' => '5:30',
+        'price' => '1.99',
+        'image' => 'img/nasticgroove.png',
+        'audio' => 'tracks/nasticgroove_ft_yetanotherartist_thirdtrack_originalmix.mp3',
+        'id' => 22
+    ],
+    [
+        'artist' => 'Exte C',
+        'ft_artist' => '& Moojo',
+        'title' => 'What You Desire',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-11-15',
+        'duration' => '6:12',
+        'price' => '1.99',
+        'image' => 'img/ExteC.png',
+        'audio' => 'tracks/Exte C & Moojo - What You Desire (Original Mix).mp3',
+        'id' => 23
+    ],
+    [
+        'artist' => 'Griffith Malo',
+        'ft_artist' => '& Moojo',
+        'title' => 'What You Desire',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-11-15',
+        'duration' => '6:12',
+        'price' => '1.99',
+        'image' => 'img/GriffithMalo.png',
+        'audio' => 'tracks/Griffith Malo & Moojo - What You Desire (Original Mix).mp3',
+        'id' => 24
+    ],
+    [
+        'artist' => 'Hypaphonik',
+        'ft_artist' => 'Unknown',
+        'title' => 'Mind Elevation',
+        'label' => 'Groove Vibe',
+        'genre' => 'Deep House',
+        'release_date' => '2024-12-01',
+        'duration' => '6:30',
+        'price' => '1.99',
+        'image' => 'img/Hypaphonik.png',
+        'audio' => 'tracks/Hypaphonik - Mind Elevation (Original Mix).mp3',
+        'id' => 25
+    ],
+    [
+        'artist' => 'Mpo Wav',
+        'ft_artist' => 'Unknown',
+        'title' => 'Euphoric Vibes',
+        'label' => 'Deep Pulse',
+        'genre' => 'Deep House',
+        'release_date' => '2024-12-18',
+        'duration' => '7:15',
+        'price' => '2.39',
+        'image' => 'img/MpoWav.png',
+        'audio' => 'tracks/Mpo Wav - Euphoric Vibes (Original Mix).mp3',
+        'id' => 26
+    ],
+    [
+        'artist' => 'Nastic Groove',
+        'ft_artist' => 'Lyrik Shoxen',
+        'title' => 'Wherever I Go (Original Mix)',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-12-01',
+        'duration' => '5:54',
+        'price' => '1.99',
+        'image' => 'img/nasticgroove.png',
+        'audio' => 'tracks/nasticgroove_ft_lyrikshoxen_whereverigo_originalmix.mp3',
+        'id' => 27
+    ],
+    [
+        'artist' => 'Nastic Groove',
+        'ft_artist' => 'Another Artist',
+        'title' => 'Second Track (Original Mix)',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-11-15',
+        'duration' => '6:12',
+        'price' => '1.99',
+        'image' => 'img/nasticgroove.png',
+        'audio' => 'tracks/nasticgroove_ft_anotherartist_secondtrack_originalmix.mp3',
+        'id' => 28
+    ],
+    [
+        'artist' => 'Nastic Groove',
+        'ft_artist' => 'Yet Another Artist',
+        'title' => 'Third Track (Original Mix)',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-10-20',
+        'duration' => '5:30',
+        'price' => '1.99',
+        'image' => 'img/nasticgroove.png',
+        'audio' => 'tracks/nasticgroove_ft_yetanotherartist_thirdtrack_originalmix.mp3',
+        'id' => 29
+    ],
+    [
+        'artist' => 'Rodney SA',
+        'ft_artist' => 'Unknown',
+        'title' => 'Groove Theory',
+        'label' => 'Rhythm Factory',
+        'genre' => 'Deep House',
+        'release_date' => '2024-12-10',
+        'duration' => '6:40',
+        'price' => '2.29',
+        'image' => 'img/RodneySA.png',
+        'audio' => 'tracks/Rodney SA - Groove Theory (Edit).mp3',
+        'id' => 30
+    ],
+    [
+        'artist' => 'Roctonic SA',
+        'ft_artist' => '& Moojo',
+        'title' => 'What You Desire',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-11-15',
+        'duration' => '6:12',
+        'price' => '1.99',
+        'image' => 'img/RoctonicSA.png',
+        'audio' => 'tracks/Roctonic SA & Moojo - What You Desire (Original Mix).mp3',
+        'id' => 31
+    ],
+    [
+        'artist' => 'Ten83',
+        'ft_artist' => 'Lyrik Shoxen',
+        'title' => 'Wherever I Go (Original Mix)',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-12-01',
+        'duration' => '5:54',
+        'price' => '1.99',
+        'image' => 'img/Ten83.png',
+        'audio' => 'tracks/Ten83 ft. Lyrik Shoxen - Wherever I Go (Original Mix).mp3',
+        'id' => 32
+    ],
+    [
+        'artist' => 'TimADeep',
+        'ft_artist' => 'Lyrik Shoxen',
+        'title' => 'Wherever I Go (Original Mix)',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-12-01',
+        'duration' => '5:54',
+        'price' => '1.99',
+        'image' => 'img/TmADeep.png',
+        'audio' => 'tracks/Da Capo ft. Lyrik Shoxen - Wherever I Go (Original Mix).mp3',
+        'id' => 33
+    ],
+    [
+        'artist' => 'TimADeep',
+        'ft_artist' => '',
+        'title' => 'Bakone Lebowa (Original Mix)',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-11-15',
+        'duration' => '6:12',
+        'price' => '1.99',
+        'image' => 'img/TmADeep.png',
+        'audio' => 'tracks/Da Capo - Bakone Lebowa (Edit).mp3',
+        'id' => 34
+    ],
+    [
+        'artist' => 'TimADeep',
+        'ft_artist' => '& Moojo',
+        'title' => 'What You Desire',
+        'label' => 'Candid Beings',
+        'genre' => 'Deep House',
+        'release_date' => '2024-11-15',
+        'duration' => '6:12',
+        'price' => '1.99',
+        'image' => 'img/TmADeep.png',
+        'audio' => 'tracks/Da Capo & Moojo - What You Desire (Original Mix).mp3',
+        'id' => 35
+    ],
+     // Add more tracks here as needed
+];
+
+// Sort tracks by artist in ascending order
+usort($tracks, function ($a, $b) {
+    return strcasecmp($a['artist'], $b['artist']);
+});
+
+// Group tracks by artist
+$tracksByArtist = [];
+foreach ($tracks as $track) {
+    $artist = $track['artist'];
+    if (!isset($tracksByArtist[$artist])) {
+        $tracksByArtist[$artist] = [];
+    }
+    $tracksByArtist[$artist][] = $track;
+}
+?>
+
+<nav class="menu">
+    <?php foreach ($tracksByArtist as $artist => $artistTracks): ?>
+        <?php
+        $artist_safe = str_replace(' ', '', $artist);
+        $firstTrack = $artistTracks[0];
+        ?>
+
+        <div class="menu__item" id="product-list-<?php echo $artist_safe; ?>" style="padding-top: 20px; padding-bottom: 20px;">
+            <a class="menu__item-link" data-category="<?php echo $artist_safe; ?>" onclick="toggleCategory('<?php echo $artist_safe; ?>')"><?php echo $artist; ?></a>
+            <img style="margin-left: 30%" class="menu__item-img" src="<?php echo $firstTrack['image']; ?>" alt="<?php echo $artist; ?>"/>
+
+            <div class="category" id="<?php echo $artist_safe; ?>" style="display: none;">
+                <div class="trklist v- full init-invis">
+                    <div class="trk-row hdr">
+                        <div class="trk-cell tnum-pos"></div>
+                        <div class="trk-cell thumb"></div>
+                        <div class="trk-cell title sort"><a href="javascript:void(0)" data-sort="track" id="s_track">TRACK</a></div>
+                        <div class="trk-cell artists sort"><a href="javascript:void(0)" data-sort="artist" id="s_artist">ARTISTS</a></div>
+                        <div class="trk-cell genre sort"><a href="javascript:void(0)" data-sort="genre" id="s_genre">GENRE</a></div>
+                        <div class="trk-cell label sort"><a href="javascript:void(0)" data-sort="label" id="s_label">LABEL</a></div>
+                        <div class="trk-cell r-date sort" style="width: 80px;"><a href="javascript:void(0)" data-sort="r_date" id="s_r_date">RELEASED</a></div>
+                        <div class="trk-cell btncell" style="width: 120px;"></div>
+                        <div class="sort-sel"><b>Sort</b> </div>
+                    </div>
+
+                    <?php foreach ($artistTracks as $track): ?>
+                        <?php
+                        $ft_artist_safe = str_replace(' ', '', $track['ft_artist']);
+                        $title_safe = str_replace(' ', '', $track['title']);
+                        $track_data_json = htmlspecialchars(json_encode($track), ENT_QUOTES, 'UTF-8');
+                        ?>
+                        <div class="product" data-id="<?php echo $track['id']; ?>" data-price="<?php echo $track['price']; ?>">
+                            <h3>
+                                <div data-trid="<?php echo $track['id']; ?>" class="trk-row play-trk ptk-<?php echo $track['id']; ?> ptk-ref-<?php echo $track['id']; ?>">
+                                    <div class="trk-cell tnum-pos"></div>
+                                    <div class="trk-cell thumb">
+                                        <img src="<?php echo $track['image']; ?>" width="50" height="50"/>
+                                        <div class="play-fly">
+                                            <a href="javascript:void(0)" class="com-play played" title="Play Track"
+                                               onclick="toggleAudio('<?php echo $track['audio']; ?>', '<?php echo $track['title']; ?>', '<?php echo $track['artist']; ?> ft. <?php echo $track['ft_artist']; ?>')">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="trk-cell title">
+                                        <a href="/track/<?php echo $title_safe; ?>/hit-it-up-vocal-mix"><?php echo $track['artist']; ?> ft. <?php echo $track['ft_artist']; ?> - <?php echo $track['title']; ?></a>
+                                        <span class="adap-br"><br /></span>
+                                        <span class="duration">(<?php echo $track['duration']; ?>)</span>
+                                    </div>
+                                    <div class="trk-cell artists">
+                                        <a href="/artist/561171/<?php echo $artist_safe; ?>" class="com-artists" data-aid="561171"><?php echo $track['artist']; ?> ft. <?php echo $track['ft_artist']; ?></a>
+                                        <span class="adap-br"><br /></span>
+                                    </div>
+                                    <div class="trk-cell genre">
+                                        <a href="/genre/13/deep-house"><?php echo $track['genre']; ?></a>
+                                    </div>
+                                    <div class="trk-cell label">
+                                        <span><?php echo $track['label']; ?></span>
+                                    </div>
+                                    <div class="trk-cell r-date" style="width: 80px;"><?php echo $track['release_date']; ?></div>
+                                    <div class="trk-cell btncell" style="width: 120px;">
+                                        <div style="background-color:transparent" class="buy-cont">
+                                            <a href="javascript:void(0);" class="com-buy" data-cart="{title_id: 52170145, track_id: 11834552}" title="Add to Cart">
+                                                <span class="price">
+                                                    <button style="color:ghostwhite; font-weight:bolder; border:green; background-color:transparent; padding: 5px 10px;" class="product" onclick="addToCart(<?php echo $track['id']; ?>)" data-price="<?php echo $track['price']; ?>">
+                                                        $<?php echo $track['price']; ?>
+                                                    </button>
+                                                
+                                                </span>
+                                            </a>
+                                            <a href="javascript:void(0)" class="cart-alt"></a>
+                                        </div>
+                                    </div>
+                                    <div class="trk-cell fly-btn">
+                                        <svg class="fly-svg"><use xlink:href="/img/vects.v2.svg#fly-btn"></use></svg>
+                                        <svg class="fly-svg flipped"><use xlink:href="/img/vects.v2.svg#fly-btn-flip"></use></svg>
+                                    </div>
+                                </div>
+                            </h3>
+                        </div>
+                    <?php endforeach; ?>
+
+                    <div id="bodyBay" data-init_cpo="">
+                        <script type="text/javascript">
+                            $(function() {
+                                enablePageListPage();
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            <div class="marquee" id="<?php echo $artist_safe; ?>">
+                <div class="marquee__inner" aria-hidden="true">
+                    <span><?php echo $artist; ?></span>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</nav>
+
+<script>
+function toggleCategory(categoryId) {
+    var categoryDiv = document.getElementById(categoryId);
+
+    if (categoryDiv.style.display === "none") {
+        // If hidden, show it and hide all others
+        categoryDiv.style.display = "block";
+        // Hide all other categories
+        var allCategories = document.querySelectorAll('.category');
+        allCategories.forEach(function(cat) {
+            if (cat.id !== categoryId) {
+                cat.style.display = "none";
+            }
+        });
+    } else {
+        // If visible, hide it
+        categoryDiv.style.display = "none";
+    }
+}
+
+// Add an event listener to the document to handle clicks outside of the categories
+document.addEventListener('click', function(event) {
+    // Get the target element of the click
+    var targetElement = event.target;
+
+    // Check if the click was outside of the category elements and menu items
+    if (!targetElement.closest('.category') && !targetElement.closest('.menu__item')) {
+        // Hide all categories
+        var allCategories = document.querySelectorAll('.category');
+        allCategories.forEach(function(cat) {
+            cat.style.display = "none";
+        });
+    }
+});
+</script>

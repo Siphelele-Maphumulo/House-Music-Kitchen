@@ -294,6 +294,26 @@ if (!isset($_SESSION['user'])) {
     cursor: pointer;
 }
 
+.trk-cell.r-date {
+    width: 80px;  /* Or whatever width you decide */
+}
+.trk-cell.btncell {
+    width: 120px; /* Or whatever width you decide */
+}
+.buy-cont .product {
+    padding: 5px 10px; /*  Adjust as you like.  Use !important if needed (but try to avoid) */
+}
+
+@media (max-width: 768px) { /* Example: For smaller screens */
+    .trk-cell.r-date {
+        width: 60px; /* Adjust for smaller screens */
+    }
+    .trk-cell.btncell {
+        width: 100px; /* Adjust for smaller screens */
+    }
+    /* Add more rules to adjust other elements as needed */
+}
+
 
 
     </style>
@@ -317,279 +337,17 @@ if (!isset($_SESSION['user'])) {
         setTimeout(closeLoader, 5000);
     </script>
     
+    
+    
+    
      <!-------------------------------------------------------------Loader Overlay ------------------------------------------------------------------------------------------>
-    
-    
-    
-    
-
-<nav class="menu">
+     <?php include 'Da Capo.html'; ?>
+     <?php include 'Music Generator.html'; ?>
+<!--      
+     <button onclick="toggleVisibility()">Toggle Da Capo Content</button> -->
 
 
-
-<!-------------------------------------------------------------------------Start of Artist----------------------------------------------------------------------------------------------------------------->
-
-    <div class="menu__item" id="product-list">
-        <a class="menu__item-link" data-category="Da Capo" onclick="toggleCategory('Da Capo')">Da Capo</a>
-        <img style="margin-left: 30%" class="menu__item-img" src="img/Dacapo.png" alt="Some image"/>
-
-        <div class="category" id="Da Capo">
-        
-        
-        
-
-            <div class="trklist v- full init-invis" >
-                <div class="trk-row hdr">
-                    <div class="trk-cell tnum-pos">
-                        </div><div class="trk-cell thumb">
-                            </div><div class="trk-cell title sort"><a href="javascript:void(0)" data-sort="track" id="s_track">TRACK</a>
-                                </div><div class="trk-cell artists sort"><a href="javascript:void(0)" data-sort="artist" id="s_artist">ARTISTS</a>
-                                </div><div class="trk-cell label sort"><a href="javascript:void(0)" data-sort="label" id="s_label">LABEL</a>
-                                </div><div class="trk-cell genre sort"><a href="javascript:void(0)" data-sort="genre" id="s_genre">GENRE</a>
-                                </div><div class="trk-cell r-date sort"><a href="javascript:void(0)" data-sort="r_date" id="s_r_date">RELEASED</a>
-                                </div><div class="trk-cell btncell">
-                                </div><div class="sort-sel">
-                                <b>Sort</b>&nbsp;
-                            </div>
-                        </div>
-<!-------------------------------------------------------------------------Start of Tracks----------------------------------------------------------------------------------------------------------------->
-
-
-                            
-                            <div class="product" data-id="1" data-price="90">
-                            <h3>
-                            <div data-trid="11834552" class="trk-row play-trk ptk-11834552 ptk-ref-11834552">
-                            
-                            <div class="product" ddata-id="1" data-price="90">
-
-                                        <div class="trk-cell tnum-pos">
-                                        </div><div class="trk-cell thumb">
-                                        <!--DIV thumb--><img src="img/Dacapo.png" width="50" height="50" /><div class="play-fly">
-                                        <a href="javascript:void(0)" class="com-play played" title="Play Track"
-                                           onclick="toggleAudio('tracks/Da Capo ft. Lyrik Shoxen - Wherever I Go (Original Mix).mp3', 'Wherever I Go', 'Da Capo ft. Lyrik Shoxen', 'audioPlayer')">
-                                        </a>
-                            
-                            
-                                        <audio id="audioPlayer" style="display: none;">
-                                            <source src="tracks/Da Capo ft. Lyrik Shoxen - Wherever I Go (Original Mix).mp3" type="audio/mpeg">
-                                            Your browser does not support the audio element.
-                                        </audio>
-                                            
-                                        </a></div>
-                                        </div><div class="trk-cell artit-cont"></div><div class="trk-cell title">
-                                        <!--DIV title--><a href="/track/Wherever I Go/hit-it-up-vocal-mix">Da Capo ft. Lyrik Shoxen - Wherever I Go (Original Mix)</a><span class="adap-br"><br /></span>
-                                        <span class="duration">(5:54)</span></span>
-                                        </div><div class="trk-cell artists">
-                                        <!--DIV artLinks--><a href="/artist/561171/Da Capo" class="com-artists" data-aid="561171">Da Capo ft. Lyrik Shoxen</a> <span class="adap-br"><br /></span>
-                                        </div><div class="trk-cell label">
-                                        <!--DIV label--><a href="/label/23914/candid-beings">Candid Beings</a>
-                                        </div><div class="trk-cell genre">
-                                        <!--DIV genre--><a href="/genre/13/deep-house">Deep House</a>
-                                        </div><div class="trk-cell r-date">2024-12-01
-                                        </div><div class="trk-cell btncell">
-                            
-                                            
-                                        </a><div style="background-color:transparent" class="buy-cont"><a  href="javascript:void(0);" class="com-buy" data-cart="{title_id: 52170145, track_id: 11834552}" title="Add to Cart">
-                                            <span class="price"> <button style="color:ghostwhite; font-weight:bolder; border:green; background-color:transparent"; class="product" onclick="addToCart(1)" data-price="90">$1.99</button></span></a><a href="javascript:void(0)" class="cart-alt"></a></div>
-                                        </div><div class="trk-cell fly-btn"><svg class="fly-svg"><use xlink:href="/img/vects.v2.svg#fly-btn"></use></svg>
-                                        <svg class="fly-svg flipped"><use xlink:href="/img/vects.v2.svg#fly-btn-flip"></use></svg></div>
-                                        <div class="menu-fly"></div>
-                                        <div class="trk-drop-menu com-drop-menu">
-                                        <a href="javascript:void(0)" class="com-close sm"></a>
-                                        <div class="com-drop-hdr fol-hdr">
-                                            <svg class="foll-svg"><use xlink:href="/img/vects.v2.svg#follow"></use></svg> 
-                                            follow:
-                                        </div>
-                            
-                                        </div>
-                                        </div>
-                                        
-                                        </div>  <div id="debugInfo"></div>
-                            
-                            <div id="mainBay" class="category" style="width: 100%; margin: 0px; position: relative; top: 0px; max-width: 0px; min-height: 0px;">
-                            <!--<div style="color: #c22; text-align: center;">We will have a service interuption for approximately 10 minutes starting Monday 8am EDT. We apologize for any inconvenience.</div>--></div>
-                            
-                            <div id="bodyBay"  data-init_cpo="">
-                                <script type="text/javascript">
-                                    $(function() {
-                                    enablePageListPage();
-                                    });
-                            
-                                </script>
-                            
-                            <div class="marquee" id="Da Capo">
-                            <div class="marquee__inner" aria-hidden="true">
-                                <span>Da Capo</span>
-                            </div>
-                            </div>
-                            </div>
-                            </div>
-                            </div>
-                            </h3>
-                         
-
-
-
-                    <!---------------------------------------------------------------------Second Track--------------------------------------------------------------------------------->
-                        <div class="product" data-id="2" data-price="90">
-
-                    <div class="trklist v- full init-invis" >
-
-                            <div class="product" data-id="2" data-price="90">
-                            <h3>
-                                <div data-trid="11834552" class=" trk-row play-trk ptk-11834552 ptk-ref-11834552">
-                                        <div class="trk-cell tnum-pos">
-                                        </div><div class="trk-cell thumb">
-                                        <!--DIV thumb--><img src="img/Dacapo.png" width="50" height="50" /><div class="play-fly">
-                                        <a href="javascript:void(0)" class="com-play played" title="Play Track"
-                                           onclick="toggleAudio('tracks/Da Capo & Moojo - What You Desire (Original Mix).mp3', 'What You Desire', 'Da Capo & Moojo', 'audioPlayer')">
-                                        </a>
-
-
-                                        <audio id="audioPlayer_What You Desire" style="display: none;">
-                                            <source src="tracks/Da Capo & Moojo - What You Desire (Original Mix).mp3" type="audio/mpeg">
-                                            Your browser does not support the audio element.
-                                        </audio>
-                                            
-                                        </a></div>
-                                        </div><div class="trk-cell artit-cont"></div><div class="trk-cell title">
-                                            
-                                        <!--DIV title--><a href="/track/11834552/What You Desire (Original Mix)">Da Capo & Moojo - What You Desire (Original Mix)</a> <span class="adap-br"><br /></span>
-                                        <span class="duration">(6:40)</span></span>
-                                        </div><div class="trk-cell artists">
-                                        <!--DIV Artist--><a href="/artist/561171/Da Capo" class="com-artists" data-aid="561171">Da Capo & Moojo</a> <span class="adap-br"><br /></span>
-                                        </div><div class="trk-cell label">
-                                        <!--DIV label--><a href="/label/23914/candid-beings">Candid Beings</a>
-                                        </div><div class="trk-cell genre">
-                                        <!--DIV genre--><a href="/genre/13/deep-house">Deep House</a>
-                                        </div><div class="trk-cell r-date">2025-01-26
-                                        </div><div class="trk-cell btncell">
-
-                                            
-                                        </a><div style="background-color:transparent" class="buy-cont"><a  href="javascript:void(0);" class="com-buy" data-cart="{title_id: 2170145, track_id: 11834552}" title="Add to Cart">
-                                            <span class="price"> <button style="color:ghostwhite; font-weight:bolder; border:green; background-color:transparent"; class="product" onclick="addToCart(2)" data-price="90">$1.99</button></span></a><a href="javascript:void(0)" class="cart-alt"></a></div>
-                                        </div><div class="trk-cell fly-btn"><svg class="fly-svg"><use xlink:href="/img/vects.v2.svg#fly-btn"></use></svg>
-                                        <svg class="fly-svg flipped"><use xlink:href="/img/vects.v2.svg#fly-btn-flip"></use></svg></div>
-                                        <div class="menu-fly"></div>
-                                        <div class="trk-drop-menu com-drop-menu">
-                                        <a href="javascript:void(0)" class="com-close sm"></a>
-                                        <div class="com-drop-hdr fol-hdr">
-                                            <svg class="foll-svg"><use xlink:href="/img/vects.v2.svg#follow"></use></svg> 
-                                            follow:
-                                        </div>
-
-                                        </div>
-                                        </div>
-                                        
-                                        </div>  <div id="debugInfo"></div>
-
-                        <div id="mainBay" class="category" style="width: 100%; margin: 0px; position: relative; top: 0px; max-width: 0px; min-height: 0px;">
-                        <!--<div style="color: #c22; text-align: center;">We will have a service interuption for approximately 10 minutes starting Monday 8am EDT. We apologize for any inconvenience.</div>--></div>
-
-                        <div id="bodyBay"  data-init_cpo="">
-                                <script type="text/javascript">
-                                    $(function() {
-                                    enablePageListPage();
-                                    });
-
-                                </script>
-
-                        <div class="marquee" id="Da Capo">
-                            <div class="marquee__inner" aria-hidden="true">
-                                <span>Da Capo</span>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                    </h3>
-    
-
-<!--------------------------------------------------------------------------Third Track----------------------------------------------------------------------------------------------------------->
-                   <div class="product" data-id="3" data-price="100">
-
-<div class="trklist v- full init-invis" >
-
-        <div class="product" data-id="3" data-price="100">
-        <h3>
-            <div data-trid="11834553" class=" trk-row play-trk ptk-11834553 ptk-ref-11834553">
-                    <div class="trk-cell tnum-pos">
-                    </div><div class="trk-cell thumb">
-                    <!--DIV thumb--><img src="img/Dacapo.png" width="50" height="50" /><div class="play-fly">
-                    <a href="javascript:void(0)" class="com-play played" title="Play Track"
-                       onclick="toggleAudio('tracks/Da Capo - Bakone Lebowa (Edit).mp3', 'Bakone Lebowa', 'Da Capo', 'audioPlayer')">
-                    </a>
-
-
-                    <audio id="audioPlayer_Bakone Lebowa" style="display: none;">
-                        <source src="tracks/Da Capo - Bakone Lebowa (Edit).mp3" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                        
-                    </a></div>
-                    </div><div class="trk-cell artit-cont"></div><div class="trk-cell title">
-                        
-                    <!--DIV title--><a href="/track/11834553/Bakone Lebowa (Original Mix)">Da Capo - Bakone Lebowa (Original Mix)</a> <span class="adap-br"><br /></span>
-                    <span class="duration">(6:40)</span></span>
-                    </div><div class="trk-cell artists">
-                    <!--DIV Artist--><a href="/artist/561171/Da Capo" class="com-artists" data-aid="561171">Da Capo</a> <span class="adap-br"><br /></span>
-                    </div><div class="trk-cell label">
-                    <!--DIV label--><a href="/label/23914/candid-beings">Candid Beings</a>
-                    </div><div class="trk-cell genre">
-                    <!--DIV genre--><a href="/genre/13/deep-house">Deep House</a>
-                    </div><div class="trk-cell r-date">2025-01-26
-                    </div><div class="trk-cell btncell">
-
-                        
-                    </a><div style="background-color:transparent" class="buy-cont"><a  href="javascript:void(0);" class="com-buy" data-cart="{title_id: 2170145, track_id: 11834553}" title="Add to Cart">
-                        <span class="price"> <button style="color:ghostwhite; font-weight:bolder; border:green; background-color:transparent"; class="product" onclick="addToCart(3)" data-price="90">$1.99</button></span></a><a href="javascript:void(0)" class="cart-alt"></a></div>
-                    </div><div class="trk-cell fly-btn"><svg class="fly-svg"><use xlink:href="/img/vects.v2.svg#fly-btn"></use></svg>
-                    <svg class="fly-svg flipped"><use xlink:href="/img/vects.v2.svg#fly-btn-flip"></use></svg></div>
-                    <div class="menu-fly"></div>
-                    <div class="trk-drop-menu com-drop-menu">
-                    <a href="javascript:void(0)" class="com-close sm"></a>
-                    <div class="com-drop-hdr fol-hdr">
-                        <svg class="foll-svg"><use xlink:href="/img/vects.v2.svg#follow"></use></svg> 
-                        follow:
-                    </div>
-
-                    </div>
-                    </div>
-                    
-                    </div>  <div id="debugInfo"></div>
-
-    <div id="mainBay" class="category" style="width: 100%; margin: 0px; position: relative; top: 0px; max-width: 0px; min-height: 0px;">
-    <!--<div style="color: #c22; text-align: center;">We will have a service interuption for approximately 10 minutes starting Monday 8am EDT. We apologize for any inconvenience.</div>--></div>
-
-    <div id="bodyBay"  data-init_cpo="">
-            <script type="text/javascript">
-                $(function() {
-                enablePageListPage();
-                });
-
-            </script>
-                </div>
-                </div>
-            </div>
-        </div>
-
-    <div class="marquee" id="Da Capo">
-        <div class="marquee__inner" aria-hidden="true">
-            <span>Da Capo</span>
-        </div>
-    </div>
-    </div>
-</div>
-</div>
-</h3>
-</div>
-<!--------------------------------------------------------------------------------------------------------------->
-<!--------------------------------------------------------------------------------------------------------------->
-
-
-<!------------------------------Until here--------------------------------------------------------------------------------->
-
-
+ 
 
 <!--------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------->
@@ -600,9 +358,6 @@ if (!isset($_SESSION['user'])) {
 <!--------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------->
-</nav>
-
-
 
 
 <div id="cart" class="fixed-cart">
@@ -633,7 +388,34 @@ if (!isset($_SESSION['user'])) {
     Your browser does not support the audio element.
 </audio>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
+
+
+
+
+
+
+
+
+
+
+
+
+
     let cart = [];
     const receiptNumber = Math.floor(100000 + Math.random() * 900000);
 
@@ -957,6 +739,21 @@ function updateCart() {
         player.style.cursor = "grab";
     });
 });
+
+function toggleVisibility() {
+    var dacapoContent = document.getElementById("dacapo-content");
+    if (dacapoContent.style.display === "none") {
+        dacapoContent.style.display = "block"; // Show content
+    } else {
+        dacapoContent.style.display = "none"; // Hide content
+    }
+}
+
+// Optionally, you can hide it by default when the page loads
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById("dacapo-content").style.display = "none"; // Hide on load
+});
+
 
 </script>
 </body>
