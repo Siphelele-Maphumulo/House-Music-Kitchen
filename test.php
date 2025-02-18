@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en" class="no-js">
 <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Animated Image Columns | Codrops</title>
     <meta name="description" content="A template with animated columns and a content preview."/>
     <meta name="keywords" content="layout, uidesign, template, css, javascript, columns, grid"/>

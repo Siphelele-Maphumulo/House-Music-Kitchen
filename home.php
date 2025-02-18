@@ -13,7 +13,7 @@ if (!isset($_SESSION['user'])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A menu with a css-only marquee hover effect" />
     <meta name="keywords" content="marquee, css, animation, loop, infinite, hover, menu, navigation" />
     <title>E-commerce Website</title>
@@ -72,258 +72,312 @@ if (!isset($_SESSION['user'])) {
   </head>
     <!--script src="//tympanus.net/codrops/adpacks/analytics.js"></script-->
     <style>
-    
-            /* Full-screen loader overlay */
-            .loader-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            z-index: 1000;
+    /* Full-screen loader overlay */
+    .loader-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        color: white;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        z-index: 1000;
+    }
+
+    /* Spinner animation */
+    .loader {
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #3498db;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        margin-bottom: 15px;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
         }
 
-        /* Spinner animation */
-        .loader {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #3498db;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin-bottom: 15px;
+        100% {
+            transform: rotate(360deg);
         }
+    }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+    /* Button styling */
+    .close-btn {
+        background: #3498db;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+        font-size: 14px;
+    }
 
-        /* Button styling */
-        .close-btn {
-            background: #3498db;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-            font-size: 14px;
-        }
-        
-        .close-btn:hover {
-            background: #2980b9;
-        }    
-    
-    
-    
+    .close-btn:hover {
+        background: #2980b9;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        color: ghostwhite;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        height: 100vh;
+        background: #000 url(images/stripe.gif) repeat top left;
+    }
+
+    #product-list {
+        flex: 1;
+        padding: 20px;
+    }
+
+    #cart {
+        color: ghostwhite;
+        width: 200px;
+        background: transparent;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 999;
+    }
+
+    #cart table {
+        width: 100%;
+    }
+
+    #cart table td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+        vertical-align: middle;
+    }
+
+    /* Remove Button */
+    .remove-button {
+        cursor: pointer;
+        background-color: #ff6666;
+        color: #fff;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+    }
+
+    /* Checkout Button */
+    #checkout-button {
+        background-color: #7fff7f;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+
+    #checkout-button:hover {
+        background-color: #5cb85c;
+    }
+
+    /* Clear Button */
+    #clear-button {
+        background-color: #ffd699;
+        color: #333;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    #clear-button:hover {
+        background-color: #ffc966;
+    }
+
+    /* Search Result */
+    #searchResult {
+        margin-top: 10px;
+    }
+
+    /* Hidden Categories */
+    .category {
+        display: none;
+    }
+
+    /* Audio Controls */
+    #audioControls {
+        display: none;
+        visibility: hidden;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 10px;
+        border-radius: 10px;
+        width: 100%;
+        max-width: 310px;
+        max-height: 120px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        bottom: 15px;
+        right: 15px;
+        z-index: 1001;
+    }
+
+    /* Audio Controls Button Styling */
+    #audioControls button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    /* Audio Controls Range Input */
+    #audioControls input[type="range"] {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    /* Audio Controls Track Info */
+    #audioControls #trackInfo {
+        margin-bottom: 10px;
+    }
+
+    /* Audio Progress Bar */
+    #audioProgress {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 5px;
+        background: blue;
+        outline: none;
+        opacity: 0.9;
+        transition: opacity .2s;
+        border-radius: 5px;
+    }
+
+    /* Audio Progress Bar Thumb */
+    #audioProgress::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 15px;
+        height: 15px;
+        background: white;
+        border: 2px solid blue;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    #audioProgress::-moz-range-thumb {
+        width: 15px;
+        height: 15px;
+        background: white;
+        border: 2px solid blue;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    /* Track Cells */
+    .trk-cell.r-date {
+        width: 80px;
+    }
+
+    .trk-cell.btncell {
+        width: 120px;
+    }
+
+    /* Buy Container Product */
+    .buy-cont .product {
+        padding: 5px 10px;
+    }
+
+    /* Media Queries for Small Screens */
+    @media (max-width: 767px) {
         body {
-            font-family: Arial, sans-serif;
-            color:ghostwhite;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            height: 100vh;
-            background:#000 url(images/stripe.gif) repeat top left;
-
-
+            flex-direction: column;
         }
 
         #product-list {
-            flex: 1;
+            padding: 10px;
+            gap: 10px;
+        }
+
+        #cart {
+            /* padding-top: 5%; */
+            width: 50%;
+            right: 5%;
+            top: 10%; /* Reset top to auto */
+            bottom: 0; /* Position at the bottom */
+            max-height: calc(100vh - 20px);
+        }
+
+        .trk-cell.r-date,
+        .trk-cell.btncell {
+            width: auto;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Move audio controls to far left on small screens */
+        #audioControls {
+            width: 90%;
+            left: 0;
+            right: auto;
+            top: 50%; /* Reset top to auto */
+            bottom: 0; /* Position at the bottom */
+ 
+        }
+    }
+
+    /* Medium Screens (Tablets) */
+    @media (min-width: 768px) and (max-width: 1023px) {
+        #product-list {
+            padding: 15px;
+        }
+
+        #cart {
+            width: 70%;
+            right: 5%;
+        }
+    }
+
+    /* Large Screens (Desktops) */
+    @media (min-width: 1024px) {
+        #product-list {
             padding: 20px;
         }
 
         #cart {
-            color: ghostwhite;
-            width: 200px;
-            background:transparent;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
-            position: fixed; /* Fix position */
-            top: 0; /* Position from top */
-            right: 0; /* Position from right */
-            z-index: 999; /* Ensure it's above other content */
+            width: 300px;
+            right: 20px;
         }
-
-        #cart table {
-            width: 100%;
-        }
-
-        #cart table td {
-            padding: 8px;
-            border-bottom: 1px solid #ddd;
-            vertical-align: middle;
-        }
-
-        .remove-button {
-            cursor: pointer;
-            background-color: #ff6666;
-            color: #fff;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
-        }
-
-        #checkout-button {
-            background-color: #7fff7f;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        #checkout-button:hover {
-            background-color: #5cb85c;
-        }
-
-        #clear-button {
-            background-color: #ffd699;
-            color: #333;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        #clear-button:hover {
-            background-color: #ffc966;
-        }
-
-        #searchResult {
-            margin-top: 10px;
-        }
-
-        /* New CSS to hide categories by default */
-        .category {
-            display: none;
-        }
-
-        #audioControls {
-    display: none; /* Hide initially */
-    visibility: hidden;
-    background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
-    backdrop-filter: blur(10px); /* Glass effect */
-    -webkit-backdrop-filter: blur(10px); /* For Safari */
-    padding: 10px;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 400px;
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border for a better glass look */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-}
-
-
-        /* Style the audio controls */
-        #audioControls button {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 5px 10px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
-        #audioControls input[type="range"] {
-            width: 100%;
-            margin: 10px 0;
-        }
-        #audioControls #trackInfo {
-            margin-bottom: 10px;
-        }
-        
-        #audioControls {
-            position: fixed;
-            bottom: 30px; /* Adjust this value as needed */
-            right: 5px; /* Adjust this value as needed */
-            background: rgba(0, 0, 0, 0.8);
-            padding: 10px;
-            border-radius: 10px;
-            cursor: grab;
-            color: white;
-            height: 150px;
-            width: 200px;
-        }
-        
-        #audioProgress {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 5px;
-    background: blue;
-    outline: none;
-    opacity: 0.9;
-    transition: opacity .2s;
-    border-radius: 5px;
-}
-
-/* Custom styling for the progress bar thumb */
-#audioProgress::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 15px;
-    height: 15px;
-    background: white;
-    border: 2px solid blue;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-#audioProgress::-moz-range-thumb {
-    width: 15px;
-    height: 15px;
-    background: white;
-    border: 2px solid blue;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.trk-cell.r-date {
-    width: 80px;  /* Or whatever width you decide */
-}
-.trk-cell.btncell {
-    width: 120px; /* Or whatever width you decide */
-}
-.buy-cont .product {
-    padding: 5px 10px; /*  Adjust as you like.  Use !important if needed (but try to avoid) */
-}
-
-@media (max-width: 768px) { /* Example: For smaller screens */
-    .trk-cell.r-date {
-        width: 60px; /* Adjust for smaller screens */
     }
-    .trk-cell.btncell {
-        width: 100px; /* Adjust for smaller screens */
-    }
-    /* Add more rules to adjust other elements as needed */
-}
+</style>
 
-
-
-    </style>
 </head>
 <body class="demo-1">
 
     <!-------------------------------------------------------------Loader Overlay ------------------------------------------------------------------------------------------>
     <div id="loaderOverlay" class="loader-overlay">
         <div class="loader"></div>
-        <img src="Play.gif" alt="Loading..." class="loader-img">
+        <img src="Playy.gif" alt="Loading..." class="loader-img">
         <!-- <p>Please make sure you reach the Google Forms page and submit for the order to go through.</p>
         <button class="close-btn" onclick="closeLoader()">OK</button> -->
     </div>
@@ -343,8 +397,7 @@ if (!isset($_SESSION['user'])) {
      <!-------------------------------------------------------------Loader Overlay ------------------------------------------------------------------------------------------>
      <?php include 'Da Capo.html'; ?>
      <?php include 'Music Generator.html'; ?>
-<!--      
-     <button onclick="toggleVisibility()">Toggle Da Capo Content</button> -->
+<!--   -->
 
 
  
@@ -389,33 +442,7 @@ if (!isset($_SESSION['user'])) {
 </audio>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
-
-
-
-
-
-
-
-
-
-
-
-
-
     let cart = [];
     const receiptNumber = Math.floor(100000 + Math.random() * 900000);
 
@@ -740,6 +767,8 @@ function updateCart() {
     });
 });
 
+
+
 function toggleVisibility() {
     var dacapoContent = document.getElementById("dacapo-content");
     if (dacapoContent.style.display === "none") {
@@ -753,6 +782,7 @@ function toggleVisibility() {
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById("dacapo-content").style.display = "none"; // Hide on load
 });
+
 
 
 </script>

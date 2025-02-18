@@ -35,7 +35,7 @@ if ($conn->query($sql) === TRUE) {
     // Wait for 3 seconds
     sleep(4);
     // Redirect to login page
-    header("Location: login.php");
+    header("Location: index.php");
     exit(); // Make sure nothing else gets executed after redirection
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;

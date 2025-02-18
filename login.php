@@ -37,7 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     } else {
         // If login fails, redirect back to login page with an error parameter
-        header("Location: login.php?error=1");
+        header("Location: index.php?error=1");
+        $_SESSION['error'] = "Something was enter incorrectly!! Try again";
         exit;
     }
 
@@ -49,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en" class="no-js">
 	<head>
 		<meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no">
 		<title>Animated Image Columns | Codrops</title>
 		<meta name="description" content="A template with animated columns and a content preview." />
 		<meta name="keywords" content="layout, uidesign, template, css, javascript, columns, grid" />
@@ -57,9 +58,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<link rel="shortcut icon" href="favicon.ico">
 		<link rel="stylesheet" href="https://use.typekit.net/bml8yys.css">
 
-		<link rel="stylesheet" type="text/css" href="ccss//base.css" />
+		<!-- <link rel="stylesheet" type="text/css" href="ccss//base.css" />
 
-		<link rel="stylesheet" type="text/css" href="ccss/style.css" />
+		<link rel="stylesheet" type="text/css" href="ccss/style.css" /> -->
 		
 
 	</head>

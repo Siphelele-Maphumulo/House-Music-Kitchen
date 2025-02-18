@@ -42,19 +42,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en" class="no-js">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Animated Image Columns | Codrops</title>
 		<meta name="description" content="A template with animated columns and a content preview." />
 		<meta name="keywords" content="layout, uidesign, template, css, javascript, columns, grid" />
 		<meta name="author" content="Codrops" />
 		<link rel="shortcut icon" href="favicon.ico">
 		<link rel="stylesheet" href="https://use.typekit.net/bml8yys.css">
-		<link rel="stylesheet" type="text/css" href="ccss/base.css" />
+		<link rel="stylesheet" type="text/css" href="base.css" /> <!---------Working--------------------->
 		
 		<script>document.documentElement.className="js";var supportsCssVars=function(){var e,t=document.createElement("style");return t.innerHTML="root: { --tmp-var: bold; }",document.head.appendChild(t),e=!!(window.CSS&&window.CSS.supports&&window.CSS.supports("font-weight","var(--tmp-var)")),t.parentNode.removeChild(t),e};supportsCssVars()||alert("Please view this demo in a modern browser that supports CSS Variables.");</script>
 	</head>
 
-<style>
+	<style>
+/* Styling for error messages */
+.error-msg {
+    color: red;
+    font-size: 12px;
+    display: block;
+    margin-top: 2px;
+}
+.invalid {
+    border: 1px solid red;
+}
+
 
 *{
   margin: 0;
@@ -327,7 +338,7 @@ form .btn input[type="submit"]{
 					</div>
 				</article>
 				<article class="item">
-					<div class="item__img" style="background-image: url(img/89.png)"></div>
+					<div class="item__img" style="background-image: url(img/concept.jpg)"></div>
 					<div class="item__content">
 						<a class="item__content-back">back</a>
 						<h2 class="item__content-title">Userguide</h2>
@@ -476,30 +487,45 @@ form .btn input[type="submit"]{
 				</form>
 
 				<!-- Signup Form -->
-				<form class="signup" id="signup-form" action="login.php" method="POST" style="font-size:small">
-					<div class="field">
-						<input type="text" name="firstname" placeholder="First Name" required>
-					</div>
-					<div class="field">
-						<input type="text" name="lastname" placeholder="Last Name" required>
-					</div>
-					<div class="field">
-						<input type="text" name="email" placeholder="Email" required>
-					</div>
-					<div class="field">
-						<input type="text" name="phone" placeholder="Phone" required>
-					</div>
-					<div class="field">
-						<input type="password" name="password" placeholder="Password" required>
-					</div>
-					<div class="field">
-						<input type="password" name="confirm_password" placeholder="Confirm Password" required>
-					</div>
-					<div class="field btn">
-						<div class="btn-layer"></div>
-						<input type="submit" value="SignUp">
-					</div>
-				</form>
+				<form class="signup" id="signup-form" action="signup.php" method="POST" style="font-size:small">
+    <div class="field">
+        <input type="text" name="firstname" id="firstname" placeholder="First Name" required>
+        <small class="error-msg"></small>
+    </div>
+
+    <div class="field">
+        <input type="text" name="lastname" id="lastname" placeholder="Last Name" required>
+        <small class="error-msg"></small>
+    </div>
+
+    <div class="field">
+        <input type="text" name="email" id="email" placeholder="Email" required>
+        <small class="error-msg"></small>
+    </div>
+
+    <div class="field">
+        <input type="text" name="phone" id="phone" placeholder="Phone" required>
+        <small class="error-msg"></small>
+    </div>
+
+    <div class="field">
+        <input type="password" name="password" id="password" placeholder="Password" required>
+        <small class="error-msg"></small>
+    </div>
+
+    <div class="field">
+        <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" required>
+        <small class="error-msg"></small>
+    </div>
+
+    <div class="field btn">
+        <div class="btn-layer"></div>
+        <input type="submit" value="SignUp" id="submit-btn" disabled>
+    </div>
+</form>
+
+
+
 			</div>
        </div>
     </div>
@@ -616,5 +642,49 @@ form .btn input[type="submit"]{
 		<script src="js/TweenMax.min.js"></script>
 		<script src="js/demo.js"></script>
 		<script src="js/style.js"></script>
+		<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("signup-form");
+    const inputs = form.querySelectorAll("input");
+    const submitBtn = document.getElementById("submit-btn");
+
+    function validateField(field, condition, message) {
+        const errorMsg = field.nextElementSibling;
+        if (!condition) {
+            errorMsg.textContent = message;
+            field.classList.add("invalid");
+        } else {
+            errorMsg.textContent = "";
+            field.classList.remove("invalid");
+        }
+    }
+
+    function validateForm() {
+        const hasError = form.querySelector(".invalid");
+        submitBtn.disabled = !!hasError;
+    }
+
+    form.addEventListener("input", function (event) {
+        const field = event.target;
+        const value = field.value.trim();
+
+        if (field.id === "firstname" || field.id === "lastname") {
+            validateField(field, /^[A-Za-z]+$/.test(value), "Only letters allowed.");
+        } else if (field.id === "email") {
+            validateField(field, /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), "Invalid email format.");
+        } else if (field.id === "phone") {
+            validateField(field, /^\d{10,13}$/.test(value), "Phone must be 10-13 digits.");
+        } else if (field.id === "password") {
+            validateField(field, value.length >= 8, "Password must be at least 8 characters.");
+        } else if (field.id === "confirm_password") {
+            validateField(field, value === document.getElementById("password").value, "Passwords do not match.");
+        }
+
+        validateForm();
+    });
+});
+</script>
+
+
 	</body>
 </html>
