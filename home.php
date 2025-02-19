@@ -7,7 +7,14 @@ if (!isset($_SESSION['user'])) {
     header("Location: login.php"); // Redirect to your login page
     exit;
 }
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+require 'vendor/autoload.php';
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">

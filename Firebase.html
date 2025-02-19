@@ -1,23 +1,44 @@
 <?php
-// Read tracks from a JSON file
-$tracksFile = 'Exclusive_Music_List.txt';
+require 'vendor/autoload.php';
+
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\Exception\AuthException;
+use Kreait\Firebase\Exception\DatabaseException;
+
+// Firebase configuration
+$firebaseConfigPath = __DIR__ . '/firebase_credentials.json'; // Ensure this file exists
+$databaseUri = 'https://housemusickitchen-b3f91-default-rtdb.firebaseio.com/'; // Updated with actual Firebase URL
+
 $tracks = [];
 
-if (file_exists($tracksFile)) {
-    $jsonContent = file_get_contents($tracksFile);
-    $tracks = json_decode($jsonContent, true);
-
-    if ($tracks === null && json_last_error() !== JSON_ERROR_NONE) {
-        die("Error: Invalid JSON format in $tracksFile - " . json_last_error_msg());
+// Try retrieving data from Firebase
+try {
+    if (!file_exists($firebaseConfigPath)) {
+        throw new Exception("Firebase credentials file missing.");
     }
+
+    $factory = (new Factory)
+        ->withServiceAccount($firebaseConfigPath)
+        ->withDatabaseUri($databaseUri);
+    
+    $database = $factory->createDatabase();
+    $tracksSnapshot = $database->getReference('tracks')->getValue();
+
+    if (!empty($tracksSnapshot) && is_array($tracksSnapshot)) {
+        $tracks = array_values($tracksSnapshot);
+    }
+} catch (AuthException | DatabaseException | Exception $e) {
+    error_log("Firebase Error: " . $e->getMessage());
 }
+
+
 
 // Ensure $tracks is an array before sorting
 if (!is_array($tracks)) {
     die("Error: Tracks data is not an array.");
 }
 
-// Sort tracks by artist in ascending order
+// Sort tracks by artist name
 usort($tracks, function ($a, $b) {
     return strcasecmp($a['artist'], $b['artist']);
 });
@@ -25,7 +46,7 @@ usort($tracks, function ($a, $b) {
 // Group tracks by artist
 $tracksByArtist = [];
 foreach ($tracks as $track) {
-    $artist = $track['artist'];
+    $artist = $track['artist'] ?? 'Unknown Artist';
     if (!isset($tracksByArtist[$artist])) {
         $tracksByArtist[$artist] = [];
     }

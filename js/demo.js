@@ -8,6 +8,9 @@
 * Copyright 2019, Codrops
 * http://www.codrops.com
 */
+
+import { app, auth, database } from './firebase-config.js';
+
 {
     const MathUtils = {
         lineEq: (y2, y1, x2, x1, currentVal) => {
