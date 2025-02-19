@@ -14,7 +14,7 @@
     },
     {
         "id": 2,
-        "artist": "Mthokzin",
+        "artist": "Mthokzin's",
         "ft_artist": "Unqle Chriz",
         "title": "You Give Me Love (Mthokzin's Touch)",
         "label": "House Music Kitchen",
@@ -256,7 +256,7 @@
         "release_date": "2025",
         "duration": "6:48",
         "price": "1.99",
-        "image": "img/Nastic_Groove.png",
+        "image": "img/Nastic.png",
         "audio": "tracks/The Disco Lovers - Let Love Enter (Nastic Groove Remix).mp3"
     },
     {
