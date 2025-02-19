@@ -22,7 +22,7 @@
         "release_date": "2025",
         "duration": "7:07",
         "price": "1.99",
-        "image": "img/Artwork Sounds.png",
+        "image": "img/Artwork_Sounds.png",
         "audio": "tracks/Artwork Sounds ft. Unqle Chriz - You Give Me Love (Mthokzin's Touch).mp3"
     },
     {
@@ -35,7 +35,7 @@
         "release_date": "2025",
         "duration": "7:14",
         "price": "1.99",
-        "image": "img/Citizen Sthee.png",
+        "image": "img/Citizen_Sthee.png",
         "audio": "tracks/Citizen Sthee - We Were Young (Groove Mix).mp3"
     },
     {
@@ -48,7 +48,7 @@
         "release_date": "2023",
         "duration": "5:05",
         "price": "1.99",
-        "image": "img/Deep Essential.png",
+        "image": "img/Deep_Essential.png",
         "audio": "tracks/Deep Essential - La Musica (Mr Shane SA 1060 Sounds Remake).mp3"
     },
     {
@@ -61,7 +61,7 @@
         "release_date": "2023",
         "duration": "5:35",
         "price": "1.99",
-        "image": "img/DJ BlaQueT.png",
+        "image": "img/DJ_BlaQueT.png",
         "audio": "tracks/DJ BlaQueT - Thou Shall Not Judge (Soulful Mix).mp3"
     },
     {
@@ -87,7 +87,7 @@
         "release_date": "2025",
         "duration": "11:08",
         "price": "1.99",
-        "image": "img/Gigg Cosco.png",
+        "image": "img/Gigg_Cosco.png",
         "audio": "tracks/Gigg Cosco ft. Pontio - So Emotional (Original Mix).mp3"
     },
     {
@@ -100,7 +100,7 @@
         "release_date": "2025",
         "duration": "6:32",
         "price": "1.99",
-        "image": "img/Griffith Malo.png",
+        "image": "img/Griffith_Malo.png",
         "audio": "tracks/Griffith Malo - Yehla Moya (Original Mix).mp3"
     },
     {
@@ -113,7 +113,7 @@
         "release_date": "2024",
         "duration": "6:15",
         "price": "1.99",
-        "image": "img/Lady Deep.png",
+        "image": "img/Lady_Deep.png",
         "audio": "tracks/Lady Deep & BlacTears - Struggle (Original Mix).mp3"
     },
     {
@@ -126,7 +126,7 @@
         "release_date": "2025",
         "duration": "7:18",
         "price": "1.99",
-        "image": "img/Lazy K SA.png",
+        "image": "img/Lazy_K_SA.png",
         "audio": "tracks/Lazy K SA ft. Aion - Dreamer Of Love (Original Mix).mp3"
     },
     {
@@ -139,7 +139,7 @@
         "release_date": "2006",
         "duration": "7:35",
         "price": "1.99",
-        "image": "img/Lunaticsoul SA.png",
+        "image": "img/Lunaticsoul_SA.png",
         "audio": "tracks/Lunaticsoul SA - Wilderness (Original Mix).mp3"
     },
     {
@@ -152,7 +152,7 @@
         "release_date": "2024",
         "duration": "7:39",
         "price": "1.99",
-        "image": "img/Mas Musiq.png",
+        "image": "img/Mas_Musiq.png",
         "audio": "tracks/Mas Musiq ft. Daliwonga, DJ Maphorisa & Kabza De Small - Gangnam Style (Leonard Canticle's Love Remix).mp3"
     },
     {
@@ -165,7 +165,7 @@
         "release_date": "2025",
         "duration": "6:53",
         "price": "1.99",
-        "image": "img/Mr Shane SA.png",
+        "image": "img/Mr_Shane_SA.png",
         "audio": "tracks/Mr Shane SA - Hold On (1060 Sounds).mp3"
     },
     {
@@ -178,7 +178,7 @@
         "release_date": "2023",
         "duration": "6:14",
         "price": "1.99",
-        "image": "img/Mr Shane SA.png",
+        "image": "img/Mr_Shane_SA.png",
         "audio": "tracks/Mr Shane SA - London & KDD (1060 Sounds).mp3"
     },
     {
@@ -191,7 +191,7 @@
         "release_date": "2025",
         "duration": "6:29",
         "price": "1.99",
-        "image": "img/Samantha James.png",
+        "image": "img/Samantha_James.png",
         "audio": "tracks/Samantha James - Rise (LnSoul Makeup).mp3"
     },
     {
@@ -230,7 +230,7 @@
         "release_date": "2024",
         "duration": "6:46",
         "price": "1.99",
-        "image": "img/South Street Players.png",
+        "image": "img/South_Street_Players.png",
         "audio": "tracks/South Street Players - Who Keeps Changing Your Mind (Leonard Canticle's Remix).mp3"
     },
     {
@@ -243,7 +243,7 @@
         "release_date": "2025",
         "duration": "7:11",
         "price": "1.99",
-        "image": "img/The Bros.png",
+        "image": "img/The_Bros.png",
         "audio": "tracks/The Bros - Dikgwedi (Soulful Remix).mp3"
     },
     {
@@ -256,7 +256,7 @@
         "release_date": "2025",
         "duration": "6:48",
         "price": "1.99",
-        "image": "img/The Disco Lovers.png",
+        "image": "img/The_Disco_Lovers.png",
         "audio": "tracks/The Disco Lovers - Let Love Enter (Nastic Groove Remix).mp3"
     }
 ]
