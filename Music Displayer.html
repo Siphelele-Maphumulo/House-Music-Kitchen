@@ -4,7 +4,7 @@
 
     }
     
-    .trk-cell.r-date {
+    .trk-cell.r-date z{
         width: 80px;
     }
     
@@ -12,14 +12,28 @@
         width: 10px;
     }
     
+    .menu__item-img {
+        border: 4px solid rgba(255, 255, 255, 0.5); /* Light transparent border */
+        border-radius: 10px; /* Rounded edges */
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); /* White glow effect */
+        transition: box-shadow 0.3s ease-in-out;
+    }
+    
+    /* Add a stronger glow effect on hover */
+    .menu__item-img:hover {
+        box-shadow: 0 0 25px rgba(255, 255, 255, 1);
+    }
+    
+    
 </style>
 
 <div id="dacapo-content">
+    <br><br><br>
     <div class="menu__item" id="product-list">
         <nav class="menu">
             <div class="menu__item" id="product-list">
                 <a class="menu__item-link" data-category="Da Capo" onclick="toggleCategory('Da Capo')">Da Capo</a>
-                <img class="menu__item-img" src="img/Dacapo.png" alt="Da Capo Logo"/>
+                <img class="menu__item-img " src="img/Dacapo.png" alt="Da Capo Logo"/>
                 <div class="category" id="Da Capo">
                     <div class="trklist v-full init-invis">
                         <div class="trk-row hdr">

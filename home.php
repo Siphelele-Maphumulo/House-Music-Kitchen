@@ -20,7 +20,8 @@ require 'vendor/autoload.php';
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <meta name="description" content="A menu with a css-only marquee hover effect" />
     <meta name="keywords" content="marquee, css, animation, loop, infinite, hover, menu, navigation" />
     <title>E-commerce Website</title>
@@ -142,6 +143,7 @@ require 'vendor/autoload.php';
         display: flex;
         height: 100vh;
         background: #000 url(images/stripe.gif) repeat top left;
+        
     }
 
     #product-list {
@@ -355,6 +357,63 @@ require 'vendor/autoload.php';
 
     /* Medium Screens (Tablets) */
     @media (min-width: 768px) and (max-width: 1023px) {
+    
+         /* Navigation Bar */
+         .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px 20px;
+            position: relative;
+        }
+
+        /* Left: Logo */
+        .nav-left .logo {
+            height: 50px;
+        }
+
+        /* Center: Title */
+        .nav-center {
+            flex: 1; /* Allows it to take up space */
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            margin-left: 5%; /* Moves title slightly right */
+        }
+
+        .nav-center h1 {
+            font-size: 2.8rem;
+            margin: 0;
+        }
+
+        /* Right: Navigation Links */
+        .nav-right ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-right ul li {
+            display: inline;
+        }
+
+        .nav-right ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav-right ul li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
         #product-list {
             padding: 15px;
         }
@@ -379,7 +438,12 @@ require 'vendor/autoload.php';
 </style>
 
 </head>
+</head>
 <body class="demo-1">
+
+    <?php include 'header.html'; ?> <!-- Moved here for correct placement -->
+
+
 
     <!-------------------------------------------------------------Loader Overlay ------------------------------------------------------------------------------------------>
     <div id="loaderOverlay" class="loader-overlay">
@@ -404,23 +468,14 @@ require 'vendor/autoload.php';
      <!-------------------------------------------------------------Loader Overlay ------------------------------------------------------------------------------------------>
      <?php include 'Music Displayer.html'; ?>
      <?php include 'Music Generator.html'; ?>
+
 <!--   -->
 
-
- 
-
 <!--------------------------------------------------------------------------------------------------------------->
-<!--------------------------------------------------------------------------------------------------------------->
-<!--------------------------------------------------------------------------------------------------------------->
-
-
-<!--------------------------------------------------------------------------------------------------------------->
-<!--------------------------------------------------------------------------------------------------------------->
-<!--------------------------------------------------------------------------------------------------------------->
-<!--------------------------------------------------------------------------------------------------------------->
-
+<br><br><br>
 
 <div id="cart" class="fixed-cart">
+<br><br><br>
     <h2>Welcome, <?php echo $_SESSION['firstname'] . ' ' . $_SESSION['lastname']; ?></h2>
     <button style="background-color:rgb(191, 69, 73); color: white; padding: 5px 10px; border: none; border-radius: 5px; margin-top: 10px;" onclick="logout()">Logout</button>
 
