@@ -23,7 +23,7 @@ GITHUB_USERNAME = "Siphelele-Maphumulo"  # Your GitHub username
 GITHUB_REPO = "House-Music-Kitchen"  # Your repository name
 GITHUB_FILE_PATH = "Exclusive_Music_List.txt"  # Path in the repo
 GITHUB_BRANCH = "main"  # Branch name
-GITHUB_TOKEN = " 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"  # Securely load token
+GITHUB_TOKEN = "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"  # Securely load token
 
 
 LABEL = "House Music Kitchen"
@@ -60,7 +60,7 @@ def get_wma_metadata(file_path):
 
 def should_keep_original(title):
     # Define keywords that indicate a remix or rework
-    remix_keywords = ["(Remake)", "(Soulful Mix)", "(Makeup)", "(Deeper Mix)", "(Visitor)", "(Revisited)", "(Rework)", "(Touch)", "(Vocal Mix)"]
+    remix_keywords = ["(Remake)", "(Soulful Mix)","(Soulful ReMix)", "(Makeup)", "(Deeper Mix)", "(Visitor)", "(Revisited)", "(Rework)", "(Touch)","(Vocal ReMix)","(Vocal Mix)"]
     return any(word in title for word in remix_keywords)
 
 def extract_remixer_from_title(title):

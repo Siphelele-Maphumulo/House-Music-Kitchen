@@ -1,266 +1,6 @@
 [
     {
         "id": 1,
-        "artist": "LnSoul",
-        "ft_artist": "",
-        "title": "Emhlabeni (LnSoul Makeup)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2024",
-        "duration": "9:12",
-        "price": "1.99",
-        "image": "img/LnSoul.png",
-        "audio": "tracks/Andyboi - Emhlabeni (LnSoul Makeup).mp3"
-    },
-    {
-        "id": 2,
-        "artist": "Mthokzin",
-        "ft_artist": "Unqle Chriz",
-        "title": "You Give Me Love (Mthokzin's Touch)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "7:07",
-        "price": "1.99",
-        "image": "img/Mthokzin.png",
-        "audio": "tracks/Artwork Sounds ft. Unqle Chriz - You Give Me Love (Mthokzin's Touch).mp3"
-    },
-    {
-        "id": 3,
-        "artist": "Citizen Sthee",
-        "ft_artist": "",
-        "title": "We Were Young (Groove Mix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "7:14",
-        "price": "1.99",
-        "image": "img/Citizen Sthee.png",
-        "audio": "tracks/Citizen Sthee - We Were Young (Groove Mix).mp3"
-    },
-    {
-        "id": 4,
-        "artist": "Mr Shane SA 10...",
-        "ft_artist": "",
-        "title": "La Musica (Mr Shane SA 1060 Sounds Remake)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2023",
-        "duration": "5:05",
-        "price": "1.99",
-        "image": "img/Mr Shane SA 10....png",
-        "audio": "tracks/Deep Essential - La Musica (Mr Shane SA 1060 Sounds Remake).mp3"
-    },
-    {
-        "id": 5,
-        "artist": "DJ BlaQueT",
-        "ft_artist": "",
-        "title": "Thou Shall Not Judge (Soulful Mix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2023",
-        "duration": "5:35",
-        "price": "1.99",
-        "image": "img/DJ BlaQueT.png",
-        "audio": "tracks/DJ BlaQueT - Thou Shall Not Judge (Soulful Mix).mp3"
-    },
-    {
-        "id": 6,
-        "artist": "Elementicsoul",
-        "ft_artist": "",
-        "title": "Mnta Mkhulu (Original Mix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2024",
-        "duration": "8:04",
-        "price": "1.99",
-        "image": "img/Elementicsoul.png",
-        "audio": "tracks/Elementicsoul & Afro Que - Mnta Mkhulu (Original Mix).mp3"
-    },
-    {
-        "id": 7,
-        "artist": "Gigg Cosco",
-        "ft_artist": "Pontio",
-        "title": "So Emotional (Original Mix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "11:08",
-        "price": "1.99",
-        "image": "img/Gigg Cosco.png",
-        "audio": "tracks/Gigg Cosco ft. Pontio - So Emotional (Original Mix).mp3"
-    },
-    {
-        "id": 8,
-        "artist": "Griffith Malo",
-        "ft_artist": "",
-        "title": "Yehla Moya (Original Mix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "6:32",
-        "price": "1.99",
-        "image": "img/Griffith Malo.png",
-        "audio": "tracks/Griffith Malo - Yehla Moya (Original Mix).mp3"
-    },
-    {
-        "id": 9,
-        "artist": "Lady Deep",
-        "ft_artist": "",
-        "title": "Struggle (Original Mix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2024",
-        "duration": "6:15",
-        "price": "1.99",
-        "image": "img/Lady Deep.png",
-        "audio": "tracks/Lady Deep & BlacTears - Struggle (Original Mix).mp3"
-    },
-    {
-        "id": 10,
-        "artist": "Lazy K SA",
-        "ft_artist": "Aion",
-        "title": "Dreamer Of Love (Original Mix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "7:18",
-        "price": "1.99",
-        "image": "img/Lazy K SA.png",
-        "audio": "tracks/Lazy K SA ft. Aion - Dreamer Of Love (Original Mix).mp3"
-    },
-    {
-        "id": 11,
-        "artist": "Lunaticsoul SA",
-        "ft_artist": "",
-        "title": "Wilderness (Original Mix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2006",
-        "duration": "7:35",
-        "price": "1.99",
-        "image": "img/Lunaticsoul SA.png",
-        "audio": "tracks/Lunaticsoul SA - Wilderness (Original Mix).mp3"
-    },
-    {
-        "id": 12,
-        "artist": "Leonard Canticle",
-        "ft_artist": "Daliwonga, DJ Maphorisa & Kabza De Small",
-        "title": "Gangnam Style (Leonard Canticle's Love Remix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2024",
-        "duration": "7:39",
-        "price": "1.99",
-        "image": "img/Leonard Canticle.png",
-        "audio": "tracks/Mas Musiq ft. Daliwonga, DJ Maphorisa & Kabza De Small - Gangnam Style (Leonard Canticle's Love Remix).mp3"
-    },
-    {
-        "id": 13,
-        "artist": "Mr Shane SA",
-        "ft_artist": "",
-        "title": "Hold On (1060 Sounds)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "6:53",
-        "price": "1.99",
-        "image": "img/Mr Shane SA.png",
-        "audio": "tracks/Mr Shane SA - Hold On (1060 Sounds).mp3"
-    },
-    {
-        "id": 14,
-        "artist": "Mr Shane SA",
-        "ft_artist": "",
-        "title": "London & KDD (1060 Sounds)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2023",
-        "duration": "6:14",
-        "price": "1.99",
-        "image": "img/Mr Shane SA.png",
-        "audio": "tracks/Mr Shane SA - London & KDD (1060 Sounds).mp3"
-    },
-    {
-        "id": 15,
-        "artist": "LnSoul",
-        "ft_artist": "",
-        "title": "Rise (LnSoul Makeup)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "6:29",
-        "price": "1.99",
-        "image": "img/LnSoul.png",
-        "audio": "tracks/Samantha James - Rise (LnSoul Makeup).mp3"
-    },
-    {
-        "id": 16,
-        "artist": "OG France & Si...",
-        "ft_artist": "",
-        "title": "Sky Scraper (OG France & SirMathews Remix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2024",
-        "duration": "6:32",
-        "price": "1.99",
-        "image": "img/OG France & Si....png",
-        "audio": "tracks/Shekinah - Sky Scraper (OG France & SirMathews Remix).mp3"
-    },
-    {
-        "id": 17,
-        "artist": "SoulFreakah",
-        "ft_artist": "",
-        "title": "Dreams (Original Mix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2024",
-        "duration": "6:55",
-        "price": "1.99",
-        "image": "img/SoulFreakah.png",
-        "audio": "tracks/SoulFreakah - Dreams (Original Mix).mp3"
-    },
-    {
-        "id": 18,
-        "artist": "Leonard Canticle",
-        "ft_artist": "",
-        "title": "Who Keeps Changing Your Mind (Leonard Canticle's Remix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2024",
-        "duration": "6:46",
-        "price": "1.99",
-        "image": "img/Leonard Canticle.png",
-        "audio": "tracks/South Street Players - Who Keeps Changing Your Mind (Leonard Canticle's Remix).mp3"
-    },
-    {
-        "id": 19,
-        "artist": "Unknown",
-        "ft_artist": "",
-        "title": "Dikgwedi (Soulful Remix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "7:11",
-        "price": "1.99",
-        "image": "img/Unknown.png",
-        "audio": "tracks/The Bros - Dikgwedi (Soulful Remix).mp3"
-    },
-    {
-        "id": 20,
-        "artist": "Nastic Groove",
-        "ft_artist": "",
-        "title": "Let Love Enter (Nastic Groove Remix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "6:48",
-        "price": "1.99",
-        "image": "img/Nastic Groove.png",
-        "audio": "tracks/The Disco Lovers - Let Love Enter (Nastic Groove Remix).mp3"
-    },
-    {
-        "id": 21,
         "artist": "Citizen Sthee",
         "ft_artist": "",
         "title": "Kamwana (Groove Mix)",
@@ -273,7 +13,7 @@
         "audio": "tracks/Citizen Sthee & Buddynice - Kamwana (Groove Mix).mp3"
     },
     {
-        "id": 22,
+        "id": 2,
         "artist": "Massive R",
         "ft_artist": "",
         "title": "My Time (Massive R's Personal Mix)",
@@ -286,7 +26,7 @@
         "audio": "tracks/Da Master & Deep Essentials - My Time (Massive R's Personal Mix).mp3"
     },
     {
-        "id": 23,
+        "id": 3,
         "artist": "Endearing Souls",
         "ft_artist": "",
         "title": "Groovers Time (Original Mix)",
@@ -299,7 +39,7 @@
         "audio": "tracks/Endearing Souls - Groovers Time (Original Mix).mp3"
     },
     {
-        "id": 24,
+        "id": 4,
         "artist": "Endearing Souls",
         "ft_artist": "",
         "title": "Too Deep (Vocal mix)",
@@ -312,7 +52,7 @@
         "audio": "tracks/Endearing Souls - Too Deep (Vocal mix).mp3"
     },
     {
-        "id": 25,
+        "id": 5,
         "artist": "Endearing Souls",
         "ft_artist": "",
         "title": "Two Headed Monks (Original Mix)",
@@ -325,7 +65,7 @@
         "audio": "tracks/Endearing Souls - Two Headed Monks (Original Mix).mp3"
     },
     {
-        "id": 26,
+        "id": 6,
         "artist": "Fora-nco",
         "ft_artist": "",
         "title": "Stay (Original Mix)",
@@ -338,7 +78,7 @@
         "audio": "tracks/Fora-nco - Stay (Original Mix).mp3"
     },
     {
-        "id": 27,
+        "id": 7,
         "artist": "Groovy Smallz",
         "ft_artist": "1am",
         "title": "Amaphutha (Soulful mix)",
@@ -351,7 +91,7 @@
         "audio": "tracks/Groovy Smallz ft. 1am - Amaphutha (Soulful mix).mp3"
     },
     {
-        "id": 28,
+        "id": 8,
         "artist": "K-Coins",
         "ft_artist": "Shalon",
         "title": "Take A Look At Me (Original Mix)",
@@ -364,7 +104,7 @@
         "audio": "tracks/K-Coins & SLETJA ft. Shalon - Take A Look At Me (Original Mix).mp3"
     },
     {
-        "id": 29,
+        "id": 9,
         "artist": "Kaydeep",
         "ft_artist": "",
         "title": "Wait (Original Mix)",
@@ -377,7 +117,7 @@
         "audio": "tracks/Kaydeep - Wait (Original Mix).mp3"
     },
     {
-        "id": 30,
+        "id": 10,
         "artist": "MrMilkDee",
         "ft_artist": "Lolo",
         "title": "Masingita (MrMilkDee's Twisted Arm's Touch)",
@@ -390,7 +130,7 @@
         "audio": "tracks/Kentphonik ft. Lolo - Masingita (MrMilkDee's Twisted Arm's Touch).mp3"
     },
     {
-        "id": 31,
+        "id": 11,
         "artist": "LebtoniQ",
         "ft_artist": "Sef Pico",
         "title": "B'Jwala (Original Mix)",
@@ -403,7 +143,7 @@
         "audio": "tracks/LebtoniQ ft. Sef Pico - B'Jwala (Original Mix).mp3"
     },
     {
-        "id": 32,
+        "id": 12,
         "artist": "Ludwe",
         "ft_artist": "",
         "title": "Howler (Original Mix)",
@@ -416,7 +156,7 @@
         "audio": "tracks/Ludwe - Howler (Original Mix).mp3"
     },
     {
-        "id": 33,
+        "id": 13,
         "artist": "Massive R",
         "ft_artist": "",
         "title": "Waves Of Ember (Deeper Mix)",
@@ -429,7 +169,7 @@
         "audio": "tracks/Massive R - Waves Of Ember (Deeper Mix).mp3"
     },
     {
-        "id": 34,
+        "id": 14,
         "artist": "MusiQ Rebels",
         "ft_artist": "",
         "title": "Hustler's Prayer (Original Mix)",
@@ -442,7 +182,7 @@
         "audio": "tracks/MusiQ Rebels - Hustler's Prayer (Original Mix).mp3"
     },
     {
-        "id": 35,
+        "id": 15,
         "artist": "Nick SA",
         "ft_artist": "",
         "title": "###### (Soulful Mix)",
@@ -455,7 +195,7 @@
         "audio": "tracks/Nick SA - ###### (Soulful Mix).mp3"
     },
     {
-        "id": 36,
+        "id": 16,
         "artist": "P.M Projects",
         "ft_artist": "",
         "title": "Rise (Vocal Mix)",
@@ -468,7 +208,7 @@
         "audio": "tracks/P.M Projects - Rise (Vocal Mix).mp3"
     },
     {
-        "id": 37,
+        "id": 17,
         "artist": "KqueSol",
         "ft_artist": "",
         "title": "Zwakala (KqueSol Visitors Mix)",
@@ -481,7 +221,7 @@
         "audio": "tracks/Stimela - Zwakala (KqueSol Visitors Mix).mp3"
     },
     {
-        "id": 38,
+        "id": 18,
         "artist": "Cezwear",
         "ft_artist": "",
         "title": "Lift Up Your Voices (Cezwear's Letter To You Mix)",
@@ -494,7 +234,7 @@
         "audio": "tracks/Sunday Service Choir - Lift Up Your Voices (Cezwear's Letter To You Mix).mp3"
     },
     {
-        "id": 39,
+        "id": 19,
         "artist": "Tiyani",
         "ft_artist": "",
         "title": "Forest Hills (Original Mix)",
@@ -507,7 +247,7 @@
         "audio": "tracks/Tiyani - Forest Hills (Original Mix).mp3"
     },
     {
-        "id": 40,
+        "id": 20,
         "artist": "TimAdeep",
         "ft_artist": "",
         "title": "It Hasn't Happened Yet (TimAdeep Rework)",
@@ -520,7 +260,280 @@
         "audio": "tracks/William Shatner - It Hasn't Happened Yet (TimAdeep Rework).mp3"
     },
     {
+        "id": 21,
+        "artist": "Zulu Mafia",
+        "ft_artist": "",
+        "title": "Fallen Angels (Original Mix )",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "5:25",
+        "price": "1.99",
+        "image": "img/Zulu Mafia.png",
+        "audio": "tracks/Zulu Mafia & Djy Coco - Fallen Angels (Original Mix ).mp3"
+    },
+    {
+        "id": 22,
+        "artist": "Citizen Sthee",
+        "ft_artist": "",
+        "title": "Kamwana (Groove Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "7:26",
+        "price": "1.99",
+        "image": "img/Citizen Sthee.png",
+        "audio": "tracks/Citizen Sthee & Buddynice - Kamwana (Groove Mix).mp3"
+    },
+    {
+        "id": 23,
+        "artist": "Massive R",
+        "ft_artist": "",
+        "title": "My Time (Massive R's Personal Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "7:57",
+        "price": "1.99",
+        "image": "img/Massive R.png",
+        "audio": "tracks/Da Master & Deep Essentials - My Time (Massive R's Personal Mix).mp3"
+    },
+    {
+        "id": 24,
+        "artist": "Endearing Souls",
+        "ft_artist": "",
+        "title": "Groovers Time (Original Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2008",
+        "duration": "7:48",
+        "price": "1.99",
+        "image": "img/Endearing Souls.png",
+        "audio": "tracks/Endearing Souls - Groovers Time (Original Mix).mp3"
+    },
+    {
+        "id": 25,
+        "artist": "Endearing Souls",
+        "ft_artist": "",
+        "title": "Too Deep (Vocal mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2008",
+        "duration": "6:37",
+        "price": "1.99",
+        "image": "img/Endearing Souls.png",
+        "audio": "tracks/Endearing Souls - Too Deep (Vocal mix).mp3"
+    },
+    {
+        "id": 26,
+        "artist": "Endearing Souls",
+        "ft_artist": "",
+        "title": "Two Headed Monks (Original Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2008",
+        "duration": "7:49",
+        "price": "1.99",
+        "image": "img/Endearing Souls.png",
+        "audio": "tracks/Endearing Souls - Two Headed Monks (Original Mix).mp3"
+    },
+    {
+        "id": 27,
+        "artist": "Fora-nco",
+        "ft_artist": "",
+        "title": "Stay (Original Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2024",
+        "duration": "7:45",
+        "price": "1.99",
+        "image": "img/Fora-nco.png",
+        "audio": "tracks/Fora-nco - Stay (Original Mix).mp3"
+    },
+    {
+        "id": 28,
+        "artist": "Groovy Smallz",
+        "ft_artist": "1am",
+        "title": "Amaphutha (Soulful mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2008",
+        "duration": "7:32",
+        "price": "1.99",
+        "image": "img/Groovy Smallz.png",
+        "audio": "tracks/Groovy Smallz ft. 1am - Amaphutha (Soulful mix).mp3"
+    },
+    {
+        "id": 29,
+        "artist": "K-Coins",
+        "ft_artist": "Shalon",
+        "title": "Take A Look At Me (Original Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "7:57",
+        "price": "1.99",
+        "image": "img/K-Coins.png",
+        "audio": "tracks/K-Coins & SLETJA ft. Shalon - Take A Look At Me (Original Mix).mp3"
+    },
+    {
+        "id": 30,
+        "artist": "Kaydeep",
+        "ft_artist": "",
+        "title": "Wait (Original Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2023",
+        "duration": "5:45",
+        "price": "1.99",
+        "image": "img/Kaydeep.png",
+        "audio": "tracks/Kaydeep - Wait (Original Mix).mp3"
+    },
+    {
+        "id": 31,
+        "artist": "MrMilkDee",
+        "ft_artist": "Lolo",
+        "title": "Masingita (MrMilkDee's Twisted Arm's Touch)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2024",
+        "duration": "5:55",
+        "price": "1.99",
+        "image": "img/MrMilkDee.png",
+        "audio": "tracks/Kentphonik ft. Lolo - Masingita (MrMilkDee's Twisted Arm's Touch).mp3"
+    },
+    {
+        "id": 32,
+        "artist": "LebtoniQ",
+        "ft_artist": "Sef Pico",
+        "title": "B'Jwala (Original Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2024",
+        "duration": "6:30",
+        "price": "1.99",
+        "image": "img/LebtoniQ.png",
+        "audio": "tracks/LebtoniQ ft. Sef Pico - B'Jwala (Original Mix).mp3"
+    },
+    {
+        "id": 33,
+        "artist": "Ludwe",
+        "ft_artist": "",
+        "title": "Howler (Original Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2024",
+        "duration": "6:28",
+        "price": "1.99",
+        "image": "img/Ludwe.png",
+        "audio": "tracks/Ludwe - Howler (Original Mix).mp3"
+    },
+    {
+        "id": 34,
+        "artist": "Massive R",
+        "ft_artist": "",
+        "title": "Waves Of Ember (Deeper Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "8:32",
+        "price": "1.99",
+        "image": "img/Massive R.png",
+        "audio": "tracks/Massive R - Waves Of Ember (Deeper Mix).mp3"
+    },
+    {
+        "id": 35,
+        "artist": "MusiQ Rebels",
+        "ft_artist": "",
+        "title": "Hustler's Prayer (Original Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2024",
+        "duration": "7:11",
+        "price": "1.99",
+        "image": "img/MusiQ Rebels.png",
+        "audio": "tracks/MusiQ Rebels - Hustler's Prayer (Original Mix).mp3"
+    },
+    {
+        "id": 36,
+        "artist": "Nick SA",
+        "ft_artist": "",
+        "title": "###### (Soulful Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2024",
+        "duration": "5:35",
+        "price": "1.99",
+        "image": "img/Nick SA.png",
+        "audio": "tracks/Nick SA - ###### (Soulful Mix).mp3"
+    },
+    {
+        "id": 37,
+        "artist": "P.M Projects",
+        "ft_artist": "",
+        "title": "Rise (Vocal Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2024",
+        "duration": "6:33",
+        "price": "1.99",
+        "image": "img/P.M Projects.png",
+        "audio": "tracks/P.M Projects - Rise (Vocal Mix).mp3"
+    },
+    {
+        "id": 38,
+        "artist": "KqueSol",
+        "ft_artist": "",
+        "title": "Zwakala (KqueSol Visitors Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "6:06",
+        "price": "1.99",
+        "image": "img/KqueSol.png",
+        "audio": "tracks/Stimela - Zwakala (KqueSol Visitors Mix).mp3"
+    },
+    {
+        "id": 39,
+        "artist": "Cezwear",
+        "ft_artist": "",
+        "title": "Lift Up Your Voices (Cezwear's Letter To You Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2024",
+        "duration": "5:45",
+        "price": "1.99",
+        "image": "img/Cezwear.png",
+        "audio": "tracks/Sunday Service Choir - Lift Up Your Voices (Cezwear's Letter To You Mix).mp3"
+    },
+    {
+        "id": 40,
+        "artist": "Tiyani",
+        "ft_artist": "",
+        "title": "Forest Hills (Original Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "7:09",
+        "price": "1.99",
+        "image": "img/Tiyani.png",
+        "audio": "tracks/Tiyani - Forest Hills (Original Mix).mp3"
+    },
+    {
         "id": 41,
+        "artist": "TimAdeep",
+        "ft_artist": "",
+        "title": "It Hasn't Happened Yet (TimAdeep Rework)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2024",
+        "duration": "6:44",
+        "price": "1.99",
+        "image": "img/TimAdeep.png",
+        "audio": "tracks/William Shatner - It Hasn't Happened Yet (TimAdeep Rework).mp3"
+    },
+    {
+        "id": 42,
         "artist": "Zulu Mafia",
         "ft_artist": "",
         "title": "Fallen Angels (Original Mix )",
