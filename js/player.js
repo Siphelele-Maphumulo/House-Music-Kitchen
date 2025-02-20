@@ -1,7 +1,3 @@
-
-import { app, auth, database } from './firebase-config.js';
-
-
 // Get the modal
 var modal = document.getElementById("musicPlayerModal");
 
