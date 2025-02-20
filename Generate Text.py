@@ -1,4 +1,4 @@
-import firebase_admin
+
 
 import os
 import re
@@ -8,11 +8,9 @@ import mysql.connector
 import requests
 import base64
 
-
 from mutagen.mp3 import MP3
 from mutagen.id3 import ID3, ID3NoHeaderError
 from mutagen.asf import ASF
-from firebase_admin import credentials, firestore
 
 
 DB_HOST = "localhost"
@@ -25,23 +23,15 @@ GITHUB_USERNAME = "Siphelele-Maphumulo"  # Your GitHub username
 GITHUB_REPO = "House-Music-Kitchen"  # Your repository name
 GITHUB_FILE_PATH = "Exclusive_Music_List.txt"  # Path in the repo
 GITHUB_BRANCH = "main"  # Branch name
-GITHUB_TOKEN = "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"  # Securely load token
+GITHUB_TOKEN = " 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"  # Securely load token
 
-
-
-# Load Firebase credentials
-cred = credentials.Certificate(r"C:\xampp\htdocs\HouseMusicKitchen\serviceAccountKey.json")  # Replace with actual path
-firebase_admin.initialize_app(cred)
-
-# Initialize Firestore database
-db = firestore.client()
 
 LABEL = "House Music Kitchen"
 GENRE = "Deep House"
 PRICE = "1.99"
 CURRENT_YEAR = datetime.datetime.now().year
 OUTPUT_FILE = "Exclusive_Music_List.txt"
-KEEP_ORIGINAL_KEYWORDS = ["Original", "(Deeper Mix)", "Exclusive", "Groove Mix", "Dub", "Vocal Mix", "Vocal Remix", "Radio Edit", "Club Edit"]
+KEEP_ORIGINAL_KEYWORDS = ["Original", "(Deeper Mix)", "(Exclusive)", "(Groove Mix)", "(Dub)", "Radio Edit", "Club Edit" ,"Exclusive", "Groove Mix", "Dub", "Radio Edit", "Club Edit"]
 
 def connect_db():
     return mysql.connector.connect(host=DB_HOST, user=DB_USER, password=DB_PASSWORD, database=DB_NAME)
@@ -69,15 +59,78 @@ def get_wma_metadata(file_path):
         return {"year": str(CURRENT_YEAR), "length": "00:00"}
 
 def should_keep_original(title):
-    return any(keyword in title for keyword in KEEP_ORIGINAL_KEYWORDS)
+    # Define keywords that indicate a remix or rework
+    remix_keywords = ["(Remake)", "(Soulful Mix)", "(Makeup)", "(Deeper Mix)", "(Visitor)", "(Revisited)", "(Rework)", "(Touch)", "(Vocal Mix)"]
+    return any(word in title for word in remix_keywords)
 
 def extract_remixer_from_title(title):
-    if not should_keep_original(title):
-        match = re.search(r"\((.*?)\)", title)
-        if match:
-            remixer = match.group(1).split()[0]
-            return remixer
-    return None
+    match = re.search(r"\((.*?)\)", title)
+    if match:
+        remix_content = match.group(1)
+        
+        # Check if the title has an apostrophe indicating ownership
+        if "'s" in remix_content:
+            return remix_content.split("'s")[0].strip()
+        
+        remix_keywords = ["Remake", "Remix", "Soulful Mix", "Makeup", "Deeper Mix", "Visitor", "Revisited", "Rework", "Touch", "Chant", "Step", "Bootleg", "Soulful Remix", "Vocal Remix"]
+        for keyword in remix_keywords:
+            if keyword in remix_content:
+                parts = remix_content.split(keyword)
+                before_keyword = parts[0].strip()
+                
+                # Count spaces before keyword
+                space_count = before_keyword.count(" ")
+
+                split_words = before_keyword.strip().split()
+                if space_count > 2:
+                    return before_keyword.strip()
+                elif space_count <= 2 and split_words:  # Ensure it's not empty
+                    return split_words[-1]  # Safely access the last word
+    
+    return None  # Return None if no remixer is found
+
+
+
+def clean_artist_name(artist):
+    artist_mapping = {
+        "Citizen": "Citizen Sthee",
+        "Mr": "Mr Shane SA",
+        "Soulful": "Unknown",
+        "Gigg": "Gigg Cosco",
+        "Griffith": "Griffith Malo",
+        "Lady": "Lady Deep",
+        "Lazy": "Lazy K SA",
+        "Lunaticsoul": "Lunaticsoul",
+        "Leonard": "Leonard Canticle",
+        "1060": "Mr Shane SA",
+        "OG": "OG France",
+        "Nastic": "Nastic Groove",
+        "Groove": "Nastic Groove",
+        "Massive": "Massive R",
+        "Endearing": "Endearing Souls",
+        "Groovy": "Groovy Smallz",
+        "MusiQ": "MusiQ Rebels",
+        "Nick": "Nick SA",
+        "Mafia": "Mafia Natives",
+        "Efkay": "Efkay Da Shiqwan",
+        "Jnr": "Jnr SA",
+        "McCuemza": "McCuemza Isaac",
+        "Dawn": "Dawn Deep",
+        "Da": "Da Capo",
+        "Oscar": "Oscar Mbo",
+        "Brothers": "Brothers On Cue",
+        "Andy": "Andy Bankx",
+        "Kuthathu": "Kuthathu SA",
+        "Afrikhana's": "Afrikhana's Flava"
+    }
+    
+    artist = artist.replace("'s", "")  # Remove any 's from names
+    return artist_mapping.get(artist, artist)  # Replace if mapped, else return original
+
+def extract_featured_artist(ft_artist):
+    match = re.search(r'[,&] *([^\(]+)', ft_artist)
+    return match.group(1).strip() if match else ""
+
 
 def parse_filename(filename):
     base_name = os.path.splitext(filename)[0]
@@ -98,6 +151,7 @@ def parse_filename(filename):
         artist = remixer
     return artist.strip(), ft_artist.strip(), title.strip()
 
+
 def get_last_id():
     try:
         with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
@@ -107,6 +161,10 @@ def get_last_id():
     except (FileNotFoundError, json.JSONDecodeError):
         return 0
     return 0
+
+
+
+
 
 def insert_into_db(track_data):
     try:
@@ -137,15 +195,6 @@ def insert_into_db(track_data):
         print(f"Database error: {err}")
 
 
-
-#Upload Track Data to Firebase
-def upload_to_firebase(track_data):
-    try:
-        doc_ref = db.collection("tracks").document(str(track_data["id"]))
-        doc_ref.set(track_data)
-        print(f"Uploaded {track_data['title']} to Firebase successfully.")
-    except Exception as e:
-        print(f"Error uploading to Firebase: {e}")
 
 
 # Function to upload/update the file on GitHub
@@ -183,7 +232,11 @@ def upload_to_github(file_path):
         print(f"Error uploading to GitHub: {e}")
 
 
- 
+def shorten_artist_name(artist_name):
+    """Shortens artist names longer than 17 characters, including spaces."""
+    if len(artist_name) > 17:
+        return artist_name[:14] + "..."
+    return artist_name
 
 def process_folder(folder_path, start_id):
     current_id = start_id
@@ -202,7 +255,13 @@ def process_folder(folder_path, start_id):
             metadata = get_wma_metadata(file_path)
         else:
             continue
+        
         artist, ft_artist, title = parse_filename(file)
+
+        artist = clean_artist_name(artist)
+        artist = shorten_artist_name(artist)
+        
+        
         current_id += 1
         track_data = {
             "id": current_id,
@@ -214,7 +273,7 @@ def process_folder(folder_path, start_id):
             "release_date": metadata["year"],
             "duration": metadata["length"],
             "price": PRICE,
-            "image": f"img/{artist.replace(' ', '_')}.png",
+            "image": f"img/{artist.replace(' ', ' ')}.png",
             "audio": f"tracks/{file}"
         }
         tracks.append(track_data)
@@ -222,6 +281,43 @@ def process_folder(folder_path, start_id):
         json.dump(tracks, f, indent=4, ensure_ascii=False)
 
     return current_id, tracks
+
+
+
+
+    # Read existing track_data
+    try:
+        with open(output_file, "r", encoding="utf-8") as f:
+            for line in f:
+                parts = line.strip().split("|")
+                if len(parts) > 2:
+                    existing_tracks.add(parts[2])  # Assuming track_data is at index 2
+    except FileNotFoundError:
+        pass
+    
+    with open(input_file, "r", encoding="utf-8") as f:
+        for line in f:
+            parts = line.strip().split("|")
+            if len(parts) < 3:
+                continue
+            
+            
+            track_data = parts[2]
+            
+            if track_data in existing_tracks:
+                continue  # Skip duplicates
+            
+            ft_artist = extract_ft_artist(parts[1])
+            processed_lines.append(f"{artist_name} | {parts[1]} | {track_data} | {ft_artist}\n")
+            existing_tracks.add(track_data)
+    
+    with open(output_file, "w", encoding="utf-8") as f:
+        f.writelines(processed_lines)
+
+
+
+
+
 
 folder_paths = []
 while True:
@@ -247,10 +343,8 @@ for track_data in all_tracks_data:
     # Call this function after processing tracks
     upload_to_github(OUTPUT_FILE)
     
-    ##upload_to_firebase(track_data)  # Store in Firebase
-##    print("Uploading data to Firebase...")
     
-print("Music metadata successfully saved to text file, database, and Firebase.")
+print("Music metadata successfully saved to text file, database, and Github.")
 
 
 

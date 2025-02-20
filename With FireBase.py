@@ -1,4 +1,4 @@
-import firebase_admin
+
 
 import os
 import re
@@ -8,11 +8,9 @@ import mysql.connector
 import requests
 import base64
 
-
 from mutagen.mp3 import MP3
 from mutagen.id3 import ID3, ID3NoHeaderError
 from mutagen.asf import ASF
-from firebase_admin import credentials, firestore
 
 
 DB_HOST = "localhost"
@@ -25,16 +23,8 @@ GITHUB_USERNAME = "Siphelele-Maphumulo"  # Your GitHub username
 GITHUB_REPO = "House-Music-Kitchen"  # Your repository name
 GITHUB_FILE_PATH = "Exclusive_Music_List.txt"  # Path in the repo
 GITHUB_BRANCH = "main"  # Branch name
-GITHUB_TOKEN = "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"  # Securely load token
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  # Securely load token
 
-
-
-# Load Firebase credentials
-cred = credentials.Certificate(r"C:\xampp\htdocs\HouseMusicKitchen\serviceAccountKey.json")  # Replace with actual path
-firebase_admin.initialize_app(cred)
-
-# Initialize Firestore database
-db = firestore.client()
 
 LABEL = "House Music Kitchen"
 GENRE = "Deep House"
@@ -69,14 +59,33 @@ def get_wma_metadata(file_path):
         return {"year": str(CURRENT_YEAR), "length": "00:00"}
 
 def should_keep_original(title):
-    return any(keyword in title for keyword in KEEP_ORIGINAL_KEYWORDS)
+    # Define keywords that indicate a remix or rework
+    remix_keywords = ["Remake", "Remix", "Soulful Mix", "Makeup", "Deeper Mix", "Visitor", "Revisited", "Rework", "Touch", "Chant", "Step", "Bootleg"]
+    return any(word in title for word in remix_keywords)
 
 def extract_remixer_from_title(title):
-    if not should_keep_original(title):
-        match = re.search(r"\((.*?)\)", title)
-        if match:
-            remixer = match.group(1).split()[0]
-            return remixer
+    match = re.search(r"\((.*?)\)", title)
+    if match:
+        remix_content = match.group(1)
+        
+        # Check if the title has an apostrophe indicating ownership
+        if "'s" in remix_content:
+            return remix_content.split("'s")[0].strip()
+        
+        remix_keywords = ["Remake", "Remix", "Soulful Mix", "Makeup", "Deeper Mix", "Visitor", "Revisited", "Rework", "Touch", "Chant", "Step", "Bootleg"]
+        for keyword in remix_keywords:
+            if keyword in remix_content:
+                parts = remix_content.split(keyword)
+                before_keyword = parts[0].strip()
+                
+                # Count spaces before keyword
+                space_count = before_keyword.count(" ")
+                
+                if space_count > 2:
+                    return before_keyword.strip()
+                elif space_count <= 2:
+                    return before_keyword.strip().split()[-1]
+    
     return None
 
 def parse_filename(filename):
@@ -137,15 +146,6 @@ def insert_into_db(track_data):
         print(f"Database error: {err}")
 
 
-
-#Upload Track Data to Firebase
-def upload_to_firebase(track_data):
-    try:
-        doc_ref = db.collection("tracks").document(str(track_data["id"]))
-        doc_ref.set(track_data)
-        print(f"Uploaded {track_data['title']} to Firebase successfully.")
-    except Exception as e:
-        print(f"Error uploading to Firebase: {e}")
 
 
 # Function to upload/update the file on GitHub
@@ -247,10 +247,8 @@ for track_data in all_tracks_data:
     # Call this function after processing tracks
     upload_to_github(OUTPUT_FILE)
     
-    ##upload_to_firebase(track_data)  # Store in Firebase
-##    print("Uploading data to Firebase...")
     
-print("Music metadata successfully saved to text file, database, and Firebase.")
+print("Music metadata successfully saved to text file, database, and Github.")
 
 
 

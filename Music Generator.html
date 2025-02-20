@@ -74,17 +74,18 @@ foreach ($tracks as $track) {
                                         <img src="<?php echo $track['image']; ?>" width="50" height="50"/>
                                         <div class="play-fly">
                                             <a href="javascript:void(0)" class="com-play played" title="Play Track"
-                                               onclick="toggleAudio('<?php echo $track['audio']; ?>', '<?php echo $track['title']; ?>', '<?php echo $track['artist']; ?> ft. <?php echo $track['ft_artist']; ?>')">
+                                               onclick="toggleAudio('<?php echo addslashes($track['audio']); ?>', '<?php echo addslashes($track['title']); ?>', '<?php echo addslashes($track['artist']); ?> ft. <?php echo addslashes($track['ft_artist']); ?>')">
                                             </a>
                                         </div>
+                                        
                                     </div>
                                     <div class="trk-cell title">
-                                        <a href="/track/<?php echo $title_safe; ?>/hit-it-up-vocal-mix"><?php echo $track['artist']; ?> ft. <?php echo $track['ft_artist']; ?> - <?php echo $track['title']; ?></a>
+                                        <a href="/track/<?php echo $title_safe; ?>/hit-it-up-vocal-mix"><?php echo $track['artist']; ?> <?php echo $track['ft_artist']; ?> - <?php echo $track['title']; ?></a>
                                         <span class="adap-br"><br /></span>
                                         <span class="duration">(<?php echo $track['duration']; ?>)</span>
                                     </div>
                                     <div class="trk-cell artists">
-                                        <a href="/artist/561171/<?php echo $artist_safe; ?>" class="com-artists" data-aid="561171"><?php echo $track['artist']; ?> ft. <?php echo $track['ft_artist']; ?></a>
+                                        <a href="/artist/561171/<?php echo $artist_safe; ?>" class="com-artists" data-aid="561171"><?php echo $track['artist']; ?>  <?php echo $track['ft_artist']; ?></a>
                                         <span class="adap-br"><br /></span>
                                     </div>
                                     <div class="trk-cell genre">
