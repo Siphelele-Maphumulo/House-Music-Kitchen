@@ -402,7 +402,7 @@ require 'vendor/autoload.php';
     
     
      <!-------------------------------------------------------------Loader Overlay ------------------------------------------------------------------------------------------>
-     <?php include 'Da Capo.html'; ?>
+     <?php include 'Music Displayer.html'; ?>
      <?php include 'Music Generator.html'; ?>
 <!--   -->
 
