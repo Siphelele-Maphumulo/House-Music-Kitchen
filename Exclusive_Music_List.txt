@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "artist": "3",
+        "artist": "Adele",
         "ft_artist": "",
         "title": "Rolling In The Deep (3 Step Mix)",
         "label": "House Music Kitchen",
@@ -9,7 +9,7 @@
         "release_date": "2025",
         "duration": "6:11",
         "price": "1.99",
-        "image": "img/3.png",
+        "image": "img/Adele.png",
         "audio": "tracks/Adele - Rolling In The Deep (3 Step Mix).mp3"
     },
     {
@@ -27,7 +27,7 @@
     },
     {
         "id": 3,
-        "artist": "3",
+        "artist": "Kuthathu SA",
         "ft_artist": "Mr Maker",
         "title": "Uhambe Wrongo (Kuthathu SA 3 Step Mix)",
         "label": "House Music Kitchen",
@@ -35,12 +35,12 @@
         "release_date": "2024",
         "duration": "6:05",
         "price": "1.99",
-        "image": "img/3.png",
+        "image": "img/Kuthathu SA.png",
         "audio": "tracks/Bandros, Kelvin Momo & Smash SA ft. Mr Maker - Uhambe Wrongo (Kuthathu SA 3 Step Mix).mp3"
     },
     {
         "id": 4,
-        "artist": "3",
+        "artist": "Bendi",
         "ft_artist": "",
         "title": "Heart & Soul (3 Step Mix)",
         "label": "House Music Kitchen",
@@ -48,7 +48,7 @@
         "release_date": "2025",
         "duration": "6:24",
         "price": "1.99",
-        "image": "img/3.png",
+        "image": "img/Bendi.png",
         "audio": "tracks/Bendi & KVM - Heart & Soul (3 Step Mix).mp3"
     },
     {
@@ -66,7 +66,7 @@
     },
     {
         "id": 6,
-        "artist": "3",
+        "artist": "Dj Dreas",
         "ft_artist": "",
         "title": "###### (3 Step Mix)",
         "label": "House Music Kitchen",
@@ -74,7 +74,7 @@
         "release_date": "2025",
         "duration": "00:00",
         "price": "1.99",
-        "image": "img/3.png",
+        "image": "img/Dj Dreas.png",
         "audio": "tracks/Dj Dreas - ###### (3 Step Mix).mp3"
     },
     {
@@ -118,7 +118,7 @@
     },
     {
         "id": 10,
-        "artist": "Rare",
+        "artist": "Fisherman",
         "ft_artist": "",
         "title": "Sunset Nevada (Pelow Deep Rare Step Mix )",
         "label": "House Music Kitchen",
@@ -126,7 +126,7 @@
         "release_date": "2029",
         "duration": "5:31",
         "price": "1.99",
-        "image": "img/Rare.png",
+        "image": "img/Fisherman.png",
         "audio": "tracks/Fisherman - Sunset Nevada (Pelow Deep Rare Step Mix ).mp3"
     },
     {
@@ -209,7 +209,7 @@
     },
     {
         "id": 17,
-        "artist": "3",
+        "artist": "Kuthathu SA",
         "ft_artist": "Zee Nxumalo, Ceeka RSA & Chley",
         "title": "Funk 55 (Kuthathu SA 3 Step Mix)",
         "label": "House Music Kitchen",
@@ -217,7 +217,7 @@
         "release_date": "2024",
         "duration": "7:21",
         "price": "1.99",
-        "image": "img/3.png",
+        "image": "img/Kuthathu SA.png",
         "audio": "tracks/Shakes & Les, DBN Gogo ft. Zee Nxumalo, Ceeka RSA & Chley - Funk 55 (Kuthathu SA 3 Step Mix).mp3"
     },
     {
@@ -235,7 +235,7 @@
     },
     {
         "id": 19,
-        "artist": "Rare",
+        "artist": "Tycoon",
         "ft_artist": "Dladla Mshunqisi & Goldmax",
         "title": "Iza Mawala (Pelow Deepn Rare Step Mix )",
         "label": "House Music Kitchen",
@@ -243,7 +243,7 @@
         "release_date": "2029",
         "duration": "4:50",
         "price": "1.99",
-        "image": "img/Rare.png",
+        "image": "img/Tycoon.png",
         "audio": "tracks/Tycoon, Sly & Kabza De Small ft. Dladla Mshunqisi & Goldmax - Iza Mawala (Pelow Deepn Rare Step Mix ).mp3"
     }
 ]
