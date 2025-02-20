@@ -7,7 +7,14 @@ if (!isset($_SESSION['user'])) {
     header("Location: login.php"); // Redirect to your login page
     exit;
 }
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+require 'vendor/autoload.php';
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +27,7 @@ if (!isset($_SESSION['user'])) {
     <link rel="stylesheet" href="styles.css">
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="https://use.typekit.net/zhq0vyf.css">
-    <link rel="stylesheet" type="text/css" href="css/base.css" />
+
     <link rel="stylesheet" type="text/css" href="https://geo-w-static.traxsource.com/css/ts_plugs.min.css?ts=1560271691">
   <link rel="stylesheet" type="text/css" href="https://geo-w-static.traxsource.com/scripts/src.php/1707232980/css/ts_index.min.css">
 
@@ -64,6 +71,8 @@ if (!isset($_SESSION['user'])) {
   <script type="text/javascript" src="https://geo-w-static.traxsource.com/scripts/src.php/1687965180/js/traxsource.global.min.js"></script>
   <script type="text/javascript" src="https://geo-w-static.traxsource.com/js/tsmain.min.js?ts=1695743105"></script>
   <script type="text/javascript" src="https://geo-w-static.traxsource.com/js/tspage.min.js?ts=1707232320"></script>
+  
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
 
   <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="wtvqrvq57ffh13q"></script>
 
@@ -307,6 +316,45 @@ if (!isset($_SESSION['user'])) {
     .buy-cont .product {
         padding: 5px 10px;
     }
+    
+    .frame__links {
+    padding-left: 0%;
+    display: flex;
+    gap: 0px; /* Space between links */
+}
+
+.links {
+    position: relative;
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    padding: 50px 10px;
+    border-radius: 50px; /* Makes it oval */
+    transition: background 0.3s, transform 0.3s;
+    overflow: hidden;
+}
+
+.links::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.3s ease-in-out;
+    z-index: -1;
+}
+
+.links:hover::before {
+    transform: scale(1);
+}
+
+.links:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
 
     /* Media Queries for Small Screens */
     @media (max-width: 767px) {
@@ -344,7 +392,91 @@ if (!isset($_SESSION['user'])) {
             bottom: 0; /* Position at the bottom */
  
         }
+        
+            /* Ensure links still hover correctly on small screens */
+    .links {
+        display: flex;
+        flex-direction: column; /* Stack links vertically on small screens */
+        align-items: center; /* Center align the links */
+        gap: 2px; /* Space between links */
     }
+
+    .links {
+        padding: 5px 7px; /* Adjust padding for better appearance on smaller screens */
+        font-size: 0.8rem; /* Maintain consistent font size */
+        transition: background 0.3s, transform 0.3s;
+        display: inline-block;
+    }
+
+
+        
+        .frame {
+		position: fixed;
+		text-align: left;
+		z-index: 10000;
+		top: 0;
+		left: 0;
+		display: grid;
+		align-content: space-between;
+		width: 100%;
+		max-width: none;
+		height: 100vh;
+		padding: 3rem 4rem;
+		pointer-events: none;
+		grid-template-columns: 50% 50%;
+		grid-template-rows: auto auto auto;
+		grid-template-areas: 'title ...'
+							'... ...'
+							'links links';
+	}
+	
+	.frame__title-wrap {
+		grid-area: title;
+		display: flex;
+	}
+	.frame__title {
+		margin: 0;
+		font-weight: normal;
+	}
+	.flinks {
+		grid-area: links;
+		padding: 0;
+		justify-self: end;
+	}
+	.frame a {
+		pointer-events: auto;
+	}
+	.menu__item {
+		font-size: 13vh;
+	}
+	.item {
+		height: 100%;
+		width: 100%;
+		display: flex;
+	}
+	.item__img {
+		height: 100%;
+		width: 45%;
+		background-position: 50% 50%;
+	}
+	.item__content {
+		padding: 15vh 12vw 0 8vw;
+		height: calc(100% - 12rem);
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		overflow: visible;
+	}
+	.item__content-title {
+		font-size: 5vw;
+	}
+	.item__content-subtitle {
+		font-size: 2vw;
+	}
+	.item__content-text {
+		margin-bottom: 0;
+	}
+}
 
     /* Medium Screens (Tablets) */
     @media (min-width: 768px) and (max-width: 1023px) {
@@ -369,11 +501,118 @@ if (!isset($_SESSION['user'])) {
             right: 20px;
         }
     }
+    
+    
+    
+@media screen and (min-width: 53em) {
+	
+}
+
+@media (any-pointer: fine) {
+	.cursor {
+		display: block;
+	}
+	.cursor__inner {
+		z-index: 9999;
+		pointer-events: none;
+		position: absolute;
+		top: 0;
+		left: 0;
+		mix-blend-mode: difference;
+		border-radius: 50%;
+	}
+	.cursor__inner--circle {
+		width: 25px;
+		height: 25px;
+		border: 1px solid #fff;
+	}
+}
+/* Modal Styles */
+.link {
+            font-size: 20px;
+            color: #007BFF;
+            text-decoration: none;
+            cursor: pointer;
+        }
+.modal {
+            display: none; /* Initially hidden */
+            position: fixed;
+            z-index: 1000; /* Ensure it's above other content */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Darker background for better contrast */
+            backdrop-filter: blur(5px); /* Blur effect */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+/* Modal Content */
+.modal-content {
+    font-family: 'Raleway', sans-serif;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    width: 60%;
+    max-width: 600px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease-in-out;
+}
+
+
+/* Close Button */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 25px;
+    cursor: pointer;
+}
+/* Highlighted Text */
+.highlight {
+    font-weight: bold;
+    color: #007BFF;
+}
+
+        
+/* Highlighted Text */
+.highlight {
+    font-weight: bold;
+    color: #007BFF;
+}
+
+        
+/* Show Modal Animation */
+.modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content.show {
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 90%;
+        padding: 15px;
+    }
+}
+
 </style>
 
 </head>
 <body class="demo-1">
+<div >
 
+
+		
     <!-------------------------------------------------------------Loader Overlay ------------------------------------------------------------------------------------------>
     <div id="loaderOverlay" class="loader-overlay">
         <div class="loader"></div>
@@ -395,25 +634,21 @@ if (!isset($_SESSION['user'])) {
     
     
      <!-------------------------------------------------------------Loader Overlay ------------------------------------------------------------------------------------------>
-     <?php include 'Da Capo.html'; ?>
+     <?php include 'Music Displayer.html'; ?>
      <?php include 'Music Generator.html'; ?>
 <!--   -->
 
-
- 
-
-<!--------------------------------------------------------------------------------------------------------------->
-<!--------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------->
 
-
-<!--------------------------------------------------------------------------------------------------------------->
-<!--------------------------------------------------------------------------------------------------------------->
-<!--------------------------------------------------------------------------------------------------------------->
-<!--------------------------------------------------------------------------------------------------------------->
 
 
 <div id="cart" class="fixed-cart">
+
+<div class="frame__links" style="padding-left: 0%;">
+					<a id="openModal" class="links">About us</a>
+					<a href="https://tympanus.net/codrops/?p=40486" class="links">Events</a>
+					<a href="https://github.com/codrops/AnimatedImageColumns/" class="links">Guide</a>
+				</div>
     <h2>Welcome, <?php echo $_SESSION['firstname'] . ' ' . $_SESSION['lastname']; ?></h2>
     <button style="background-color:rgb(191, 69, 73); color: white; padding: 5px 10px; border: none; border-radius: 5px; margin-top: 10px;" onclick="logout()">Logout</button>
 
@@ -442,7 +677,62 @@ if (!isset($_SESSION['user'])) {
 </audio>
 </div>
 
+
+<div id="aboutUsModal" class="modal" style="color: black">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <h3>Welcome to House Music Kitchen!</h3>
+            <p>At House Music Kitchen, we are passionate about providing you with exclusive house music songs that are hard to find elsewhere. Our website offers a unique experience where you can create your own playlist of songs, just like selecting tracks for your favorite MP3 CD.</p>
+            <p class="highlight">What We Do</p>
+            <p><span class="highlight">Exclusive Selection:</span> We specialize in offering a curated collection of exclusive house music tracks that you won't find easily elsewhere.</p>
+            <p><span class="highlight">Custom Playlist:</span> Our website allows you to create your own playlist by selecting songs from our extensive library. You have full control over what goes into your package.</p>
+            <p><span class="highlight">Convenient Checkout:</span> Once you've finalized your song selection, simply proceed to checkout to complete your purchase. We accept payments via EFT (Electronic Funds Transfer) for your convenience.</p>
+            <p><span class="highlight">Easy Download:</span> After completing your purchase, you'll receive a link to download your customized package as a compressed zip or rar folder. It's quick, easy, and hassle-free.</p>
+            <p class="highlight">Our Mission</p>
+            <p>Our mission is to provide house music enthusiasts with a platform to discover, select, and enjoy the best tracks from the house music scene. We strive to make the process of purchasing and downloading music as seamless as possible, ensuring that you have an exceptional experience every time you visit House Music Kitchen.</p>
+            <p class="highlight">Stay Updated with House Music Events</p>
+            <p>In addition to offering exclusive music selections, we also keep you updated on the latest house music events happening around South Africa. Whether it's club nights, festivals, or live performances, we've got you covered. Stay tuned to our website and social media channels for the latest updates and announcements.</p>
+            <p class="highlight">Thank you for choosing House Music Kitchen for all your house music needs. Let the beats move you!</p>
+        </div>
+    </div>
+
 <script>
+
+
+document.addEventListener("DOMContentLoaded", function () {
+        let modal = document.getElementById("aboutUsModal");
+        let openBtn = document.getElementById("openModal");
+        let closeBtn = document.querySelector(".close");
+
+        // Open Modal
+        openBtn.onclick = function () {
+            modal.style.display = "flex";
+        };
+
+        // Close Modal
+        closeBtn.onclick = function () {
+            modal.style.display = "none";
+            showLoader();  // Show loader when modal closes
+        };
+
+        // Close Modal when clicking outside
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+                showLoader();  // Show loader when modal closes
+            }
+        };
+
+        function showLoader() {
+            document.getElementById("loaderOverlay").style.display = "flex"; // Show loader overlay
+
+            // Auto-hide the loader after 5 seconds
+            setTimeout(function() {
+                document.getElementById("loaderOverlay").style.display = "none"; // Hide loader overlay
+            }, 5000);
+        }
+    });
+
     let cart = [];
     const receiptNumber = Math.floor(100000 + Math.random() * 900000);
 
