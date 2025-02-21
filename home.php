@@ -14,8 +14,6 @@ ini_set('display_errors', 1);
 require 'vendor/autoload.php';
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,11 +21,10 @@ require 'vendor/autoload.php';
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A menu with a css-only marquee hover effect" />
     <meta name="keywords" content="marquee, css, animation, loop, infinite, hover, menu, navigation" />
-    <title>E-commerce Website</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>House Music Kitchen</title>
+
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="https://use.typekit.net/zhq0vyf.css">
-
     <link rel="stylesheet" type="text/css" href="https://geo-w-static.traxsource.com/css/ts_plugs.min.css?ts=1560271691">
   <link rel="stylesheet" type="text/css" href="https://geo-w-static.traxsource.com/scripts/src.php/1707232980/css/ts_index.min.css">
 
@@ -50,18 +47,12 @@ require 'vendor/autoload.php';
   <link rel="apple-touch-icon" sizes="57x57" href="https://geo-static.traxsource.com/img/apple-touch-icon-57x57.png">
 
   <link rel="shortcut icon" type="image/x-icon" href="https://geo-static.traxsource.com/img/fav_icon.png">
-
   <link rel="icon" sizes="196x196" href="https://geo-static.traxsource.com/img/favicon-196x196.png">
   <link rel="icon" sizes="128x128" href="https://geo-static.traxsource.com/img/favicon-128x128.png">
-
   <meta name="msapplication-TileImage" content="https://geo-static.traxsource.com/img/apple-touch-icon-144x144.png">
   <meta name="msapplication-TileColor" content="#262626">
-
-
-
   <link rel="stylesheet" type="text/css" href="https://geo-w-static.traxsource.com/css/ts_plugs.min.css?ts=1560271691">
   <link rel="stylesheet" type="text/css" href="https://geo-w-static.traxsource.com/scripts/src.php/1707232980/css/ts_index.min.css">
-
   <link href='https://fonts.googleapis.com/css?family=Oswald:700,400' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Roboto:700,400' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Noto+Sans:700,400' rel='stylesheet' type='text/css'>
@@ -72,547 +63,115 @@ require 'vendor/autoload.php';
   <script type="text/javascript" src="https://geo-w-static.traxsource.com/js/tsmain.min.js?ts=1695743105"></script>
   <script type="text/javascript" src="https://geo-w-static.traxsource.com/js/tspage.min.js?ts=1707232320"></script>
   
+    
   <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <link rel="stylesheet" type="text/css" href="css/home.css" />
 
   <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="wtvqrvq57ffh13q"></script>
 
   <!-- Start of traxsource Zendesk Widget script -->
     <script>/*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(e){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var e=this.createElement("script");n&&(this.domain=n),e.id="js-iframe-async",e.src="https://assets.zendesk.com/embeddable_framework/main.js",this.t=+new Date,this.zendeskHost="traxsource.zendesk.com",this.zEQueue=a,this.body.appendChild(e)},o.write('<body onload="document._l();">'),o.close()}();/*]]>*/</script>
   </head>
-    <!--script src="//tympanus.net/codrops/adpacks/analytics.js"></script-->
-    <style>
-    /* Full-screen loader overlay */
-    .loader-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        color: white;
-        font-family: Arial, sans-serif;
-        text-align: center;
-        z-index: 1000;
-    }
-
-    /* Spinner animation */
-    .loader {
-        border: 5px solid #f3f3f3;
-        border-top: 5px solid #3498db;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        animation: spin 1s linear infinite;
-        margin-bottom: 15px;
-    }
-
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-
-    /* Button styling */
-    .close-btn {
-        background: #3498db;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-top: 10px;
-        font-size: 14px;
-    }
-
-    .close-btn:hover {
-        background: #2980b9;
-    }
-
+    <script src="//tympanus.net/codrops/adpacks/analytics.js"></script>
+<style>
     body {
-        font-family: Arial, sans-serif;
-        color: ghostwhite;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        height: 100vh;
-        background: #000 url(images/stripe.gif) repeat top left;
-    }
-
-    #product-list {
-        flex: 1;
-        padding: 20px;
-    }
-
-    #cart {
-        color: ghostwhite;
-        width: 200px;
-        background: transparent;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
-        position: fixed;
-        top: 0;
-        right: 0;
-        z-index: 999;
-    }
-
-    #cart table {
-        width: 100%;
-    }
-
-    #cart table td {
-        padding: 8px;
-        border-bottom: 1px solid #ddd;
-        vertical-align: middle;
-    }
-
-    /* Remove Button */
-    .remove-button {
-        cursor: pointer;
-        background-color: #ff6666;
-        color: #fff;
-        border: none;
-        padding: 6px 12px;
-        border-radius: 4px;
-    }
-
-    /* Checkout Button */
-    #checkout-button {
-        background-color: #7fff7f;
-        color: #fff;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 4px;
-        cursor: pointer;
-        margin-top: 20px;
-    }
-
-    #checkout-button:hover {
-        background-color: #5cb85c;
-    }
-
-    /* Clear Button */
-    #clear-button {
-        background-color: #ffd699;
-        color: #333;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 4px;
-        cursor: pointer;
-        margin-top: 10px;
-    }
-
-    #clear-button:hover {
-        background-color: #ffc966;
-    }
-
-    /* Search Result */
-    #searchResult {
-        margin-top: 10px;
-    }
-
-    /* Hidden Categories */
-    .category {
-        display: none;
-    }
-
-    /* Audio Controls */
-    #audioControls {
-        display: none;
-        visibility: hidden;
-        background: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        padding: 10px;
-        border-radius: 10px;
-        width: 100%;
-        max-width: 310px;
-        max-height: 120px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        position: fixed;
-        bottom: 15px;
-        right: 15px;
-        z-index: 1001;
-    }
-
-    /* Audio Controls Button Styling */
-    #audioControls button {
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        padding: 5px 10px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 14px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 4px;
-    }
-
-    /* Audio Controls Range Input */
-    #audioControls input[type="range"] {
-        width: 100%;
-        margin: 10px 0;
-    }
-
-    /* Audio Controls Track Info */
-    #audioControls #trackInfo {
-        margin-bottom: 10px;
-    }
-
-    /* Audio Progress Bar */
-    #audioProgress {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 100%;
-        height: 5px;
-        background: blue;
-        outline: none;
-        opacity: 0.9;
-        transition: opacity .2s;
-        border-radius: 5px;
-    }
-
-    /* Audio Progress Bar Thumb */
-    #audioProgress::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 15px;
-        height: 15px;
-        background: white;
-        border: 2px solid blue;
-        border-radius: 50%;
-        cursor: pointer;
-    }
-
-    #audioProgress::-moz-range-thumb {
-        width: 15px;
-        height: 15px;
-        background: white;
-        border: 2px solid blue;
-        border-radius: 50%;
-        cursor: pointer;
-    }
-
-    /* Track Cells */
-    .trk-cell.r-date {
-        width: 80px;
-    }
-
-    .trk-cell.btncell {
-        width: 120px;
-    }
-
-    /* Buy Container Product */
-    .buy-cont .product {
-        padding: 5px 10px;
-    }
-    
-    .frame__links {
-    padding-left: 0%;
+    font-family: Arial, sans-serif;
+    color: ghostwhite;
+    margin: 0;
+    padding: 0;
     display: flex;
-    gap: 0px; /* Space between links */
+    height: 100vh;
+    background: #000 url(images/stripe.gif) repeat top left; 
 }
-
-.links {
-    position: relative;
-    text-decoration: none;
-    color: white;
-    font-size: 1rem;
-    padding: 50px 10px;
-    border-radius: 50px; /* Makes it oval */
-    transition: background 0.3s, transform 0.3s;
-    overflow: hidden;
-}
-
-.links::before {
-    content: "";
-    position: absolute;
+    /* Modal Styling */
+ /* Modal Styling */
+/* Modal Styling */
+#eventModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    transform: scale(0);
-    transition: transform 0.3s ease-in-out;
-    z-index: -1;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.links:hover::before {
+/* Show Animation */
+#eventModal.show {
+    opacity: 1;
     transform: scale(1);
 }
 
-.links:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: scale(1.1);
-}
-
-
-    /* Media Queries for Small Screens */
-    @media (max-width: 767px) {
-        body {
-            flex-direction: column;
-        }
-
-        #product-list {
-            padding: 10px;
-            gap: 10px;
-        }
-
-        #cart {
-            /* padding-top: 5%; */
-            width: 50%;
-            right: 5%;
-            top: 10%; /* Reset top to auto */
-            bottom: 0; /* Position at the bottom */
-            max-height: calc(100vh - 20px);
-        }
-
-        .trk-cell.r-date,
-        .trk-cell.btncell {
-            width: auto;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        /* Move audio controls to far left on small screens */
-        #audioControls {
-            width: 90%;
-            left: 0;
-            right: auto;
-            top: 50%; /* Reset top to auto */
-            bottom: 0; /* Position at the bottom */
- 
-        }
-        
-            /* Ensure links still hover correctly on small screens */
-    .links {
-        display: flex;
-        flex-direction: column; /* Stack links vertically on small screens */
-        align-items: center; /* Center align the links */
-        gap: 2px; /* Space between links */
-    }
-
-    .links {
-        padding: 5px 7px; /* Adjust padding for better appearance on smaller screens */
-        font-size: 0.8rem; /* Maintain consistent font size */
-        transition: background 0.3s, transform 0.3s;
-        display: inline-block;
-    }
-
-
-        
-        .frame {
-		position: fixed;
-		text-align: left;
-		z-index: 10000;
-		top: 0;
-		left: 0;
-		display: grid;
-		align-content: space-between;
-		width: 100%;
-		max-width: none;
-		height: 100vh;
-		padding: 3rem 4rem;
-		pointer-events: none;
-		grid-template-columns: 50% 50%;
-		grid-template-rows: auto auto auto;
-		grid-template-areas: 'title ...'
-							'... ...'
-							'links links';
-	}
-	
-	.frame__title-wrap {
-		grid-area: title;
-		display: flex;
-	}
-	.frame__title {
-		margin: 0;
-		font-weight: normal;
-	}
-	.flinks {
-		grid-area: links;
-		padding: 0;
-		justify-self: end;
-	}
-	.frame a {
-		pointer-events: auto;
-	}
-	.menu__item {
-		font-size: 13vh;
-	}
-	.item {
-		height: 100%;
-		width: 100%;
-		display: flex;
-	}
-	.item__img {
-		height: 100%;
-		width: 45%;
-		background-position: 50% 50%;
-	}
-	.item__content {
-		padding: 15vh 12vw 0 8vw;
-		height: calc(100% - 12rem);
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		overflow: visible;
-	}
-	.item__content-title {
-		font-size: 5vw;
-	}
-	.item__content-subtitle {
-		font-size: 2vw;
-	}
-	.item__content-text {
-		margin-bottom: 0;
-	}
-}
-
-    /* Medium Screens (Tablets) */
-    @media (min-width: 768px) and (max-width: 1023px) {
-        #product-list {
-            padding: 15px;
-        }
-
-        #cart {
-            width: 70%;
-            right: 5%;
-        }
-    }
-
-    /* Large Screens (Desktops) */
-    @media (min-width: 1024px) {
-        #product-list {
-            padding: 20px;
-        }
-
-        #cart {
-            width: 300px;
-            right: 20px;
-        }
-    }
-    
-    
-    
-@media screen and (min-width: 53em) {
-	
-}
-
-@media (any-pointer: fine) {
-	.cursor {
-		display: block;
-	}
-	.cursor__inner {
-		z-index: 9999;
-		pointer-events: none;
-		position: absolute;
-		top: 0;
-		left: 0;
-		mix-blend-mode: difference;
-		border-radius: 50%;
-	}
-	.cursor__inner--circle {
-		width: 25px;
-		height: 25px;
-		border: 1px solid #fff;
-	}
-}
-/* Modal Styles */
-.link {
-            font-size: 20px;
-            color: #007BFF;
-            text-decoration: none;
-            cursor: pointer;
-        }
-.modal {
-            display: none; /* Initially hidden */
-            position: fixed;
-            z-index: 1000; /* Ensure it's above other content */
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6); /* Darker background for better contrast */
-            backdrop-filter: blur(5px); /* Blur effect */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-/* Modal Content */
+/* Modal Content with Scroll */
 .modal-content {
-    font-family: 'Raleway', sans-serif;
     background: white;
-    padding: 25px;
+    padding: 20px;
     border-radius: 10px;
-    width: 60%;
-    max-width: 600px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
-    position: relative;
-    transform: translateY(-20px);
-    transition: transform 0.3s ease-in-out;
+    max-width: 500px;
+    width: 100%;
+    max-height: 80vh; /* Limits height to 80% of the viewport */
+    overflow-y: auto; /* Enables vertical scrolling */
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: transparent transparent; /* For Firefox */
 }
 
+/* Customizing Scrollbar for Webkit Browsers (Chrome, Safari) */
+.modal-content::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background-color: transparent; /* Transparent thumb */
+    border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: transparent; /* Transparent track */
+}
 
 /* Close Button */
 .close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 25px;
+    font-size: 24px;
     cursor: pointer;
-}
-/* Highlighted Text */
-.highlight {
-    font-weight: bold;
-    color: #007BFF;
+    float: right;
 }
 
-        
-/* Highlighted Text */
-.highlight {
-    font-weight: bold;
-    color: #007BFF;
+/* Events Styling */
+.event-item {
+    background: #f9f9f9;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
 }
 
-        
-/* Show Modal Animation */
-.modal.show {
-    display: flex;
-    opacity: 1;
-}
 
-.modal-content.show {
-    transform: translateY(0);
-}
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .modal-content {
-        width: 90%;
-        padding: 15px;
+    #eventModal.show .modal-content {
+        opacity: 1;
+        transform: scale(1);
     }
-}
 
+    /* Close Animation */
+    #eventModal.hide {
+        opacity: 0;
+    }
+
+    #eventModal.hide .modal-content {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    
 </style>
 
 </head>
 <body class="demo-1">
-<div >
-
-
-		
+<div >	
     <!-------------------------------------------------------------Loader Overlay ------------------------------------------------------------------------------------------>
     <div id="loaderOverlay" class="loader-overlay">
         <div class="loader"></div>
@@ -625,30 +184,22 @@ require 'vendor/autoload.php';
         function closeLoader() {
             document.getElementById("loaderOverlay").style.display = "none";
         }
-
         // Auto-hide the loader after 5 seconds
         setTimeout(closeLoader, 5000);
     </script>
-    
-    
-    
-    
+
      <!-------------------------------------------------------------Loader Overlay ------------------------------------------------------------------------------------------>
      <?php include 'Music Displayer.html'; ?>
      <?php include 'Music Generator.html'; ?>
-<!--   -->
-
-<!--------------------------------------------------------------------------------------------------------------->
-
-
 
 <div id="cart" class="fixed-cart">
 
 <div class="frame__links" style="padding-left: 0%;">
 					<a id="openModal" class="links">About us</a>
-					<a href="https://tympanus.net/codrops/?p=40486" class="links">Events</a>
-					<a href="https://github.com/codrops/AnimatedImageColumns/" class="links">Guide</a>
+					<a id="evntModal" class="links">Events</a>
+					<a id="guideModal" class="links">Guide</a>
 				</div>
+				
     <h2>Welcome, <?php echo $_SESSION['firstname'] . ' ' . $_SESSION['lastname']; ?></h2>
     <button style="background-color:rgb(191, 69, 73); color: white; padding: 5px 10px; border: none; border-radius: 5px; margin-top: 10px;" onclick="logout()">Logout</button>
 
@@ -695,8 +246,57 @@ require 'vendor/autoload.php';
             <p class="highlight">Thank you for choosing House Music Kitchen for all your house music needs. Let the beats move you!</p>
         </div>
     </div>
+    
+    
+    <div id="eventModal" class="modal" style="color: black">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <h3>Welcome to House Music Events SA!</h3>
+            <p>Get ready to experience the best house music events across South Africa! Whether you're into deep house, Afro house, Amapiano, or tech house, this is your ultimate guide to staying updated on the hottest events happening near you.</p>
+            
+            <p class="highlight">What We Offer</p>
+            <p><span class="highlight">Latest House Music Events:</span> From electrifying club nights to massive outdoor festivals, we bring you details about upcoming house music events across the country.</p>
+            <p><span class="highlight">All House Music Genres:</span> No matter your taste—Amapiano, Deep House, Afro House, Tech House, or Gqom—we've got events for every house music lover.</p>
+            <p><span class="highlight">Where to Buy Tickets:</span> We provide direct links to official ticket sellers, so you can secure your spot with ease.</p>
+            <p><span class="highlight">Ticket Prices & Event Info:</span> Get details on ticket costs, VIP access, venue locations, and everything else you need to know before you go.</p>
+        
+            <p class="highlight">Stay Updated!</p>
+            <p>This page is updated regularly, ensuring you never miss out on any major house music event in South Africa. Be sure to check back often for new events and exclusive updates.</p>
+        
+            <p class="highlight">Let the music unite us—see you on the dancefloor! 🎶🔥</p>
+            <h4>Upcoming Events:</h4>
+            <div id="eventsContainer">
+                <p>Loading events...</p>
+            </div>
+
+        </div>
+    </div>
+
+
+    
+    
 
 <script>
+    // Function to load events from JSON file
+    fetch('./events.json')
+                .then(response => response.json())
+                .then(events => {
+                  let eventsContainer = document.getElementById('eventsContainer');
+                  events.forEach(event => {
+                    let eventElement = document.createElement('div');
+                    eventElement.innerHTML = `
+                      <h4>${event.event_name}</h4>
+                      <p><strong>Location:</strong> ${event.location}</p>
+                      <p><strong>Date:</strong> ${event.date}</p>
+                      <p><strong>Time:</strong> ${event.time}</p>
+                      <p><strong>Cost:</strong> ${event.cost}</p>
+                      <p><strong>Cooler Box:</strong> ${event.cooler_box}</p>
+                      <a href="${event.ticket_link}" target="_blank">Buy Tickets</a>
+                    `;
+                    eventsContainer.appendChild(eventElement);
+                  });
+                })
+                .catch(error => console.error('Error fetching events:', error));
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -723,6 +323,49 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         };
 
+        function showLoader() {
+            document.getElementById("loaderOverlay").style.display = "flex"; // Show loader overlay
+
+            // Auto-hide the loader after 5 seconds
+            setTimeout(function() {
+                document.getElementById("loaderOverlay").style.display = "none"; // Hide loader overlay
+            }, 5000);
+        }
+    });
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        let modal = document.getElementById("eventModal");
+        let openBtn = document.getElementById("evntModal");
+        let closeBtn = modal.querySelector(".close");
+
+        // Open Modal with animation
+        openBtn.addEventListener("click", function () {
+            modal.classList.add("show");
+            modal.classList.remove("hide");
+            modal.style.display = "flex"; // Ensure it's visible
+        });
+
+        // Close Modal with animation
+        closeBtn.addEventListener("click", function () {
+            modal.classList.add("hide");
+            setTimeout(() => {
+                modal.classList.remove("show");
+                modal.style.display = "none"; // Hide after animation
+            }, 300);
+            showLoader();
+        });
+
+        // Close Modal when clicking outside
+        window.addEventListener("click", function (event) {
+            if (event.target === modal) {
+                modal.classList.add("hide");
+                setTimeout(() => {
+                    modal.classList.remove("show");
+                    modal.style.display = "none";
+                }, 300);
+            }
+        });
+        
         function showLoader() {
             document.getElementById("loaderOverlay").style.display = "flex"; // Show loader overlay
 

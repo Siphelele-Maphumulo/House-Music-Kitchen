@@ -1,0 +1,360 @@
+
+
+import os
+import re
+import json
+import datetime
+import mysql.connector
+import requests
+import base64
+
+from mutagen.mp3 import MP3
+from mutagen.id3 import ID3, ID3NoHeaderError
+from mutagen.asf import ASF
+
+
+DB_HOST = "localhost"
+DB_USER = "root"
+DB_PASSWORD = ""
+DB_NAME = "housemusickitchen_db"
+
+# GitHub Configurations
+GITHUB_USERNAME = "Siphelele-Maphumulo"  # Your GitHub username
+GITHUB_REPO = "House-Music-Kitchen"  # Your repository name
+GITHUB_FILE_PATH = "Exclusive_Music_List.txt"  # Path in the repo
+GITHUB_BRANCH = "main"  # Branch name
+GITHUB_TOKEN = "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"  # Securely load token
+
+
+LABEL = "House Music Kitchen"
+GENRE = "Deep House"
+PRICE = "1.99"
+CURRENT_YEAR = datetime.datetime.now().year
+OUTPUT_FILE = "Exclusive_Music_List.txt"
+KEEP_ORIGINAL_KEYWORDS = ["Original", "(Deeper Mix)", "(Soulful Remix)", "(Vocal Remix)", "(Exclusive)", "(Groove Mix)", "(Dub)", "Radio Edit", "Club Edit" ,"Exclusive", "Groove Mix", "Dub", "Radio Edit", "Club Edit"]
+
+def connect_db():
+    return mysql.connector.connect(host=DB_HOST, user=DB_USER, password=DB_PASSWORD, database=DB_NAME)
+
+def get_mp3_metadata(file_path):
+    try:
+        audio = MP3(file_path)
+        try:
+            tags = ID3(file_path)
+            year = tags.get("TDRC", [str(CURRENT_YEAR)])[0]
+        except ID3NoHeaderError:
+            year = str(CURRENT_YEAR)
+        length = f"{int(audio.info.length // 60)}:{int(audio.info.length % 60):02d}" if audio.info else "00:00"
+        return {"year": str(year), "length": length}
+    except Exception:
+        return {"year": str(CURRENT_YEAR), "length": "00:00"}
+
+def get_wma_metadata(file_path):
+    try:
+        audio = ASF(file_path)
+        year = audio.tags.get("WM/Year", [str(CURRENT_YEAR)])[0]
+        length = f"{int(audio.info.length // 60)}:{int(audio.info.length % 60):02d}" if audio.info else "00:00"
+        return {"year": str(year), "length": length}
+    except Exception:
+        return {"year": str(CURRENT_YEAR), "length": "00:00"}
+
+def should_keep_original(title):
+    # Define keywords that indicate a remix or rework
+    remix_keywords = ["(Remake)", "(Soulful Mix)","(Soulful ReMix)", "(Makeup)", "(Deeper Mix)", "(Visitor)", "(Revisited)", "(Rework)", "(Touch)","(Vocal ReMix)","(Vocal Mix)"]
+    return any(word in title for word in remix_keywords)
+
+def extract_remixer_from_title(title, filename=None):
+    match = re.search(r"\((.*?)\)", title)
+    
+    if match:
+        remix_content = match.group(1)
+        
+        # Handle "3 Step Mix" case
+        if "3 Step" in remix_content:
+            parts = remix_content.split("3 Step")[0].strip()
+            
+            if parts:  # If there's text before "3 Step"
+                return parts
+            elif filename:  # If nothing before "3 Step", extract from filename
+                filename_artist = filename.split(" - ")[0].strip()
+                return filename_artist
+        
+        # General remix extraction logic
+        remix_keywords = ["Remake", "Remix", "Soulful Mix", "Makeup", "Deeper Mix", "Visitor", 
+                          "Revisited", "Rework", "Touch", "Chant", "Bootleg", "Soulful Remix", "Vocal Remix"]
+        for keyword in remix_keywords:
+            if keyword in remix_content:
+                parts = remix_content.split(keyword)
+                before_keyword = parts[0].strip()
+                
+                # Count spaces before keyword
+                space_count = before_keyword.count(" ")
+                split_words = before_keyword.split()
+                
+                if space_count > 2:
+                    return before_keyword
+                elif space_count <= 2 and split_words:
+                    return split_words[-1]
+    
+    return None  # Return None if no remixer is found
+
+def clean_artist_name(artist):
+    artist_mapping = {
+        "Citizen": "Citizen Sthee",
+        "Mr": "Mr Shane SA",
+        "Soulful": "Unknown",
+        "Gigg": "Gigg Cosco",
+        "Griffith": "Griffith Malo",
+        "Lady": "Lady Deep",
+        "Lazy": "Lazy K SA",
+        "Lunaticsoul": "Lunaticsoul",
+        "Leonard": "Leonard Canticle",
+        "1060": "Mr Shane SA",
+        "OG": "OG France",
+        "Nastic": "Nastic Groove",
+        "Groove": "Nastic Groove",
+        "Massive": "Massive R",
+        "Endearing": "Endearing Souls",
+        "Groovy": "Groovy Smallz",
+        "MusiQ": "MusiQ Rebels",
+        "Nick": "Nick SA",
+        "Mafia": "Mafia Natives",
+        "Efkay": "Efkay Da Shiqwan",
+        "Jnr": "Jnr SA",
+        "McCuemza": "McCuemza Isaac",
+        "Dawn": "Dawn Deep",
+        "Da": "Da Capo",
+        "Oscar": "Oscar Mbo",
+        "Brothers": "Brothers On Cue",
+        "Andy": "Andy Bankx",
+        "Kuthathu": "Kuthathu SA",
+        "Afrikhana's": "Afrikhana's Flava"
+    }
+    
+    artist = artist.replace("'s", "")  # Remove any 's from names
+    return artist_mapping.get(artist, artist)  # Replace if mapped, else return original
+
+def extract_featured_artist(ft_artist):
+    match = re.search(r'[,&] *([^\(]+)', ft_artist)
+    return match.group(1).strip() if match else ""
+
+
+def parse_filename(filename):
+    base_name = os.path.splitext(filename)[0]
+    match = re.match(r"(.+?)\sft\.\s(.+?)\s-\s(.+)", base_name)
+    if match:
+        artist, ft_artist, title = match.groups()
+    else:
+        parts = base_name.split(" - ", 1)
+        artist = parts[0]
+        title = parts[1] if len(parts) > 1 else "Unknown Title"
+        ft_artist = ""
+
+    # Remove any part of the artist name after '&' or a comma
+    artist = re.sub(r"([&,]).*$", "", artist).strip()
+
+    remixer = extract_remixer_from_title(title)
+    if remixer:
+        artist = remixer
+    return artist.strip(), ft_artist.strip(), title.strip()
+
+
+def get_last_id():
+    try:
+        with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
+            tracks = json.load(f)
+            if tracks and isinstance(tracks, list):
+                return max(track.get("id", 0) for track in tracks)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return 0
+    return 0
+
+
+
+
+
+def insert_into_db(track_data):
+    try:
+        connection = connect_db()
+        cursor = connection.cursor()
+        sql = """
+        INSERT INTO music (id, artist, ft_artist, title, label, genre, release_date, duration, price, image, audio)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        """
+        values = (
+            track_data["id"],
+            track_data["artist"],
+            track_data["ft_artist"],
+            track_data["title"],
+            track_data["label"],
+            track_data["genre"],
+            track_data["release_date"],
+            track_data["duration"],
+            track_data["price"],
+            track_data["image"],
+            track_data["audio"],
+        )
+        cursor.execute(sql, values)
+        connection.commit()
+        cursor.close()
+        connection.close()
+    except mysql.connector.Error as err:
+        print(f"Database error: {err}")
+
+
+
+
+# Function to upload/update the file on GitHub
+def upload_to_github(file_path):
+    try:
+        url = f"https://api.github.com/repos/{GITHUB_USERNAME}/{GITHUB_REPO}/contents/{GITHUB_FILE_PATH}"
+        
+        # Read file content
+        with open(file_path, "rb") as file:
+            content = file.read()
+            encoded_content = base64.b64encode(content).decode("utf-8")
+
+        # Get SHA of the existing file (if it exists)
+        response = requests.get(url, headers={"Authorization": f"token {GITHUB_TOKEN}"})
+        sha = response.json().get("sha", None) if response.status_code == 200 else None
+
+        # Prepare payload
+        payload = {
+            "message": "Updated Exclusive Music List",
+            "content": encoded_content,
+            "branch": GITHUB_BRANCH
+        }
+        if sha:
+            payload["sha"] = sha  # Needed for updating an existing file
+
+        # Make API request
+        response = requests.put(url, json=payload, headers={"Authorization": f"token {GITHUB_TOKEN}"})
+        
+        if response.status_code in [200, 201]:
+            print("File successfully uploaded to GitHub.")
+        else:
+            print(f"GitHub upload failed: {response.json()}")
+
+    except Exception as e:
+        print(f"Error uploading to GitHub: {e}")
+
+
+def shorten_artist_name(artist_name):
+    """Shortens artist names longer than 17 characters, including spaces."""
+    if len(artist_name) > 17:
+        return artist_name[:14] + "..."
+    return artist_name
+
+def process_folder(folder_path, start_id):
+    current_id = start_id
+    tracks = []
+    if os.path.exists(OUTPUT_FILE):
+        try:
+            with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
+                tracks = json.load(f)
+        except json.JSONDecodeError:
+            tracks = []
+    for file in os.listdir(folder_path):
+        file_path = os.path.join(folder_path, file)
+        if file.lower().endswith(".mp3"):
+            metadata = get_mp3_metadata(file_path)
+        elif file.lower().endswith(".wma"):
+            metadata = get_wma_metadata(file_path)
+        else:
+            continue
+        
+        artist, ft_artist, title = parse_filename(file)
+
+        artist = clean_artist_name(artist)
+        artist = shorten_artist_name(artist)
+        
+        
+        current_id += 1
+        track_data = {
+            "id": current_id,
+            "artist": artist,
+            "ft_artist": ft_artist,
+            "title": title,
+            "label": LABEL,
+            "genre": GENRE,
+            "release_date": metadata["year"],
+            "duration": metadata["length"],
+            "price": PRICE,
+            "image": f"img/{artist.replace(' ', ' ')}.png",
+            "audio": f"tracks/{file}"
+        }
+        tracks.append(track_data)
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+        json.dump(tracks, f, indent=4, ensure_ascii=False)
+
+    return current_id, tracks
+
+
+
+
+    # Read existing track_data
+    try:
+        with open(output_file, "r", encoding="utf-8") as f:
+            for line in f:
+                parts = line.strip().split("|")
+                if len(parts) > 2:
+                    existing_tracks.add(parts[2])  # Assuming track_data is at index 2
+    except FileNotFoundError:
+        pass
+    
+    with open(input_file, "r", encoding="utf-8") as f:
+        for line in f:
+            parts = line.strip().split("|")
+            if len(parts) < 3:
+                continue
+            
+            
+            track_data = parts[2]
+            
+            if track_data in existing_tracks:
+                continue  # Skip duplicates
+            
+            ft_artist = extract_ft_artist(parts[1])
+            processed_lines.append(f"{artist_name} | {parts[1]} | {track_data} | {ft_artist}\n")
+            existing_tracks.add(track_data)
+    
+    with open(output_file, "w", encoding="utf-8") as f:
+        f.writelines(processed_lines)
+
+
+
+
+
+
+folder_paths = []
+while True:
+    folder_path = input("Enter the folder path for music files: ").strip()
+    if os.path.isdir(folder_path):
+        folder_paths.append(folder_path)
+    else:
+        print("Invalid folder path! Please enter a valid folder.")
+    add_more = input("Would you like to add another folder? (yes/no): ").strip().lower()
+    if add_more != "yes":
+        break
+starting_id = get_last_id()
+all_tracks_data = []
+for path in folder_paths:
+    starting_id, tracks_data = process_folder(path, starting_id)
+    all_tracks_data.extend(tracks_data)
+print("Inserting data into the database...")
+
+
+
+for track_data in all_tracks_data:
+    insert_into_db(track_data)  # Store in MySQL
+    # Call this function after processing tracks
+    upload_to_github(OUTPUT_FILE)
+    
+    
+print("Music metadata successfully saved to text file, database, and Github.")
+
+
+
+
+    
+print(f"Music metadata successfully saved to {OUTPUT_FILE} and database.")

@@ -1,459 +1,305 @@
 <?php
-// Start session
-session_start();
+// Define constants
+define('FIREBASE_CONFIG_PATH', __DIR__ . '/serviceAccountKey.json');
+define('DATABASE_URI', 'https://housemusickitchen-b3f91-default-rtdb.firebaseio.com/');
 
-// Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Database connection
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "housemusickitchen_db";
-    $port = 3306; // Your MySQL port number
+require 'vendor/autoload.php';
 
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname, $port);
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\Exception\AuthException;
+use Kreait\Firebase\Exception\DatabaseException;
 
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+$tracks = []; // Initialize the array to store tracks
+$error_message = '';
+
+// 1. Retrieve data from Firebase
+try {
+    // Check if the Firebase credentials file exists.
+    if (!file_exists(FIREBASE_CONFIG_PATH)) {
+        throw new Exception("Firebase credentials file missing at: " . FIREBASE_CONFIG_PATH);
     }
 
-    // Retrieve form data
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    // For debugging:  Print contents of credentials file
+    // var_dump(file_get_contents(FIREBASE_CONFIG_PATH)); // REMOVE FROM PRODUCTION
 
-    // Prepare SQL statement to retrieve user from database
-    $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
-    $result = $conn->query($sql);
+    // Initialize Firebase factory with service account and database URI
+    $factory = (new Factory)
+        ->withServiceAccount(FIREBASE_CONFIG_PATH)
+        ->withDatabaseUri(DATABASE_URI);
 
-    if ($result->num_rows == 1) {
-        // Login successful, set session variables
-        $user = $result->fetch_assoc();
-        $_SESSION['user'] = $email;
-        $_SESSION['firstname'] = $user['firstname']; // Store user's first name in session
-        $_SESSION['lastname'] = $user['lastname']; // Store user's last name in session
-        header("Location: index.php");
-        exit;
+    // Create a Firebase database instance.
+    $database = $factory->createDatabase();
+
+    // Get the reference to the 'tracks' node in the database and retrieve the data.
+    $tracksSnapshot = $database->getReference('tracks')->getValue();
+
+    // Check if data was successfully retrieved and if it's an array.
+    if (!empty($tracksSnapshot) && is_array($tracksSnapshot)) {
+        // If the data is valid assign the values to the tracks array.
+        $tracks = array_values($tracksSnapshot);
     } else {
-        // If login fails, redirect back to login page with an error parameter
-        header("Location: home.php?error=1");
-        exit;
+        $error_message = "No tracks found or invalid data structure.  Check your Firebase 'tracks' node.";
     }
 
-    $conn->close();
+} catch (AuthException $e) {
+    $error_message = "Authentication Error: " . $e->getMessage();
+    error_log("Firebase Authentication Error: " . $e->getMessage());
+} catch (DatabaseException $e) {
+    $error_message = "Database Error: " . $e->getMessage();
+    error_log("Firebase Database Error: " . $e->getMessage());
+} catch (Exception $e) {
+    $error_message = "General Error: " . $e->getMessage();
+    error_log("General Firebase Error: " . $e->getMessage());
+}
+
+// 2. Data Processing and Organization (only if no error)
+if (empty($error_message)) { // Only proceed if there's no error
+    // Ensure $tracks is an array before sorting
+    if (!is_array($tracks)) {
+        $error_message = "Error: Tracks data is not an array.";
+    } else {
+
+        // Sort tracks by artist name, case-insensitively.
+        usort($tracks, function ($a, $b) {
+            return strcasecmp($a['artist'], $b['artist']);
+        });
+
+        // Group tracks by artist to build the menu structure
+        $tracksByArtist = []; // Initialize array to store tracks grouped by artists.
+        foreach ($tracks as $track) {
+            // Use null coalescing operator to provide a default value
+            $artist = $track['artist'] ?? 'Unknown Artist';
+            // Check if the artist already exists as a key and initialize if not.
+            if (!isset($tracksByArtist[$artist])) {
+                $tracksByArtist[$artist] = []; // Initialize the track's array
+            }
+            // Add the track to the artist's array.
+            $tracksByArtist[$artist][] = $track;
+        }
+    }
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Menu</title>
+    <style>
+        /* Basic Styling - Replace with your own CSS file or styling */
+        body { font-family: sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
+        .menu { width: 100%; overflow-x: hidden;  } /* Allow horizontal scrolling */
+        .menu__item { margin-bottom: 10px; background-color: #fff; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 15px; }
+        .menu__item-link { display: block; font-weight: bold; color: #333; text-decoration: none; padding: 10px 0; }
+        .menu__item-link:hover { color: #007bff; }
+        .menu__item-img { max-width: 50px; border-radius: 5px; vertical-align: middle; margin-left: 10px; }
+        .category { display: none; margin-top: 10px; padding: 10px; background-color: #eee; border-radius: 5px; }
+        .product { margin-bottom: 10px; padding: 10px; background-color: #fff; border-radius: 5px; border: 1px solid #ddd;}
+        .trk-row { display: flex; align-items: center; padding: 5px 0; border-bottom: 1px solid #eee; }
+        .trk-cell { flex: 1; padding: 0 5px; }
+        .trk-cell img { max-width: 30px; max-height: 30px; }
+        .play-fly { display: inline-block; } /* Added for visibility */
+        .play-fly a { display: inline-block; padding: 5px 10px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; }
+        .play-fly a:hover { background-color: #3e8e41; }
+        .marquee {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            background-color: #ddd; /* Background for visual clarity */
+            padding: 5px 0; /* Reduced padding */
+            border-radius: 5px;
+        }
+
+        .marquee__inner {
+            display: inline-block;
+            animation: marquee 15s linear infinite;
+            padding: 0 20px; /* Adjust padding as needed */
+            white-space: nowrap; /* Prevent text from wrapping */
+        }
+
+        .marquee__inner span {
+            display: inline-block; /* Ensures correct spacing */
+            font-size: 14px; /* Adjust font size as needed */
+            color: #555; /* Text color */
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
-    <head>
-        <title>House Music Kitchen</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <meta name="description" content="Collapsing Site Navigation with jQuery" />
-        <meta name="keywords" content="jquery, navigation, menu, collapsing, accordion, sliding, image, css3"/>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="A menu with a css-only marquee hover effect" />
-		<meta name="keywords" content="marquee, css, animation, loop, infinite, hover, menu, navigation" />
-		<title>House Music Kitchen</title>
-		<link rel="stylesheet" href="styles.css">
-		<link rel="shortcut icon" href="favicon.ico">
-		<link rel="stylesheet" href="https://use.typekit.net/zhq0vyf.css">
-		<link rel="stylesheet" type="text/css" href="css/base.css" />
-		<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
-        <link rel="stylesheet" href="css/style.css" type="text/css" media="screen"/>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-		<script src="js/cufon-yui.js" type="text/javascript"></script>
-		<script src="js/Liberation_Sans.font.js" type="text/javascript"></script>
-		<script type="text/javascript">
-			Cufon.replace('span');
-			Cufon.replace('li');
-			Cufon.replace('h1');
-			Cufon.replace('p');
-		</script>
-        <style>
-			body{
-				background:#000 url(images/stripe.gif) repeat top left;
-				margin:0;
-				padding:0;
-				display: flex;
-				height: 100vh;
-			}
+    </style>
+</head>
+<body>
+<!-- Da Capo Logo Here (Example) -->
+<h1>Da Capo</h1>
 
-			#product-list {
-				flex: 1;
-				padding: 20px;
-			}
-	
-			#cart {
-				width: 200px;
-				background-color: #f0f0f0;
-				padding: 20px;
-				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-				position: fixed; /* Fix position */
-				top: 0; /* Position from top */
-				right: 0; /* Position from right */
-				z-index: 999; /* Ensure it's above other content */
-			}
-	
-			#cart table {
-				width: 100%;
-			}
-	
-			#cart table td {
-				padding: 8px;
-				border-bottom: 1px solid #ddd;
-				vertical-align: middle;
-			}
-	
-			.remove-button {
-				cursor: pointer;
-				background-color: #ff6666;
-				color: #fff;
-				border: none;
-				padding: 6px 12px;
-				border-radius: 4px;
-			}
-	
-			#checkout-button {
-				background-color: #7fff7f;
-				color: #fff;
-				border: none;
-				padding: 10px 20px;
-				border-radius: 4px;
-				cursor: pointer;
-				margin-top: 20px;
-			}
-	
-			#checkout-button:hover {
-				background-color: #5cb85c;
-			}
-	
-			#clear-button {
-				background-color: #ffd699;
-				color: #333;
-				border: none;
-				padding: 10px 20px;
-				border-radius: 4px;
-				cursor: pointer;
-				margin-top: 10px;
-			}
-	
-			#clear-button:hover {
-				background-color: #ffc966;
-			}
-	
-			#searchResult {
-				margin-top: 10px;
-			}
-	
-			/* New CSS to hide categories by default */
-			.category {
-				display: none;
-			}
-			span.reference{
-				font-family:Arial;
-				text-transform:uppercase;
-				position:fixed;
-				right:95px;
-				bottom:10px;
-				font-size:11px;
-				text-shadow:1px 1px 1px #000;
-			}
-			span.reference a{
-				color:#aaa;
-				text-decoration:none;
-				margin-right:20px;
-			}
-			span.reference a:hover{
-				color:#ddd;
-			}
-			.title{
-				position:absolute;
-				/*right:-10px;*/
-				margin-left: 55%;
-				top: 100px;
-				width:600px;
-				height:600px;
-				background:transparent url(images/title.png) no-repeat top left;
-				filter: grayscale(80%);
-			}
-		</style>
-    </head>
+<?php if (!empty($error_message)): ?>
+    <p style="color: red;"><?php echo htmlspecialchars($error_message); ?></p>
+<?php else: ?>
 
-    <body>
+<nav class="menu">
+    <?php foreach ($tracksByArtist as $artist => $artistTracks): ?>
+        <?php
+        $artist_safe = str_replace(' ', '', $artist);
+        $firstTrack = $artistTracks[0] ?? []; // Use null coalescing operator and check for empty array
+        $firstTrackImage = $firstTrack['image'] ?? ''; //Use null coalescing operator to handle null image
+        ?>
 
-		<div class="title"></div>
-		<div id="cc_menu" class="cc_menu">
-			<div class="cc_item" style="z-index:5;">
-				<img src="images/1.jpg" alt="image" />
-				<span class="cc_title">Music</span>
-				<div class="cc_submenu">
-					<ul>
-						<li class="cc_content_1">Soulful House</li>
-						<li class="cc_content_2">Afro House</li>
-						<li class="cc_content_3">Deep House</li>
-						<li class="cc_content_4">Tech House</li>
-						<li class="cc_content_5">Old House</li>
-					</ul>
-				</div>
-			</div>
-			<div class="cc_item" style="z-index:4;">
-				<img src="images/2.jpg" alt="image" />
-				<span class="cc_title">Stores</span>
-				<div class="cc_submenu">
-					<ul>
-						<li class="cc_content_6">Milano</li>
-						<li class="cc_content_7">Paris</li>
-						<li class="cc_content_8">New York</li>
-						<li class="cc_content_9">Miami</li>
-					</ul>
-				</div>
-			</div>
-			<div class="cc_item" style="z-index:3;">
-				<img src="images/3.jpg" alt="image" />
-				<span class="cc_title">About</span>
-				<div class="cc_submenu">
-					<ul>
-						<li class="cc_content_7">About us</li>
-						<li class="cc_content_8">Contact</li>
-					</ul>
-				</div>
-			</div>
-			<div class="cc_item" style="z-index:2;">
-				<img src="images/4.jpg" alt="image" />
-				<span class="cc_title">Events</span>
-				<div class="cc_submenu">
-					<ul>
-						<li class="cc_content_9">Durban</li>
-						<li class="cc_content_10">Joburgh</li>
-						<li class="cc_content_10">Cape Town</li>
-					</ul>
-				</div>
-			</div>
-			<div class="cc_item" style="z-index:1;">
-				<img src="images/5.jpg" alt="image" />
-				<span class="cc_title">Join</span>
-				<div class="cc_submenu">
-					<ul>
-						<li class="cc_content_11">Login</li>
-						<li class="cc_content_12">Sign up</li>
-					</ul>
-				</div>
-			</div>
-			<div id="cc_content" class="cc_content">
-				<span id="cc_back" class="cc_back">&lt;&lt; Go back</span>
-				<div class="cc_content_1">
-					<h1>Winter 2010</h1>
-					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-				</div>
-				<div class="cc_content_2">
-					<h1>Spring 2011</h1>
-					<p>It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen.</p>
-				</div>
-				<div class="cc_content_3">
-					<h1>Milano</h1>
-					<p>She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek</p>
-				</div>
-				<div class="cc_content_4">
-					<h1>Paris</h1>
-					<p>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment. </p>
-				</div>
-				<div class="cc_content_5">
-					<h1>New York</h1>
-					<p>It wasn't a dream. His room, a proper human room although a little too small, lay peacefully between its four familiar walls. A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame.</p>
-				</div>
-				<div class="cc_content_6">
-					<h1>Miami</h1>
-					<p>It wasn't a dream. His room, a proper human room although a little too small, lay peacefully between its four familiar walls. A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame.</p>
-				</div>
-				<div class="cc_content_7">
-					<h1>About us</h1>
-					<p>It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather.</p>
-				</div>
-				<div class="cc_content_8">
-					<h1>Our Philosophy</h1>
-					<p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents.</p>
-				</div>
-				<div class="cc_content_9">
-					<h1>Bacardi Summer Party</h1>
-					<p>I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now. When, while the lovely valley teems with vapour around me, and the meridian sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling stream; and, as I lie close to the earth</p>
-				</div>
-				<div class="cc_content_10">
-					<h1>Lonestyle Auction</h1>
-					<p>To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure? On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire</p>
-				</div>
-				<div class="cc_content_11">
-					<h1>Custom Orders</h1>
-					<?php
-						// Display error message if login failed
-						if (isset($_GET['error']) && $_GET['error'] == 1) {
-							echo '<p style="color: red;">Invalid email or password.</p>';
-						}
-						?>
-					<form id="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-						<h1> <input type="email" name="email" placeholder="Email" required></h1>
-						<h1><input type="password" name="password" placeholder="Password" required></h1>
-						<h1><button type="submit" value="login">Login</button></h1>
-					</form>
-					<a href="signup.html">
-						<button style="background-color: coral;">Signup</button>
-					</a>
-				</div>
-				<div class="cc_content_12">
-					<h1>Get in touch</h1>
-					<p>Winter collection</p>
-				</div>
-			</div>
-		</div>
-        <div>
-            <span class="reference">
-                <a href="http://tympanus.net/codrops/2010/09/06/collapsing-site-navigation/">back to the Codrops tutorial</a>
-				<a href="http://www.flickr.com/photos/parisbeyrouth">Photos by beyrouth</a>
-            </span>
-		</div>
-        <!-- The JavaScript -->
-        <script type="text/javascript">
-            $(function() {
-				//all the menu items
-				var $items 		= $('#cc_menu .cc_item');
-				//number of menu items
-				var cnt_items	= $items.length;
-				//if menu is expanded then folded is true
-				var folded		= false;
-				//timeout to trigger the mouseenter event on the menu items
-				var menu_time;
-				/**
-				bind the mouseenter, mouseleave to each item:
-				- shows / hides image and submenu
-				bind the click event to the list elements (submenu):
-				- hides all items except the clicked one, 
-				and shows the content for that item
-				*/
-				$items.unbind('mouseenter')
-					  .bind('mouseenter',m_enter)
-				      .unbind('mouseleave')
-					  .bind('mouseleave',m_leave)
-					  .find('.cc_submenu > ul > li')
-					  .bind('click',function(){
-					var $li_e = $(this);
-						  //if the menu is already folded,
-						  //just replace the content
-					if(folded){
-						hideContent();
-						showContent($li_e.attr('class'));
-					}	
-					      else //fold and show the content
-						fold($li_e);
-				});
-				
-				/**
-				mouseenter function for the items
-				the timeout is used to prevent this event 
-				to trigger if the user moves the mouse with 
-				a considerable speed through the menu items
-				*/
-				function m_enter(){
-					var $this 	= $(this);
-					clearTimeout(menu_time);
-					menu_time 	= setTimeout(function(){
-					//img
-					$this.find('img').stop().animate({'top':'0px'},400);
-					//cc_submenu ul
-					$this.find('.cc_submenu > ul').stop().animate({'height':'200px'},400);
-					},200);
-				}
-				
-				//mouseleave function for the items
-				function m_leave(){
-					var $this = $(this);
-					clearTimeout(menu_time);
-					//img
-					$this.find('img').stop().animate({'top':'-600px'},400);
-					//cc_submenu ul
-					$this.find('.cc_submenu > ul').stop().animate({'height':'0px'},400);
-				}
-				
-				//back to menu button - unfolds the menu
-				$('#cc_back').bind('click',unfold);
-				
-				/**
-				hides all the menu items except the clicked one
-				after that, the content is shown
-				*/
-				function fold($li_e){
-					var $item		= $li_e.closest('.cc_item');
-					
-					var d = 100;
-					var step = 0;
-					$items.unbind('mouseenter mouseleave');
-					$items.not($item).each(function(){
-						var $item = $(this);
-						$item.stop().animate({
-							'marginLeft':'-140px'
-						},d += 200,function(){
-							++step;
-							if(step == cnt_items-1){
-								folded = true;
-								showContent($li_e.attr('class'));
-							}	
-						});
-					});
-				}
-				
-				/**
-				shows all the menu items 
-				also hides any item's image / submenu 
-				that might be displayed
-				*/
-				function unfold(){
-					$('#cc_content').stop().animate({'left':'-700px'},600,function(){
-						var d = 100;
-						var step = 0;
-					$items.each(function(){
-							var $item = $(this);
-							
-							$item.find('img')
-								 .stop()
-								 .animate({'top':'-600px'},200)
-								 .andSelf()
-								 .find('.cc_submenu > ul')
-								 .stop()
-								 .animate({'height':'0px'},200);
-								 
-							$item.stop().animate({
-							'marginLeft':'0px'
-							},d += 200,function(){
-								++step;
-								if(step == cnt_items-1){
-									folded = false;
-									$items.unbind('mouseenter')
-										  .bind('mouseenter',m_enter)
-										  .unbind('mouseleave')
-										  .bind('mouseleave',m_leave);
-									
-									hideContent();
-								}		  
-							});
-						});
-					});
-				}
-				
-				//function to show the content
-				function showContent(idx){
-					$('#cc_content').stop().animate({'left':'140px'},200,function(){
-						$(this).find('.'+idx).fadeIn();
-					});
-				}
-				
-				//function to hide the content
-				function hideContent(){
-					$('#cc_content').find('div').hide();
-				}
-            });
-        </script>
-    </body>
+        <div class="menu__item" id="product-list-<?php echo htmlspecialchars($artist_safe); ?>" style="padding-top: 20px; padding-bottom: 20px;">
+            <a class="menu__item-link" data-category="<?php echo htmlspecialchars($artist_safe); ?>"
+               onclick="toggleCategory('<?php echo htmlspecialchars($artist_safe); ?>')">
+                <?php echo htmlspecialchars($artist); ?>
+            </a>
+            <?php if ($firstTrackImage): ?>
+            <img style="margin-left: 30%" class="menu__item-img" src="<?php echo htmlspecialchars($firstTrackImage); ?>" alt="<?php echo htmlspecialchars($artist); ?>"/>
+            <?php endif; ?>
+            <div class="category" id="<?php echo htmlspecialchars($artist_safe); ?>" style="display: none;">
+                <div class="trklist v- full init-invis">
+                    <div class="trk-row hdr">
+                        <div class="trk-cell tnum-pos"></div>
+                        <div class="trk-cell thumb"></div>
+                        <div class="trk-cell title sort">TRACK</div>
+                        <div class="trk-cell artists sort">ARTISTS</div>
+                        <div class="trk-cell genre sort">GENRE</div>
+                        <div class="trk-cell label sort">LABEL</div>
+                        <div class="trk-cell r-date sort" style="width: 80px;">RELEASED</div>
+                        <div class="trk-cell btncell" style="width: 120px;"></div>
+                        <div class="sort-sel"><b>Sort</b> </div>
+                    </div>
+
+                    <?php foreach ($artistTracks as $track): ?>
+                        <?php
+                        $ft_artist_safe = str_replace(' ', '', $track['ft_artist'] ?? '');
+                        $title_safe = str_replace(' ', '', $track['title'] ?? '');
+                        $track_data_json = htmlspecialchars(json_encode($track), ENT_QUOTES, 'UTF-8');
+                        $trackImage = $track['image'] ?? ''; // Handle potential missing image
+                        ?>
+                        <div class="product" data-id="<?php echo htmlspecialchars($track['id'] ?? ''); ?>" data-price="<?php echo htmlspecialchars($track['price'] ?? ''); ?>">
+                            <h3>
+                                <div data-trid="<?php echo htmlspecialchars($track['id'] ?? ''); ?>" class="trk-row play-trk ptk-<?php echo htmlspecialchars($track['id'] ?? ''); ?> ptk-ref-<?php echo htmlspecialchars($track['id'] ?? ''); ?>">
+                                    <div class="trk-cell tnum-pos"></div>
+                                    <div class="trk-cell thumb">
+                                        <?php if ($trackImage): ?>
+                                            <img src="<?php echo htmlspecialchars($trackImage); ?>" width="50" height="50"/>
+                                        <?php endif; ?>
+                                        <div class="play-fly">
+                                            <a href="javascript:void(0)" class="com-play played" title="Play Track"
+                                               onclick="toggleAudio('<?php echo htmlspecialchars($track['audio'] ?? ''); ?>', '<?php echo htmlspecialchars($track['title'] ?? ''); ?>', '<?php echo htmlspecialchars($track['artist'] ?? ''); ?> ft. <?php echo htmlspecialchars($track['ft_artist'] ?? ''); ?>')">
+                                                Play
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="trk-cell title">
+                                        <a href="/track/<?php echo htmlspecialchars($title_safe); ?>/hit-it-up-vocal-mix">
+                                            <?php echo htmlspecialchars($track['artist'] ?? ''); ?> ft. <?php echo htmlspecialchars($track['ft_artist'] ?? ''); ?> - <?php echo htmlspecialchars($track['title'] ?? ''); ?>
+                                        </a>
+                                        <span class="adap-br"><br /></span>
+                                        <span class="duration">(<?php echo htmlspecialchars($track['duration'] ?? ''); ?>)</span>
+                                    </div>
+                                    <div class="trk-cell artists">
+                                        <a href="/artist/561171/<?php echo htmlspecialchars($artist_safe); ?>" class="com-artists" data-aid="561171"><?php echo htmlspecialchars($track['artist'] ?? ''); ?> ft. <?php echo htmlspecialchars($track['ft_artist'] ?? ''); ?></a>
+                                        <span class="adap-br"><br /></span>
+                                    </div>
+                                    <div class="trk-cell genre">
+                                        <a href="/genre/13/deep-house"><?php echo htmlspecialchars($track['genre'] ?? ''); ?></a>
+                                    </div>
+                                    <div class="trk-cell label">
+                                        <span><?php echo htmlspecialchars($track['label'] ?? ''); ?></span>
+                                    </div>
+                                    <div class="trk-cell r-date" style="width: 80px;"><?php echo htmlspecialchars($track['release_date'] ?? ''); ?></div>
+                                    <div class="trk-cell btncell" style="width: 120px;">
+                                        <div style="background-color:transparent" class="buy-cont">
+                                            <a href="javascript:void(0);" class="com-buy" data-cart="{title_id: 52170145, track_id: 11834552}" title="Add to Cart">
+                                                <span class="price">
+                                                    <button style="color:ghostwhite; font-weight:bolder; border:green; background-color:transparent; padding: 5px 10px;" class="product" onclick="addToCart(<?php echo htmlspecialchars($track['id'] ?? ''); ?>)" data-price="<?php echo htmlspecialchars($track['price'] ?? ''); ?>">
+                                                        $<?php echo htmlspecialchars($track['price'] ?? ''); ?>
+                                                    </button>
+
+                                                </span>
+                                            </a>
+                                            <a href="javascript:void(0)" class="cart-alt"></a>
+                                        </div>
+                                    </div>
+                                    <div class="trk-cell fly-btn">
+                                        <svg class="fly-svg"><use xlink:href="/img/vects.v2.svg#fly-btn"></use></svg>
+                                        <svg class="fly-svg flipped"><use xlink:href="/img/vects.v2.svg#fly-btn-flip"></use></svg>
+                                    </div>
+                                </div>
+                            </h3>
+                        </div>
+                    <?php endforeach; ?>
+
+                    <div id="bodyBay" data-init_cpo="">
+                        <script type="text/javascript">
+                            $(function() {
+                                // enablePageListPage(); // Assuming this function exists
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            <div class="marquee" id="<?php echo htmlspecialchars($artist_safe); ?>">
+                <div class="marquee__inner" aria-hidden="true">
+                    <span><?php echo htmlspecialchars($artist); ?></span>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</nav>
+<?php endif; ?>
+
+<script>
+function toggleCategory(categoryId) {
+    var categoryDiv = document.getElementById(categoryId);
+
+    if (categoryDiv.style.display === "none") {
+        // If hidden, show it and hide all others
+        categoryDiv.style.display = "block";
+        // Hide all other categories
+        var allCategories = document.querySelectorAll('.category');
+        allCategories.forEach(function(cat) {
+            if (cat.id !== categoryId) {
+                cat.style.display = "none";
+            }
+        });
+    } else {
+        // If visible, hide it
+        categoryDiv.style.display = "none";
+    }
+}
+
+// Add an event listener to the document to handle clicks outside of the categories
+document.addEventListener('click', function(event) {
+    // Get the target element of the click
+    var targetElement = event.target;
+
+    // Check if the click was outside of the category elements and menu items
+    if (!targetElement.closest('.category') && !targetElement.closest('.menu__item')) {
+        // Hide all categories
+        var allCategories = document.querySelectorAll('.category');
+        allCategories.forEach(function(cat) {
+            cat.style.display = "none";
+        });
+    }
+});
+
+// Dummy functions for addToCart and toggleAudio - replace with your actual implementation
+function addToCart(trackId) {
+    alert('Adding track ' + trackId + ' to cart (not implemented)');
+}
+
+function toggleAudio(audioUrl, title, artist) {
+    alert('Playing audio: ' + title + ' by ' + artist + ' (not implemented)');
+}
+</script>
+
+</body>
 </html>

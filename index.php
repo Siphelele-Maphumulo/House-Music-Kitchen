@@ -48,6 +48,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<meta name="keywords" content="layout, uidesign, template, css, javascript, columns, grid" />
 		<meta name="author" content="Codrops" />
 		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
 		<link rel="stylesheet" href="https://use.typekit.net/bml8yys.css">
 		<link rel="stylesheet" type="text/css" href="base.css" /> <!---------Working--------------------->
 		
@@ -269,6 +271,22 @@ form .btn input[type="submit"]{
             background-position: center;
             margin-bottom: 10px; /* Adjust the space between images */
         }
+        
+		.frame__links {
+        display: flex;
+        gap: 15px;
+    }
+
+    .frame__links a {
+        font-size: 24px; /* Adjust size as needed */
+        color: #333; /* Default color */
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .frame__links a:hover {
+        color: #007bff; /* Change color on hover */
+    }
 
 </style>
 
@@ -280,10 +298,16 @@ form .btn input[type="submit"]{
 					<h1 class="frame__title">By Mabhelan</h1>
 				</div>
 				<div class="frame__links">
-					<a href="https://tympanus.net/Tutorials/underwater-navigation/">Previous demo</a>
-					<a href="https://tympanus.net/codrops/?p=40486">Article</a>
-					<a href="https://github.com/codrops/AnimatedImageColumns/">Github</a>
-				</div>
+			    <a href="https://tympanus.net/Tutorials/underwater-navigation/" target="_blank">
+			        <i class="fab fa-whatsapp"></i>
+			    </a>
+			    <a href="https://tympanus.net/codrops/?p=40486" target="_blank">
+			        <i class="fab fa-instagram"></i>
+			    </a>
+			    <a href="https://github.com/codrops/AnimatedImageColumns/" target="_blank">
+			        <i class="fas fa-music"></i> 
+			    </a>
+			</div>
 			</div>
 			<div class="content content--second">
 				<article class="item">
@@ -625,7 +649,7 @@ form .btn input[type="submit"]{
 						</div>
 					</div><!--/columns-->
 					<nav class="menu" style="align-items:center; margin-left:30%">
-						<a class="menu__item">About Us</a>
+							<a class="menu__item">About Us</a>
 						<a class="menu__item">Events</a>
 						<a class="menu__item">Userguide</a>
 						<a class="menu__item">Login-Signup</a>
