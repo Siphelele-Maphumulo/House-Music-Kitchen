@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Music List</title>
+</head>
+<body>
+    <h2>Music Editing</h2>
+
+    <!-- Table to display music data -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Artist</th>
+                <th>Featured Artist</th>
+                <th>Title</th>
+                <th>Label</th>
+                <th>Genre</th>
+                <th>Release Date</th>
+                <th>Duration</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>Audio</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for music in music_data %}
+                <tr id="music-{{ music.id }}">
+                    <td>{{ music.id }}</td>
+                    <td><input type="text" id="artist-{{ music.id }}" value="{{ music.artist }}"></td>
+                    <td><input type="text" id="ft_artist-{{ music.id }}" value="{{ music.ft_artist }}"></td>
+                    <td><input type="text" id="title-{{ music.id }}" value="{{ music.title }}"></td>
+                    <td><input type="text" id="label-{{ music.id }}" value="{{ music.label }}"></td>
+                    <td><input type="text" id="genre-{{ music.id }}" value="{{ music.genre }}"></td>
+                    <td><input type="text" id="release_date-{{ music.id }}" value="{{ music.release_date }}"></td>
+                    <td><input type="text" id="duration-{{ music.id }}" value="{{ music.duration }}"></td>
+                    <td><input type="text" id="price-{{ music.id }}" value="{{ music.price }}"></td>
+                    <td><img src="{{ music.image }}" alt="{{ music.artist }}" width="50" height="50"></td>
+                    <td><a href="{{ music.audio }}" target="_blank">Listen</a></td>
+                    <td>
+                        <button onclick="updateMusic({{ music.id }})">Update</button>
+                        <button onclick="deleteMusic({{ music.id }})">Delete</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Script to handle button clicks -->
+    <script>
+        function updateMusic(id) {
+            const updatedData = {
+                artist: document.getElementById(`artist-${id}`).value,
+                ft_artist: document.getElementById(`ft_artist-${id}`).value,
+                title: document.getElementById(`title-${id}`).value,
+                label: document.getElementById(`label-${id}`).value,
+                genre: document.getElementById(`genre-${id}`).value,
+                release_date: document.getElementById(`release_date-${id}`).value,
+                duration: document.getElementById(`duration-${id}`).value,
+                price: document.getElementById(`price-${id}`).value
+            };
+
+            fetch(`/update-music/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatedData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Music updated successfully!');
+                    location.reload();
+                } else {
+                    alert('Error updating music: ' + data.error);
+                }
+            });
+        }
+
+        function deleteMusic(id) {
+            if (confirm('Are you sure you want to delete this entry?')) {
+                fetch(`/delete-music/${id}`, {
+                    method: 'DELETE'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Music deleted successfully!');
+                        document.getElementById(`music-${id}`).remove();
+                    } else {
+                        alert('Error deleting music: ' + data.error);
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
