@@ -1,5 +1,3 @@
-
-
 import os
 import re
 import json
@@ -7,12 +5,18 @@ import datetime
 import mysql.connector
 import requests
 import base64
-
+import mimetypes
+import tkinter as tk
+from tkinter import filedialog
 from mutagen.mp3 import MP3
 from mutagen.id3 import ID3, ID3NoHeaderError
 from mutagen.asf import ASF
 
+# Initialize Tkinter (without opening the full GUI)
+root = tk.Tk()
+root.withdraw()  # Hide the main Tkinter window
 
+# Database Configurations
 DB_HOST = "localhost"
 DB_USER = "root"
 DB_PASSWORD = ""
@@ -25,13 +29,11 @@ GITHUB_FILE_PATH = "Exclusive_Music_List.txt"  # Path in the repo
 GITHUB_BRANCH = "main"  # Branch name
 GITHUB_TOKEN = "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"  # Securely load token
 
-
 LABEL = "House Music Kitchen"
 GENRE = "Deep House"
 PRICE = "1.99"
 CURRENT_YEAR = datetime.datetime.now().year
 OUTPUT_FILE = "Exclusive_Music_List.txt"
-KEEP_ORIGINAL_KEYWORDS = ["Original", "(Deeper Mix)", "(Exclusive)", "(Groove Mix)", "(Dub)", "Radio Edit", "Club Edit" ,"Exclusive", "Groove Mix", "Dub", "Radio Edit", "Club Edit"]
 
 def connect_db():
     return mysql.connector.connect(host=DB_HOST, user=DB_USER, password=DB_PASSWORD, database=DB_NAME)
@@ -59,8 +61,7 @@ def get_wma_metadata(file_path):
         return {"year": str(CURRENT_YEAR), "length": "00:00"}
 
 def should_keep_original(title):
-    # Define keywords that indicate a remix or rework
-    remix_keywords = ["(Remake)", "(Soulful Mix)","(Soulful ReMix)", "(Makeup)", "(Deeper Mix)", "(Visitor)", "(Revisited)", "(Rework)", "(Touch)","(Vocal ReMix)","(Vocal Mix)"]
+    remix_keywords = ["(Remake)", "(Soulful Mix)", "(Soulful Remix)", "(Soulful ReMix)", "(Makeup)", "(Deeper Mix)", "(Visitor)", "(Revisited)", "(Rework)", "(Touch)", "(Vocal ReMix)", "(Vocal Mix)"]
     return any(word in title for word in remix_keywords)
 
 def extract_remixer_from_title(title):
@@ -68,34 +69,27 @@ def extract_remixer_from_title(title):
     if match:
         remix_content = match.group(1)
         
-        # Check if the title has an apostrophe indicating ownership
         if "'s" in remix_content:
             return remix_content.split("'s")[0].strip()
         
-        remix_keywords = ["Remake", "Remix", "Soulful Mix", "Makeup", "Deeper Mix", "Visitor", "Revisited", "Rework", "Touch", "Chant", "Step", "Bootleg", "Soulful Remix", "Vocal Remix"]
+        remix_keywords = ["Dub Mix","Remake", "Remix", "Soulful Mix", "Makeup", "Deeper Mix", "Visitor", "Revisited", "Rework", "Touch", "Chant", "Step", "Bootleg", "Soulful Remix", "Vocal Remix"]
         for keyword in remix_keywords:
             if keyword in remix_content:
                 parts = remix_content.split(keyword)
                 before_keyword = parts[0].strip()
-                
-                # Count spaces before keyword
                 space_count = before_keyword.count(" ")
-
                 split_words = before_keyword.strip().split()
                 if space_count > 2:
                     return before_keyword.strip()
-                elif space_count <= 2 and split_words:  # Ensure it's not empty
-                    return split_words[-1]  # Safely access the last word
-    
-    return None  # Return None if no remixer is found
-
-
+                elif space_count <= 2 and split_words:
+                    return split_words[-1]
+    return None
 
 def clean_artist_name(artist):
     artist_mapping = {
+        "Soulful": "Unknown",
         "Citizen": "Citizen Sthee",
         "Mr": "Mr Shane SA",
-        "Soulful": "Unknown",
         "Gigg": "Gigg Cosco",
         "Griffith": "Griffith Malo",
         "Lady": "Lady Deep",
@@ -103,6 +97,7 @@ def clean_artist_name(artist):
         "Lunaticsoul": "Lunaticsoul",
         "Leonard": "Leonard Canticle",
         "1060": "Mr Shane SA",
+        "Mr Shane SA 10...": "Mr Shane SA",
         "OG": "OG France",
         "Nastic": "Nastic Groove",
         "Groove": "Nastic Groove",
@@ -121,16 +116,16 @@ def clean_artist_name(artist):
         "Brothers": "Brothers On Cue",
         "Andy": "Andy Bankx",
         "Kuthathu": "Kuthathu SA",
-        "Afrikhana's": "Afrikhana's Flava"
+        "Afrikhana's": "Afrikhana's Flava",
+        "QuesterCafe" : "QuestarCafe"
     }
     
-    artist = artist.replace("'s", "")  # Remove any 's from names
-    return artist_mapping.get(artist, artist)  # Replace if mapped, else return original
+    artist = artist.replace("'s", "")
+    return artist_mapping.get(artist, artist)
 
 def extract_featured_artist(ft_artist):
     match = re.search(r'[,&] *([^\(]+)', ft_artist)
     return match.group(1).strip() if match else ""
-
 
 def parse_filename(filename):
     base_name = os.path.splitext(filename)[0]
@@ -142,15 +137,11 @@ def parse_filename(filename):
         artist = parts[0]
         title = parts[1] if len(parts) > 1 else "Unknown Title"
         ft_artist = ""
-
-    # Remove any part of the artist name after '&' or a comma
     artist = re.sub(r"([&,]).*$", "", artist).strip()
-
     remixer = extract_remixer_from_title(title)
     if remixer:
         artist = remixer
     return artist.strip(), ft_artist.strip(), title.strip()
-
 
 def get_last_id():
     try:
@@ -161,9 +152,6 @@ def get_last_id():
     except (FileNotFoundError, json.JSONDecodeError):
         return 0
     return 0
-
-
-
 
 
 def insert_into_db(track_data):
@@ -194,10 +182,6 @@ def insert_into_db(track_data):
     except mysql.connector.Error as err:
         print(f"Database error: {err}")
 
-
-
-
-# Function to upload/update the file on GitHub
 def upload_to_github(file_path):
     try:
         url = f"https://api.github.com/repos/{GITHUB_USERNAME}/{GITHUB_REPO}/contents/{GITHUB_FILE_PATH}"
@@ -231,7 +215,6 @@ def upload_to_github(file_path):
     except Exception as e:
         print(f"Error uploading to GitHub: {e}")
 
-
 def shorten_artist_name(artist_name):
     """Shortens artist names longer than 17 characters, including spaces."""
     if len(artist_name) > 17:
@@ -261,7 +244,6 @@ def process_folder(folder_path, start_id):
         artist = clean_artist_name(artist)
         artist = shorten_artist_name(artist)
         
-        
         current_id += 1
         track_data = {
             "id": current_id,
@@ -277,77 +259,38 @@ def process_folder(folder_path, start_id):
             "audio": f"tracks/{file}"
         }
         tracks.append(track_data)
+        
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(tracks, f, indent=4, ensure_ascii=False)
 
     return current_id, tracks
 
-
-
-
-    # Read existing track_data
-    try:
-        with open(output_file, "r", encoding="utf-8") as f:
-            for line in f:
-                parts = line.strip().split("|")
-                if len(parts) > 2:
-                    existing_tracks.add(parts[2])  # Assuming track_data is at index 2
-    except FileNotFoundError:
-        pass
-    
-    with open(input_file, "r", encoding="utf-8") as f:
-        for line in f:
-            parts = line.strip().split("|")
-            if len(parts) < 3:
-                continue
-            
-            
-            track_data = parts[2]
-            
-            if track_data in existing_tracks:
-                continue  # Skip duplicates
-            
-            ft_artist = extract_ft_artist(parts[1])
-            processed_lines.append(f"{artist_name} | {parts[1]} | {track_data} | {ft_artist}\n")
-            existing_tracks.add(track_data)
-    
-    with open(output_file, "w", encoding="utf-8") as f:
-        f.writelines(processed_lines)
-
-
-
-
-
-
 folder_paths = []
 while True:
-    folder_path = input("Enter the folder path for music files: ").strip()
-    if os.path.isdir(folder_path):
+    folder_path = filedialog.askdirectory(title="Select a Folder for Music Files")
+    
+    if folder_path:  # Check if a folder was selected
         folder_paths.append(folder_path)
+        print(f"Folder added: {folder_path}")
     else:
-        print("Invalid folder path! Please enter a valid folder.")
+        print("No folder selected. Please try again.")
+
     add_more = input("Would you like to add another folder? (yes/no): ").strip().lower()
     if add_more != "yes":
         break
 starting_id = get_last_id()
 all_tracks_data = []
+
 for path in folder_paths:
     starting_id, tracks_data = process_folder(path, starting_id)
     all_tracks_data.extend(tracks_data)
+
 print("Inserting data into the database...")
-
-
 
 for track_data in all_tracks_data:
     insert_into_db(track_data)  # Store in MySQL
-    # Call this function after processing tracks
-    upload_to_github(OUTPUT_FILE)
-    
-    
-print("Music metadata successfully saved to text file, database, and Github.")
+    upload_to_github(OUTPUT_FILE)  # Upload to GitHub
 
 
 
-
-    
-print(f"Music metadata successfully saved to {OUTPUT_FILE} and database.")
+print("Music metadata successfully saved to text file, database, GitHub, and Google Drive.")
