@@ -7,7 +7,7 @@ $isAdmin = ($role === 'admin'); // Determine if the user is an admin
 
 // Check if user is not logged in, redirect to login page
 if (!isset($_SESSION['user'])) {
-    header("Location: login.php"); // Redirect to your login page
+    header("Location: index.php"); // Redirect to your login page
     exit;
 }
 
@@ -173,18 +173,12 @@ require 'vendor/autoload.php';
     
     /* Fix position inside modal */
     position: absolute;
-
-
-
 }
 
 /* Hover effect */
 .close:hover {
     background-color: darkred;
 }
-
-
-
 
     /* Customizing Scrollbar for Webkit Browsers */
     .modal-content::-webkit-scrollbar {
@@ -211,6 +205,17 @@ require 'vendor/autoload.php';
     #aboutUsModal {
     display: none; /* Ensure it doesn't show by default */
 }
+
+#eventsContainer {  
+    display: grid;  
+    grid-template-columns: repeat(1, 1fr); /* Creates two equal columns */  
+}  
+
+.event {  
+    border: 1px solid #ccc; /* Optional: Add a border for the events */  
+    padding: 5px; /* Optional: Add some padding */  
+    background-color: #f9f9f9; /* Optional: Background color for events */  
+}  
     
 </style>
 
@@ -497,10 +502,11 @@ require 'vendor/autoload.php';
     const productName = product.querySelector('.title a').innerText; // Correctly target the product name
     const productPrice = parseFloat(product.getAttribute('data-price'));
 
+    // Check if the item is already in the cart
     const existingItem = cart.find(item => item.id === productId);
 
     if (existingItem) {
-        existingItem.quantity++; // Increment quantity if the item already exists in the cart
+        alert(`This item is already in the cart. You cannot add it again.`);
     } else {
         cart.push({ id: productId, name: productName, price: productPrice, quantity: 1 }); // Add new item to the cart
         const addButton = product.querySelector('button');
