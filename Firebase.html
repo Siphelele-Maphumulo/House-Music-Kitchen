@@ -105,7 +105,9 @@ foreach ($tracks as $track) {
                                         <span class="duration">(<?php echo $track['duration']; ?>)</span>
                                     </div>
                                     <div class="trk-cell artists">
-                                        <a href="/artist/561171/<?php echo $artist_safe; ?>" class="com-artists" data-aid="561171"><?php echo $track['artist']; ?> ft. <?php echo $track['ft_artist']; ?></a>
+                                        <a href="javascript:void(0)" class="com-play played" title="Play Track"
+                                        onclick="toggleAudio('tracks/Da Capo ft. Lyrik Shoxen - Wherever I Go (Original Mix).mp3', 'Wherever I Go', 'Da Capo ft. Lyrik Shoxen', 'audioPlayer')">
+                                     </a>
                                         <span class="adap-br"><br /></span>
                                     </div>
                                     <div class="trk-cell genre">

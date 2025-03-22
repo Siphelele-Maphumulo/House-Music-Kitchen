@@ -1,0 +1,80 @@
+[
+    {
+        "id": 1,
+        "artist": "Brothers On Cue",
+        "ft_artist": "Sykes",
+        "title": "Mzala (Brothers On Cue Remix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2022",
+        "duration": "6:27",
+        "price": "1.99",
+        "image": "img/Brothers_On_Cue.png",
+        "audio": "tracks/Dlala Thukzin & Funky Qla ft. Sykes - Mzala (Brothers On Cue Remix).mp3"
+    },
+    {
+        "id": 2,
+        "artist": "Jazzbee",
+        "ft_artist": "",
+        "title": "Choose You (Jazzbee Rework)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2023",
+        "duration": "5:49",
+        "price": "1.99",
+        "image": "img/Jazzbee.png",
+        "audio": "tracks/Midnight Purple, Sam Smyers & Sonika Vaid - Choose You (Jazzbee Rework).mp3"
+    },
+    {
+        "id": 3,
+        "artist": "Salitech",
+        "ft_artist": "",
+        "title": "Revelances (Original Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2024",
+        "duration": "5:22",
+        "price": "1.99",
+        "image": "img/Salitech.png",
+        "audio": "tracks/Salitech - Revelances (Original Mix).mp3"
+    },
+    {
+        "id": 4,
+        "artist": "Cue",
+        "ft_artist": "Sykes",
+        "title": "Mzala (Brothers On Cue Remix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2022",
+        "duration": "6:27",
+        "price": "1.99",
+        "image": "img/Cue.png",
+        "audio": "tracks/Dlala Thukzin & Funky Qla ft. Sykes - Mzala (Brothers On Cue Remix).mp3"
+    },
+    {
+        "id": 5,
+        "artist": "Jazzbee",
+        "ft_artist": "",
+        "title": "Choose You (Jazzbee Rework)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2023",
+        "duration": "5:49",
+        "price": "1.99",
+        "image": "img/Jazzbee.png",
+        "audio": "tracks/Midnight Purple, Sam Smyers & Sonika Vaid - Choose You (Jazzbee Rework).mp3"
+    },
+    {
+        "id": 6,
+        "artist": "Salitech",
+        "ft_artist": "",
+        "title": "Revelances (Original Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2024",
+        "duration": "5:22",
+        "price": "1.99",
+        "image": "img/Salitech.png",
+        "audio": "tracks/Salitech - Revelances (Original Mix).mp3"
+    }
+]

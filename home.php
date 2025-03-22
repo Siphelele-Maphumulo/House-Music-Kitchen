@@ -1,20 +1,34 @@
 <?php
 // Start session
 session_start();
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : ''; // Get user role from session
+$isAdmin = ($role === 'admin'); // Determine if the user is an admin
+
 
 // Check if user is not logged in, redirect to login page
 if (!isset($_SESSION['user'])) {
-    header("Location: login.php"); // Redirect to your login page
+    header("Location: index.php"); // Redirect to your login page
     exit;
 }
 
+// Check the user's role based on session data
+if ($_SESSION['firstname'] === 'Admin' && $_SESSION['lastname'] === 'Admin') {
+    // Set the role to admin if the user is Admin
+    $role = 'admin';  
+} else {
+    // Otherwise, set the role to user
+    $role = 'user';  
+}
+
+// Set the role cookie for 30 days
+setcookie('role', $role, time() + (86400 * 30), '/');  // 86400 = 1 day
+
+// Enable error reporting for debugging purposes (optional)
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 require 'vendor/autoload.php';
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -66,7 +80,11 @@ require 'vendor/autoload.php';
   <script type="text/javascript" src="https://geo-w-static.traxsource.com/js/tsmain.min.js?ts=1695743105"></script>
   <script type="text/javascript" src="https://geo-w-static.traxsource.com/js/tspage.min.js?ts=1707232320"></script>
   
+  <!-- Add Font Awesome  -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  
   <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <link rel="stylesheet" type="text/css" href="css/home.css" />
 
   <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="wtvqrvq57ffh13q"></script>
 
@@ -74,312 +92,136 @@ require 'vendor/autoload.php';
     <script>/*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(e){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var e=this.createElement("script");n&&(this.domain=n),e.id="js-iframe-async",e.src="https://assets.zendesk.com/embeddable_framework/main.js",this.t=+new Date,this.zendeskHost="traxsource.zendesk.com",this.zEQueue=a,this.body.appendChild(e)},o.write('<body onload="document._l();">'),o.close()}();/*]]>*/</script>
   </head>
     <script src="//tympanus.net/codrops/adpacks/analytics.js"></script>
-<style>
+    
+    
+    <style>
+    /* Full-screen loader overlay */
     body {
-    font-family: Arial, sans-serif;
-    color: ghostwhite;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    height: 100vh;
-    background: #000 url(images/stripe.gif) repeat top left; 
-}
-    /* Modal Styling */
- /* Modal Styling */
-/* Modal Styling */
-#eventModal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transform: scale(0.9);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
+        font-family: Arial, sans-serif;
+        color: ghostwhite;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        height: 100vh;
+        background: #000 url(images/stripe.gif) repeat top left;
+    }
 
-/* Show Animation */
-#eventModal.show {
-    opacity: 1;
-    transform: scale(1);
-}
+    #eventModal, #guideModal, #aboutusModal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transform: scale(0.9);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
 
-/* Modal Content with Scroll */
-.modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    max-width: 500px;
-    width: 100%;
-    max-height: 80vh; /* Limits height to 80% of the viewport */
-    overflow-y: auto; /* Enables vertical scrolling */
-    scrollbar-width: thin; /* For Firefox */
-    scrollbar-color: transparent transparent; /* For Firefox */
-}
-
-/* Customizing Scrollbar for Webkit Browsers (Chrome, Safari) */
-.modal-content::-webkit-scrollbar {
-    width: 8px; /* Width of the scrollbar */
-}
-
-.modal-content::-webkit-scrollbar-thumb {
-    background-color: transparent; /* Transparent thumb */
-    border-radius: 10px;
-}
-
-.modal-content::-webkit-scrollbar-track {
-    background: transparent; /* Transparent track */
-}
-
-/* Close Button */
-.close {
-    font-size: 24px;
-    cursor: pointer;
-    float: right;
-}
-
-/* Events Styling */
-.event-item {
-    background: #f9f9f9;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-}
-
-
-
-    #eventModal.show .modal-content {
+    /* Show Animation */
+    #eventModal.show, #guideModal.show, #aboutUsModal.show {
+        display: flex; /* Ensure it is visible */
         opacity: 1;
         transform: scale(1);
     }
 
-    /* Buy Container Product */
-    .buy-cont .product {
-        padding: 5px 10px;
-    }
-    
-    .frame__links {
-    padding-left: 0%;
-    display: flex;
-    gap: 0px; /* Space between links */
+    /* Modal Content with Scroll */
+    .modal {
+    display: none; /* Hide modals by default */
+    position: fixed;
+    z-index: 1000; /* Adding a higher z-index to overlap elements */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scrolling if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Dark background */
+    justify-content: center; /* Center child items horizontally */
+    align-items: center; /* Center child items vertically */
 }
 
-.links {
-    position: relative;
-    text-decoration: none;
+.modal-content {
+    font-size: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 500px; /* Max width of modal content */
+    width: 90%; /* Make it responsive */
+    max-height: 80vh; /* Limit height */
+    overflow-y: auto; /* Scroll if content is too long */
+}
+
+/* Close Button */
+.close {
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
     color: white;
-    font-size: 1rem;
-    padding: 50px 10px;
-    border-radius: 50px; /* Makes it oval */
-    transition: background 0.3s, transform 0.3s;
-    overflow: hidden;
-}
-
-.links::before {
-    content: "";
+    background-color: red;
+    border: none;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px; /* Slight rounding for a softer edge */
+    transition: background-color 0.3s ease;
+    
+    /* Fix position inside modal */
     position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    transform: scale(0);
-    transition: transform 0.3s ease-in-out;
-    z-index: -1;
 }
 
-.links:hover::before {
-    transform: scale(1);
+/* Hover effect */
+.close:hover {
+    background-color: darkred;
 }
 
-.links:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: scale(1.1);
-}
-
-
-    /* Media Queries for Small Screens */
-    @media (max-width: 767px) {
-        body {
-            flex-direction: column;
-        }
-
-        #product-list {
-            padding: 10px;
-            gap: 10px;
-        }
-
-        #cart {
-            /* padding-top: 5%; */
-            width: 50%;
-            right: 5%;
-            top: 10%; /* Reset top to auto */
-            bottom: 0; /* Position at the bottom */
-            max-height: calc(100vh - 20px);
-        }
-
-        .trk-cell.r-date,
-        .trk-cell.btncell {
-            width: auto;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        /* Move audio controls to far left on small screens */
-        #audioControls {
-            width: 90%;
-            left: 0;
-            right: auto;
-            top: 50%; /* Reset top to auto */
-            bottom: 0; /* Position at the bottom */
- 
-        }
-        
-            /* Ensure links still hover correctly on small screens */
-    .links {
-        display: flex;
-        flex-direction: column; /* Stack links vertically on small screens */
-        align-items: center; /* Center align the links */
-        gap: 2px; /* Space between links */
+    /* Customizing Scrollbar for Webkit Browsers */
+    .modal-content::-webkit-scrollbar {
+        width: 8px; /* Width of the scrollbar */
     }
 
-    .links {
-        padding: 5px 7px; /* Adjust padding for better appearance on smaller screens */
-        font-size: 0.8rem; /* Maintain consistent font size */
-        transition: background 0.3s, transform 0.3s;
-        display: inline-block;
+    .modal-content::-webkit-scrollbar-thumb {
+        background-color: transparent; /* Transparent thumb */
+        border-radius: 10px;
     }
 
-
-        
-        .frame {
-		position: fixed;
-		text-align: left;
-		z-index: 10000;
-		top: 0;
-		left: 0;
-		display: grid;
-		align-content: space-between;
-		width: 100%;
-		max-width: none;
-		height: 100vh;
-		padding: 3rem 4rem;
-		pointer-events: none;
-		grid-template-columns: 50% 50%;
-		grid-template-rows: auto auto auto;
-		grid-template-areas: 'title ...'
-							'... ...'
-							'links links';
-	}
-	
-	.frame__title-wrap {
-		grid-area: title;
-		display: flex;
-	}
-	.frame__title {
-		margin: 0;
-		font-weight: normal;
-	}
-	.flinks {
-		grid-area: links;
-		padding: 0;
-		justify-self: end;
-	}
-	.frame a {
-		pointer-events: auto;
-	}
-	.menu__item {
-		font-size: 13vh;
-	}
-	.item {
-		height: 100%;
-		width: 100%;
-		display: flex;
-	}
-	.item__img {
-		height: 100%;
-		width: 45%;
-		background-position: 50% 50%;
-	}
-	.item__content {
-		padding: 15vh 12vw 0 8vw;
-		height: calc(100% - 12rem);
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		overflow: visible;
-	}
-	.item__content-title {
-		font-size: 5vw;
-	}
-	.item__content-subtitle {
-		font-size: 2vw;
-	}
-	.item__content-text {
-		margin-bottom: 0;
-	}
-}
-
-    /* Medium Screens (Tablets) */
-    @media (min-width: 768px) and (max-width: 1023px) {
-        #product-list {
-            padding: 15px;
-        }
-
-        #cart {
-            width: 70%;
-            right: 5%;
-        }
+    .modal-content::-webkit-scrollbar-track {
+        background: transparent; /* Transparent track */
     }
 
-    /* Large Screens (Desktops) */
-    @media (min-width: 1024px) {
-        #product-list {
-            padding: 20px;
-        }
-
-        #cart {
-            width: 300px;
-            right: 20px;
-        }
+    /* Events Styling */
+    .event-item {
+        background: #f9f9f9;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
     }
     
-    
-    
-@media screen and (min-width: 53em) {
-	
+    #aboutUsModal {
+    display: none; /* Ensure it doesn't show by default */
 }
 
-@media (any-pointer: fine) {
-	.cursor {
-		display: block;
-	}
-	.cursor__inner {
-		z-index: 9999;
-		pointer-events: none;
-		position: absolute;
-		top: 0;
-		left: 0;
-		mix-blend-mode: difference;
-		border-radius: 50%;
-	}
-	.cursor__inner--circle {
-		width: 25px;
-		height: 25px;
-		border: 1px solid #fff;
-	}
-}
+#eventsContainer {  
+    display: grid;  
+    grid-template-columns: repeat(1, 1fr); /* Creates two equal columns */  
+}  
 
-
+.event {  
+    border: 1px solid #ccc; /* Optional: Add a border for the events */  
+    padding: 5px; /* Optional: Add some padding */  
+    background-color: #f9f9f9; /* Optional: Background color for events */  
+}  
+    
 </style>
+
 
 </head>
 <body class="demo-1">
-<div >
 
 
 		
@@ -410,11 +252,79 @@ require 'vendor/autoload.php';
 
 <div id="cart" class="fixed-cart">
 
+<!-- JavaScript to manage button visibility -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var role = "<?php echo addslashes($role); ?>".toLowerCase(); // Store user's role in JavaScript variable and convert to lowercase
+        console.log("Logged-in User:", role);
+
+        var isAdmin = <?php echo $isAdmin ? 'true' : 'false'; ?>; // Get admin status from PHP
+
+        // Ensure buttons are displayed based on the role
+        var adminButtons = document.getElementById("admin-buttons");
+        var userButtons = document.getElementById("user-buttons");
+
+        if (role === "admin") {
+            adminButtons.style.display = "flex";
+            userButtons.style.display = "none";
+        } else {
+            adminButtons.style.display = "none";
+            userButtons.style.display = "flex";
+        }
+    });
+
+    // Function to open Capitec App
+    function openCapitecApp() {
+        window.location.href = "capitec://"; // This will attempt to open the Capitec app
+    }
+
+    // Function to open WhatsApp chat
+    function openWhatsApp() {
+        window.location.href = "https://wa.me/27686764623"; // Replace with your WhatsApp number
+    }
+</script>
+
+<!-- Container for admin buttons -->
+<div id="admin-buttons" style="display: none; gap: 20px; align-items: center;">
+    <button onclick="runPython()" style="font-size: 18px; color: green; border: none; background: none; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+        <i class="fas fa-cloud-upload" style="font-size: 24px; color: green;"></i> Upload Music
+    </button>
+    <button onclick="window.open('http://127.0.0.1:5000/edit-file', '_blank')" 
+        style="font-size: 18px; color: blue; border: none; background: none; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+    <i class="fas fa-edit" style="font-size: 24px; color: blue;"></i> Edit Music
+</button>
+
+</div>
+
+<!-- Container for user buttons -->
+<div id="user-buttons" style="display: none; gap: 20px; align-items: center;">
+    <!-- Open Capitec App -->
+    <button onclick="openCapitecApp()" 
+            style="font-size: 18px; color: #009688; border: none; background: none; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+        <i class="fas fa-credit-card" style="font-size: 24px; color: #009688;"></i> Payment
+    </button>
+
+    <!-- Open WhatsApp chat -->
+    <button onclick="openWhatsApp()" 
+            style="font-size: 18px; color: #25D366; border: none; background: none; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+        <i class="fab fa-whatsapp" style="font-size: 24px; color: #25D366;"></i> WhatsApp
+    </button>
+</div>
+
+
+
+<!-- Include Font Awesome -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+
+
+
+
 <div class="frame__links" style="padding-left: 0%;">
-					<a href="https://tympanus.net/Tutorials/underwater-navigation/" class="links">About us</a>
-					<a href="https://tympanus.net/codrops/?p=40486" class="links">Events</a>
-					<a href="https://github.com/codrops/AnimatedImageColumns/" class="links">Guide</a>
-				</div>
+    <a href="#" id="guideLink" class="links">How To</a>
+    <a href="#" id="eventLink" class="links">Events</a>
+    <a href="#" id="aboutUsLink" class="links">About us</a>
+</div>
+
     <h2>Welcome, <?php echo $_SESSION['firstname'] . ' ' . $_SESSION['lastname']; ?></h2>
     <button style="background-color:rgb(191, 69, 73); color: white; padding: 5px 10px; border: none; border-radius: 5px; margin-top: 10px;" onclick="logout()">Logout</button>
 
@@ -427,6 +337,8 @@ require 'vendor/autoload.php';
     <div>
         <p style="color: rgb(242, 0, 255); font-size: large;">Please make sure you reach Google forms page</p>
     </div>
+
+
 
 <!-- Player Controllers -->
 <div id="audioControls">
@@ -444,28 +356,36 @@ require 'vendor/autoload.php';
 </div>
 
 
-<div id="aboutUsModal" class="modal" style="color: black">
-        <div class="modal-content">
-            <span class="close">×</span>
-            <h3>Welcome to House Music Kitchen!</h3>
-            <p>At House Music Kitchen, we are passionate about providing you with exclusive house music songs that are hard to find elsewhere. Our website offers a unique experience where you can create your own playlist of songs, just like selecting tracks for your favorite MP3 CD.</p>
-            <p class="highlight">What We Do</p>
-            <p><span class="highlight">Exclusive Selection:</span> We specialize in offering a curated collection of exclusive house music tracks that you won't find easily elsewhere.</p>
-            <p><span class="highlight">Custom Playlist:</span> Our website allows you to create your own playlist by selecting songs from our extensive library. You have full control over what goes into your package.</p>
-            <p><span class="highlight">Convenient Checkout:</span> Once you've finalized your song selection, simply proceed to checkout to complete your purchase. We accept payments via EFT (Electronic Funds Transfer) for your convenience.</p>
-            <p><span class="highlight">Easy Download:</span> After completing your purchase, you'll receive a link to download your customized package as a compressed zip or rar folder. It's quick, easy, and hassle-free.</p>
-            <p class="highlight">Our Mission</p>
-            <p>Our mission is to provide house music enthusiasts with a platform to discover, select, and enjoy the best tracks from the house music scene. We strive to make the process of purchasing and downloading music as seamless as possible, ensuring that you have an exceptional experience every time you visit House Music Kitchen.</p>
-            <p class="highlight">Stay Updated with House Music Events</p>
-            <p>In addition to offering exclusive music selections, we also keep you updated on the latest house music events happening around South Africa. Whether it's club nights, festivals, or live performances, we've got you covered. Stay tuned to our website and social media channels for the latest updates and announcements.</p>
-            <p class="highlight">Thank you for choosing House Music Kitchen for all your house music needs. Let the beats move you!</p>
-        </div>
+    <div id="guideModal" class="modal" style="color: black">
+    <div class="modal-content">
+    <button class="close">&times;</button>
+        <h3>Welcome to House Music Kitchen!</h3>
+        <p>Discover and purchase exclusive house music from your favorite Producers, Artists, and DJs. Follow this simple guide to get started.</p>
+        
+        <p class="highlight">How to Use:</p>
+        <p><span class="highlight">1. Sign Up or Log In:</span> Create an account or log in using your email and password.</p>
+        <p><span class="highlight">2. Browse Music:</span> After logging in, you'll be directed to the homepage, where you can explore music from top house Producers, Artists, and DJs.</p>
+        <p><span class="highlight">3. Select a Track:</span> Click on an artist’s name to view their available tracks, including details like track ID, featured artists, label, genre, release date, and price.</p>
+        <p><span class="highlight">4. Preview & Add to Cart:</span> Click on a track name or image to preview a snippet. To purchase, click the green price button to add it to your cart. Each track can only be added once to avoid duplicates.</p>
+        <p><span class="highlight">5. View & Manage Cart:</span> Your cart, located on the right side, updates automatically. You can remove individual tracks or clear the cart entirely before checkout.</p>
+        <p><span class="highlight">6. Checkout:</span> Click the checkout button when you're ready. A confirmation popup will display the total amount due. Click OK to proceed.</p>
+        <p><span class="highlight">7. Order Confirmation:</span> After confirming, you'll receive a receipt number with details of your purchase. You'll then be redirected to a Google Form to finalize your order.</p>
+        <p><span class="highlight">8. Submit the Form:</span> Complete and submit the Google Form with your details to ensure successful order processing. Failure to submit will result in an incomplete purchase.</p>
+        <p><span class="highlight">9. Receive Your Music:</span> Our team will reach out within 24 hours via email with your download link. For faster processing, contact us on WhatsApp with your receipt number and proof of payment.</p>
+
+        <p class="highlight">Need Help?</p>
+        <p>If you have any questions, feel free to reach out to us via WhatsApp using the icon on the top right corner.</p>
+
+        <p class="highlight">Enjoy the best house music—let the beats take over! 🎶🔥</p>
     </div>
-    
-    
-    <div id="eventModal" class="modal" style="color: black">
+</div>
+
+
+
+        <div id="eventModal" class="modal" style="color: black">
         <div class="modal-content">
-            <span class="close">×</span>
+        <button class="close">&times;</button>
+    
             <h3>Welcome to House Music Events SA!</h3>
             <p>Get ready to experience the best house music events across South Africa! Whether you're into deep house, Afro house, Amapiano, or tech house, this is your ultimate guide to staying updated on the hottest events happening near you.</p>
             
@@ -487,109 +407,92 @@ require 'vendor/autoload.php';
         </div>
     </div>
 
+    <div id="aboutUsModal" class="modal" style="color: black">
+        <div class="modal-content">
+        <button class="close">&times;</button>
 
-    
+            <h3>Welcome to House Music Kitchen!</h3>
+            <p>At House Music Kitchen, we are passionate about providing you with exclusive house music songs that are hard to find elsewhere. Our website offers a unique experience where you can create your own playlist of songs, just like selecting tracks for your favorite MP3 CD.</p>
+            <p class="highlight">What We Do</p>
+            <p><span class="highlight">Exclusive Selection:</span> We specialize in offering a curated collection of exclusive house music tracks that you won't find easily elsewhere.</p>
+            <p><span class="highlight">Custom Playlist:</span> Our website allows you to create your own playlist by selecting songs from our extensive library. You have full control over what goes into your package.</p>
+            <p><span class="highlight">Convenient Checkout:</span> Once you've finalized your song selection, simply proceed to checkout to complete your purchase. We accept payments via EFT (Electronic Funds Transfer) for your convenience.</p>
+            <p><span class="highlight">Easy Download:</span> After completing your purchase, you'll receive a link to download your customized package as a compressed zip or rar folder. It's quick, easy, and hassle-free.</p>
+            <p class="highlight">Our Mission</p>
+            <p>Our mission is to provide house music enthusiasts with a platform to discover, select, and enjoy the best tracks from the house music scene. We strive to make the process of purchasing and downloading music as seamless as possible, ensuring that you have an exceptional experience every time you visit House Music Kitchen.</p>
+            <p class="highlight">Stay Updated with House Music Events</p>
+            <p>In addition to offering exclusive music selections, we also keep you updated on the latest house music events happening around South Africa. Whether it's club nights, festivals, or live performances, we've got you covered. Stay tuned to our website and social media channels for the latest updates and announcements.</p>
+            <p class="highlight">Thank you for choosing House Music Kitchen for all your house music needs. Let the beats move you!</p>
+        </div>
+    </div>
     
 
-<script>
-    // Function to load events from JSON file
+    <script>
+    // Load events from JSON file
     fetch('./events.json')
-                .then(response => response.json())
-                .then(events => {
-                  let eventsContainer = document.getElementById('eventsContainer');
-                  events.forEach(event => {
-                    let eventElement = document.createElement('div');
-                    eventElement.innerHTML = `
-                      <h4>${event.event_name}</h4>
-                      <p><strong>Location:</strong> ${event.location}</p>
-                      <p><strong>Date:</strong> ${event.date}</p>
-                      <p><strong>Time:</strong> ${event.time}</p>
-                      <p><strong>Cost:</strong> ${event.cost}</p>
-                      <p><strong>Cooler Box:</strong> ${event.cooler_box}</p>
-                      <a href="${event.ticket_link}" target="_blank">Buy Tickets</a>
-                    `;
-                    eventsContainer.appendChild(eventElement);
-                  });
-                })
-                .catch(error => console.error('Error fetching events:', error));
+        .then(response => response.json())
+        .then(events => {
+            let eventsContainer = document.getElementById('eventsContainer');
+            events.forEach(event => {
+                let eventElement = document.createElement('div');
+                eventElement.innerHTML = `
+                    <h4>${event.event_name}</h4>
+                    <p><strong>Location:</strong> ${event.location}</p>
+                    <p><strong>Date:</strong> ${event.date}</p>
+                    <p><strong>Time:</strong> ${event.time}</p>
+                    <p><strong>Cost:</strong> ${event.cost}</p>
+                    <p><strong>Cooler Box:</strong> ${event.cooler_box}</p>
+                    <a href="${event.ticket_link}" target="_blank">Buy Tickets</a>
+                `;
+                eventsContainer.appendChild(eventElement);
+            });
+        })
+        .catch(error => console.error('Error fetching events:', error));
 
+        document.addEventListener("DOMContentLoaded", function () {
+    const modals = {
+        guide: document.getElementById("guideModal"),
+        event: document.getElementById("eventModal"),
+        aboutUs: document.getElementById("aboutUsModal"),
+    };
 
-document.addEventListener("DOMContentLoaded", function () {
-        let modal = document.getElementById("aboutUsModal");
-        let openBtn = document.getElementById("openModal");
-        let closeBtn = document.querySelector(".close");
-
-        // Open Modal
-        openBtn.onclick = function () {
-            modal.style.display = "flex";
-        };
-
-        // Close Modal
-        closeBtn.onclick = function () {
-            modal.style.display = "none";
-            showLoader();  // Show loader when modal closes
-        };
-
-        // Close Modal when clicking outside
-        window.onclick = function (event) {
-            if (event.target === modal) {
-                modal.style.display = "none";
-                showLoader();  // Show loader when modal closes
-            }
-        };
-
-        function showLoader() {
-            document.getElementById("loaderOverlay").style.display = "flex"; // Show loader overlay
-
-            // Auto-hide the loader after 5 seconds
-            setTimeout(function() {
-                document.getElementById("loaderOverlay").style.display = "none"; // Hide loader overlay
-            }, 5000);
-        }
-    });
-    
-    document.addEventListener("DOMContentLoaded", function () {
-        let modal = document.getElementById("eventModal");
-        let openBtn = document.getElementById("evntModal");
-        let closeBtn = modal.querySelector(".close");
-
-        // Open Modal with animation
-        openBtn.addEventListener("click", function () {
-            modal.classList.add("show");
-            modal.classList.remove("hide");
-            modal.style.display = "flex"; // Ensure it's visible
+    // Open modals when links are clicked
+    ["guide", "event", "aboutUs"].forEach(id => {
+        document.getElementById(`${id}Link`).addEventListener("click", () => {
+            modals[id].classList.add("show");
         });
+    });
 
-        // Close Modal with animation
+    // Close modal function
+    function closeModal(modal) {
+        modal.classList.remove("show");
+        showLoader();
+    }
+
+    // Attach click event to close buttons
+    document.querySelectorAll(".close").forEach(closeBtn => {
         closeBtn.addEventListener("click", function () {
-            modal.classList.add("hide");
-            setTimeout(() => {
-                modal.classList.remove("show");
-                modal.style.display = "none"; // Hide after animation
-            }, 300);
-            showLoader();
+            closeModal(this.closest(".modal"));
         });
+    });
 
-        // Close Modal when clicking outside
-        window.addEventListener("click", function (event) {
+    // Close modal when clicking outside
+    window.addEventListener("click", function (event) {
+        Object.values(modals).forEach(modal => {
             if (event.target === modal) {
-                modal.classList.add("hide");
-                setTimeout(() => {
-                    modal.classList.remove("show");
-                    modal.style.display = "none";
-                }, 300);
+                closeModal(modal);
             }
         });
-        
-        function showLoader() {
-            document.getElementById("loaderOverlay").style.display = "flex"; // Show loader overlay
-
-            // Auto-hide the loader after 5 seconds
-            setTimeout(function() {
-                document.getElementById("loaderOverlay").style.display = "none"; // Hide loader overlay
-            }, 5000);
-        }
     });
+
+    function showLoader() {
+        const loader = document.getElementById("loaderOverlay");
+        loader.style.display = "flex";
+        setTimeout(() => loader.style.display = "none", 5000);
+    }
+});
+
+
 
     let cart = [];
     const receiptNumber = Math.floor(100000 + Math.random() * 900000);
@@ -599,10 +502,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const productName = product.querySelector('.title a').innerText; // Correctly target the product name
     const productPrice = parseFloat(product.getAttribute('data-price'));
 
+    // Check if the item is already in the cart
     const existingItem = cart.find(item => item.id === productId);
 
     if (existingItem) {
-        existingItem.quantity++; // Increment quantity if the item already exists in the cart
+        alert(`This item is already in the cart. You cannot add it again.`);
     } else {
         cart.push({ id: productId, name: productName, price: productPrice, quantity: 1 }); // Add new item to the cart
         const addButton = product.querySelector('button');
@@ -931,8 +835,32 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById("dacapo-content").style.display = "none"; // Hide on load
 });
 
+// For buttons
 
+    function openCapitecApp() {
+        // Try to open the Capitec Bank app
+        window.location.href = "capitec://"; 
+        
+        // If the app is not installed, fallback to the Capitec website after 2 seconds
+        setTimeout(function() {
+            window.open("https://www.capitecbank.co.za", "_blank");
+        }, 2000);
+    }
 
+    function openWhatsApp() {
+        var phoneNumber = "27686764623"; // WhatsApp requires country code, South Africa is +27
+        window.open("https://wa.me/" + phoneNumber, "_blank");
+    }
+    
+    //  Run Python script 
+    function runPython() {
+        fetch("http://127.0.0.1:5000/run-python")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("result").innerText = data.message || data.error;
+            })
+            .catch(error => console.error("Error:", error));
+    }
 </script>
 </body>
 </html>

@@ -32,7 +32,19 @@ foreach ($tracks as $track) {
     $tracksByArtist[$artist][] = $track;
 }
 ?>
+<style>
+/* Hide the div by default */
+.small-screen-message {
+    display: none;
+}
 
+/* Show the div only on small screens */
+@media (max-width: 768px) {
+    .small-screen-message {
+        display: block;
+    }
+}
+</style>
 
 <nav class="menu">
     <?php foreach ($tracksByArtist as $artist => $artistTracks): ?>
@@ -57,7 +69,9 @@ foreach ($tracks as $track) {
                         <div class="trk-cell label sort"><a href="javascript:void(0)" data-sort="label" id="s_label">LABEL</a></div>
                         <div class="trk-cell r-date sort" style="width: 80px;"><a href="javascript:void(0)" data-sort="r_date" id="s_r_date">RELEASED</a></div>
                         <div class="trk-cell btncell" style="width: 120px;"></div>
-                        <div class="sort-sel"><b>Sort</b> </div>
+                        <div class="small-screen-message">
+                            <b>Use Track Detail to Add to Cart</b>&nbsp;
+                        </div>
                     </div>
 
                     <?php foreach ($artistTracks as $track): ?>
@@ -80,14 +94,28 @@ foreach ($tracks as $track) {
                                         
                                     </div>
                                     <div class="trk-cell title">
-                                        <a href="/track/<?php echo $title_safe; ?>/hit-it-up-vocal-mix"><?php echo $track['artist']; ?> <?php echo $track['ft_artist']; ?> - <?php echo $track['title']; ?></a>
+                                        <a href="javascript:void(0);" 
+                                           id="track-<?php echo $track['id']; ?>" 
+                                           onclick="addToCartOnce(this, <?php echo $track['id']; ?>)">
+                                            <?php echo $track['artist']; ?> <?php echo $track['ft_artist']; ?> - <?php echo $track['title']; ?>
+                                        </a>
                                         <span class="adap-br"><br /></span>
                                         <span class="duration">(<?php echo $track['duration']; ?>)</span>
                                     </div>
+                                    
                                     <div class="trk-cell artists">
-                                        <a href="/artist/561171/<?php echo $artist_safe; ?>" class="com-artists" data-aid="561171"><?php echo $track['artist']; ?>  <?php echo $track['ft_artist']; ?></a>
+                                        <!-- Here Artist-->
+                                        <a href="javascript:void(0);" 
+                                           class="com-artists" 
+                                           id="artist-<?php echo $track['id']; ?>" 
+                                           data-aid="561171" 
+                                           onclick="addToCartOnce(this, <?php echo $track['id']; ?>)">
+                                            <?php echo $track['artist']; ?>  <?php echo $track['ft_artist']; ?>
+                                        </a>
+                                    
                                         <span class="adap-br"><br /></span>
                                     </div>
+                                    
                                     <div class="trk-cell genre">
                                         <a href="/genre/13/deep-house"><?php echo $track['genre']; ?></a>
                                     </div>
@@ -137,6 +165,18 @@ foreach ($tracks as $track) {
 </nav>
 
 <script>
+    function addToCartOnce(element, trackId) {
+        // Check if the link was already clicked
+        if (element.classList.contains("disabled")) {
+            return;
+        }
+    
+        // Call the addToCart function
+        addToCart(trackId);
+    
+
+    }
+
 function toggleCategory(categoryId) {
     var categoryDiv = document.getElementById(categoryId);
 

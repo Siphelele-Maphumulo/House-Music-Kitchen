@@ -31,7 +31,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: home.php");
         exit;
     } else {
+        header("Location: login.php");
         $_SESSION['error'] = "Invalid email or password!! Try again";
+        exit;
     }
 
     $conn->close();
@@ -67,6 +69,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 .invalid {
     border: 1px solid red;
 }
+.highlight{
+	font-family: 'Raleway', sans-serif;
+	font-weight:bold;
+}
+
+
 
 
 *{
@@ -288,6 +296,18 @@ form .btn input[type="submit"]{
         color: #007bff; /* Change color on hover */
     }
 
+	#eventsContainer {  
+    display: grid;  
+    grid-template-columns: repeat(2, 1fr); /* Creates two equal columns */  
+    gap: 20px; /* Space between the columns */  
+}  
+
+.event {  
+    border: 1px solid #ccc; /* Optional: Add a border for the events */  
+    padding: 10px; /* Optional: Add some padding */  
+    background-color: #f9f9f9; /* Optional: Background color for events */  
+}  
+
 </style>
 
 
@@ -317,9 +337,11 @@ form .btn input[type="submit"]{
 						<h2 class="item__content-title">About Us</h2>
 						<h3 class="item__content-subtitle">Welcome to House Music Kitchen!</h3>
 						<div class="item__content-text" style="position: absolute; bottom: 10%; overflow-y: auto; max-height: calc(60vh - 60px); max-width: 100%;">
-							<p>At House Music Kitchen, we are passionate about providing you with exclusive house music songs that are hard to find elsewhere. Our website offers a unique experience where you can create your own playlist of songs, just like selecting tracks for your favorite MP3 CD.
+						<p>Discover and purchase exclusive house music from your favorite Producers, Artists, and DJs. Follow this simple guide to get started.</p>
+        
+						<p>At House Music Kitchen, we are passionate about providing you with exclusive house music songs that are hard to find elsewhere. Our website offers a unique experience where you can create your own playlist of songs, just like selecting tracks for your favorite MP3 CD.
 							</p>
-								
+							<br>	
 							<p><span style="font-weight: bold;">What We Do</span><br>
 								<span style="font-weight: bold;">Exclusive Selection:</span> We specialize in offering a curated collection of exclusive house music tracks that you won't find easily elsewhere.<br>
 								
@@ -328,20 +350,19 @@ form .btn input[type="submit"]{
 								<br><span style="font-weight: bold;">Convenient Checkout:</span> Once you've finalized your song selection, simply proceed to checkout to complete your purchase. We accept payments via EFT (Electronic Funds Transfer) for your convenience.
 								
 								<br><span style="font-weight: bold;">Easy Download:</span> After completing your purchase, you'll receive a link to download your customized package as a compressed zip or rar folder. It's quick, easy, and hassle-free.
-								
+								<br>
 								<br><span style="font-weight: bold;">Our Mission</span>
 								<br>Our mission is to provide house music enthusiasts with a platform to discover, select, and enjoy the best tracks from the house music scene. We strive to make the process of purchasing and downloading music as seamless as possible, ensuring that you have an exceptional experience every time you visit House Music Kitchen.
-								
+								<br>
 								<br><span style="font-weight: bold;">Stay Updated with House Music Events</span>
 								<br>In addition to offering exclusive music selections, we also keep you updated on the latest house music events happening around South Africa. Whether it's club nights, festivals, or live performances, we've got you covered. Stay tuned to our website and social media channels for the latest updates and announcements.
 								
-								
+								<br>
 								<br><span style="font-weight: bold;">Thank you for choosing House Music Kitchen for all your house music needs. Let the beats move you!</span>
 								
 								</p>
 							<p></p>
 							<p>.</p>
-						</div>
 					</div>
 				</article>
 				<article class="item">
@@ -351,14 +372,25 @@ form .btn input[type="submit"]{
 						<h2 class="item__content-title">Events</h2>
 						<h3 class="item__content-subtitle">Upcoming House Music Events</h3>
 						<div class="item__content-text" style="position: absolute; bottom: 10%; overflow-y: auto; max-height: calc(60vh - 60px); max-width: 100%;"> <!-- Adjust max-height as needed -->
-							<p>Thus blindness proved no drawback to systematic physical development, while its influence over the moral nature of the child was reduced to its minimum. He was tall for his age and well built; his face was somewhat pale, his features fine and expressive. </p>
-							<p>His dark hair enhanced the pallid hue of his complexion, while his eyes—large, dark, and almost motionless—gave him a peculiar aspect that at once attracted attention.</p>
-							<p>A slight wrinkle between his eye-brows, a habit of inclining his head slightly forward, and the expression of sadness that[93] sometimes overcast his handsome face — these were the outward tokens of his blindness. </p>
+						<p>Get ready to experience the best house music events across South Africa! Whether you're into deep house, Afro house, Amapiano, or tech house, this is your ultimate guide to staying updated on the hottest events happening near you.</p>
+            
+            <p class="highlight">What We Offer</p>
+            <p><span class="highlight">Latest House Music Events:</span> From electrifying club nights to massive outdoor festivals, we bring you details about upcoming house music events across the country.</p>
+            <p><span class="highlight">All House Music Genres:</span> No matter your taste—Amapiano, Deep House, Afro House, Tech House, or Gqom—we've got events for every house music lover.</p>
+            <p><span class="highlight">Where to Buy Tickets:</span> We provide direct links to official ticket sellers, so you can secure your spot with ease.</p>
+            <p><span class="highlight">Ticket Prices & Event Info:</span> Get details on ticket costs, VIP access, venue locations, and everything else you need to know before you go.</p>
+        
+            <p class="highlight">Stay Updated!</p>
+            <p>This page is updated regularly, ensuring you never miss out on any major house music event in South Africa. Be sure to check back often for new events and exclusive updates.</p>
+        
+            <p class="highlight">Let the music unite us—see you on the dancefloor! 🎶🔥</p>
+            <h4>Upcoming Events:</h4>
+            <div id="eventsContainer">
+                <p>Loading events...</p>
+                <br><br>
+            </div>
 
-							<p>Thus blindness proved no drawback to systematic physical development, while its influence over the moral nature of the child was reduced to its minimum. He was tall for his age and well built; his face was somewhat pale, his features fine and expressive. </p>
-							<p>His dark hair enhanced the pallid hue of his complexion, while his eyes—large, dark, and almost motionless—gave him a peculiar aspect that at once attracted attention.</p>
-							<p>A slight wrinkle between his eye-brows, a habit of inclining his head slightly forward, and the expression of sadness that[93] sometimes overcast his handsome face — these were the outward tokens of his blindness. </p>
-						</div>
+        </div>
 					</div>
 				</article>
 				<article class="item">
@@ -366,13 +398,22 @@ form .btn input[type="submit"]{
 					<div class="item__content">
 						<a class="item__content-back">back</a>
 						<h2 class="item__content-title">Userguide</h2>
-						<h3 class="item__content-subtitle">How to use our website</h3>
-						<div class="item__content-text">
-							<p>The impressions received through the channels of sound outweighed all others in their influence over the life of the blind boy; his ideas shaped themselves according to sounds, his sense of hearing became the centre of his mental activity.</p>
-							<p>The enchanting melodies of the songs he heard conveyed to him a true sense of the words, coloring them with sadness or joy according to the lights and shades of the melody. </p>
-							<p>He quickly learned all his mother taught him on the piano, and yet he still loved Joachim’s pipe.</p>
+						<p class="highlight">How to Use:</p>
+        <p><span class="highlight">1. Sign Up or Log In:</span> Create an account or log in using your email and password.</p>
+        <p><span class="highlight">2. Browse Music:</span> After logging in, you'll be directed to the homepage, where you can explore music from top house Producers, Artists, and DJs.</p>
+        <p><span class="highlight">3. Select a Track:</span> Click on an artist’s name to view their available tracks, including details like track ID, featured artists, label, genre, release date, and price.</p>
+        <p><span class="highlight">4. Preview & Add to Cart:</span> Click on a track name or image to preview a snippet. To purchase, click the green price button to add it to your cart. Each track can only be added once to avoid duplicates.</p>
+        <p><span class="highlight">5. View & Manage Cart:</span> Your cart, located on the right side, updates automatically. You can remove individual tracks or clear the cart entirely before checkout.</p>
+        <p><span class="highlight">6. Checkout:</span> Click the checkout button when you're ready. A confirmation popup will display the total amount due. Click OK to proceed.</p>
+        <p><span class="highlight">7. Order Confirmation:</span> After confirming, you'll receive a receipt number with details of your purchase. You'll then be redirected to a Google Form to finalize your order.</p>
+        <p><span class="highlight">8. Submit the Form:</span> Complete and submit the Google Form with your details to ensure successful order processing. Failure to submit will result in an incomplete purchase.</p>
+        <p><span class="highlight">9. Receive Your Music:</span> Our team will reach out within 24 hours via email with your download link. For faster processing, contact us on WhatsApp with your receipt number and proof of payment.</p>
+		<br>
+        <p class="highlight">Need Help?</p>
+        <p>If you have any questions, feel free to reach out to us via WhatsApp using the icon on the top right corner.</p>
+		<br>
+        <p class="highlight">Enjoy the best house music—let the beats take over! 🎶🔥</p>
 						</div>
-					</div>
 				</article>
 				<article class="item">
 					
@@ -508,7 +549,11 @@ form .btn input[type="submit"]{
 						<div class="btn-layer"></div>
 						<input type="submit" value="Login">
 					</div>
-				</form>
+          <div class="login-image" style="text-align: center; margin-top: 00px;">
+                  <img src="img/Anim.gif" alt="Login Image" style="width: 100px;" class="column__img1">
+              </div>
+
+          </form>
 
 				<!-- Signup Form -->
 				<form class="signup" id="signup-form" action="signup.php" method="POST" style="font-size:small">
@@ -553,8 +598,31 @@ form .btn input[type="submit"]{
 			</div>
        </div>
     </div>
-
     <script>
+    // Load events from JSON file
+    fetch('./events.json')
+        .then(response => response.json())
+        .then(events => {
+            let eventsContainer = document.getElementById('eventsContainer');
+            events.forEach(event => {
+                let eventElement = document.createElement('div');
+                eventElement.innerHTML = `
+                    <h4>${event.event_name}</h4>
+                    <p><strong>Location:</strong> ${event.location}</p>
+                    <p><strong>Date:</strong> ${event.date}</p>
+                    <p><strong>Time:</strong> ${event.time}</p>
+                    <p><strong>Cost:</strong> ${event.cost}</p>
+                    <p><strong>Cooler Box:</strong> ${event.cooler_box}</p>
+                    <a href="${event.ticket_link}" target="_blank">Buy Tickets</a><br><br>
+                `;
+				
+                eventsContainer.appendChild(eventElement);
+            });
+        })
+        .catch(error => console.error('Error fetching events:', error));
+
+
+
         // Function to reset form fields
         function resetForm(formId) {
             document.getElementById(formId).reset();
