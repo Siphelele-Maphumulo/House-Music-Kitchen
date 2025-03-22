@@ -1,3 +1,4 @@
+
 [
   {
     "event_name": "Deep House Night",
@@ -18,3 +19,25 @@
     "ticket_link": "https://example.com/amapiano-groove-tickets"
   }
 ]
+
+[
+  {
+    "event_name": "Deep House Night",
+    "location": "Johannesburg, South Africa",
+    "date": "2025-03-15",
+    "time": "20:00",
+    "cost": "150 ZAR",
+    "cooler_box": "Allowed",
+    "ticket_link": "https://example.com/deep-house-night-tickets"
+  },
+  {
+    "event_name": "Amapiano Groove",
+    "location": "Cape Town, South Africa",
+    "date": "2025-03-20",
+    "time": "18:00",
+    "cost": "200 ZAR",
+    "cooler_box": "Not Allowed",
+    "ticket_link": "https://example.com/amapiano-groove-tickets"
+  }
+]
+
