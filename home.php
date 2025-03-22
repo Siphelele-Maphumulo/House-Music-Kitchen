@@ -14,6 +14,8 @@ ini_set('display_errors', 1);
 require 'vendor/autoload.php';
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,6 +27,7 @@ require 'vendor/autoload.php';
 
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="https://use.typekit.net/zhq0vyf.css">
+
     <link rel="stylesheet" type="text/css" href="https://geo-w-static.traxsource.com/css/ts_plugs.min.css?ts=1560271691">
   <link rel="stylesheet" type="text/css" href="https://geo-w-static.traxsource.com/scripts/src.php/1707232980/css/ts_index.min.css">
 
@@ -63,9 +66,7 @@ require 'vendor/autoload.php';
   <script type="text/javascript" src="https://geo-w-static.traxsource.com/js/tsmain.min.js?ts=1695743105"></script>
   <script type="text/javascript" src="https://geo-w-static.traxsource.com/js/tspage.min.js?ts=1707232320"></script>
   
-    
   <link rel="stylesheet" type="text/css" href="css/base.css" />
-  <link rel="stylesheet" type="text/css" href="css/home.css" />
 
   <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="wtvqrvq57ffh13q"></script>
 
@@ -157,21 +158,231 @@ require 'vendor/autoload.php';
         transform: scale(1);
     }
 
-    /* Close Animation */
-    #eventModal.hide {
-        opacity: 0;
-    }
-
-    #eventModal.hide .modal-content {
-        transform: scale(0.8);
-        opacity: 0;
+    /* Buy Container Product */
+    .buy-cont .product {
+        padding: 5px 10px;
     }
     
+    .frame__links {
+    padding-left: 0%;
+    display: flex;
+    gap: 0px; /* Space between links */
+}
+
+.links {
+    position: relative;
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    padding: 50px 10px;
+    border-radius: 50px; /* Makes it oval */
+    transition: background 0.3s, transform 0.3s;
+    overflow: hidden;
+}
+
+.links::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.3s ease-in-out;
+    z-index: -1;
+}
+
+.links:hover::before {
+    transform: scale(1);
+}
+
+.links:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+
+    /* Media Queries for Small Screens */
+    @media (max-width: 767px) {
+        body {
+            flex-direction: column;
+        }
+
+        #product-list {
+            padding: 10px;
+            gap: 10px;
+        }
+
+        #cart {
+            /* padding-top: 5%; */
+            width: 50%;
+            right: 5%;
+            top: 10%; /* Reset top to auto */
+            bottom: 0; /* Position at the bottom */
+            max-height: calc(100vh - 20px);
+        }
+
+        .trk-cell.r-date,
+        .trk-cell.btncell {
+            width: auto;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Move audio controls to far left on small screens */
+        #audioControls {
+            width: 90%;
+            left: 0;
+            right: auto;
+            top: 50%; /* Reset top to auto */
+            bottom: 0; /* Position at the bottom */
+ 
+        }
+        
+            /* Ensure links still hover correctly on small screens */
+    .links {
+        display: flex;
+        flex-direction: column; /* Stack links vertically on small screens */
+        align-items: center; /* Center align the links */
+        gap: 2px; /* Space between links */
+    }
+
+    .links {
+        padding: 5px 7px; /* Adjust padding for better appearance on smaller screens */
+        font-size: 0.8rem; /* Maintain consistent font size */
+        transition: background 0.3s, transform 0.3s;
+        display: inline-block;
+    }
+
+
+        
+        .frame {
+		position: fixed;
+		text-align: left;
+		z-index: 10000;
+		top: 0;
+		left: 0;
+		display: grid;
+		align-content: space-between;
+		width: 100%;
+		max-width: none;
+		height: 100vh;
+		padding: 3rem 4rem;
+		pointer-events: none;
+		grid-template-columns: 50% 50%;
+		grid-template-rows: auto auto auto;
+		grid-template-areas: 'title ...'
+							'... ...'
+							'links links';
+	}
+	
+	.frame__title-wrap {
+		grid-area: title;
+		display: flex;
+	}
+	.frame__title {
+		margin: 0;
+		font-weight: normal;
+	}
+	.flinks {
+		grid-area: links;
+		padding: 0;
+		justify-self: end;
+	}
+	.frame a {
+		pointer-events: auto;
+	}
+	.menu__item {
+		font-size: 13vh;
+	}
+	.item {
+		height: 100%;
+		width: 100%;
+		display: flex;
+	}
+	.item__img {
+		height: 100%;
+		width: 45%;
+		background-position: 50% 50%;
+	}
+	.item__content {
+		padding: 15vh 12vw 0 8vw;
+		height: calc(100% - 12rem);
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		overflow: visible;
+	}
+	.item__content-title {
+		font-size: 5vw;
+	}
+	.item__content-subtitle {
+		font-size: 2vw;
+	}
+	.item__content-text {
+		margin-bottom: 0;
+	}
+}
+
+    /* Medium Screens (Tablets) */
+    @media (min-width: 768px) and (max-width: 1023px) {
+        #product-list {
+            padding: 15px;
+        }
+
+        #cart {
+            width: 70%;
+            right: 5%;
+        }
+    }
+
+    /* Large Screens (Desktops) */
+    @media (min-width: 1024px) {
+        #product-list {
+            padding: 20px;
+        }
+
+        #cart {
+            width: 300px;
+            right: 20px;
+        }
+    }
+    
+    
+    
+@media screen and (min-width: 53em) {
+	
+}
+
+@media (any-pointer: fine) {
+	.cursor {
+		display: block;
+	}
+	.cursor__inner {
+		z-index: 9999;
+		pointer-events: none;
+		position: absolute;
+		top: 0;
+		left: 0;
+		mix-blend-mode: difference;
+		border-radius: 50%;
+	}
+	.cursor__inner--circle {
+		width: 25px;
+		height: 25px;
+		border: 1px solid #fff;
+	}
+}
+
+
 </style>
 
 </head>
 <body class="demo-1">
-<div >	
+<div >
+
+
+		
     <!-------------------------------------------------------------Loader Overlay ------------------------------------------------------------------------------------------>
     <div id="loaderOverlay" class="loader-overlay">
         <div class="loader"></div>
@@ -191,15 +402,19 @@ require 'vendor/autoload.php';
      <!-------------------------------------------------------------Loader Overlay ------------------------------------------------------------------------------------------>
      <?php include 'Music Displayer.html'; ?>
      <?php include 'Music Generator.html'; ?>
+<!--   -->
+
+<!--------------------------------------------------------------------------------------------------------------->
+
+
 
 <div id="cart" class="fixed-cart">
 
 <div class="frame__links" style="padding-left: 0%;">
-					<a id="openModal" class="links">About us</a>
-					<a id="evntModal" class="links">Events</a>
-					<a id="guideModal" class="links">Guide</a>
+					<a href="https://tympanus.net/Tutorials/underwater-navigation/" class="links">About us</a>
+					<a href="https://tympanus.net/codrops/?p=40486" class="links">Events</a>
+					<a href="https://github.com/codrops/AnimatedImageColumns/" class="links">Guide</a>
 				</div>
-				
     <h2>Welcome, <?php echo $_SESSION['firstname'] . ' ' . $_SESSION['lastname']; ?></h2>
     <button style="background-color:rgb(191, 69, 73); color: white; padding: 5px 10px; border: none; border-radius: 5px; margin-top: 10px;" onclick="logout()">Logout</button>
 
