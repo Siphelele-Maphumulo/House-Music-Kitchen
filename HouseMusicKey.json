@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "housemusikitchen",
+  "private_key_id": "a0ee62be57bd81ce5fdb8b807ca18f8b4ba26283",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCqBp3UlUT2UQUe\nJx46n5Ct9JMnIc8HX0xii/IDyReLEmeKPwMQJ/M+AppNPLnfEj2skHUxrg+b5WmT\nrd7cz87h+1GBc03/5d7vCNRqstS4Fufr9+u2vN/YGMYG7yC6h7g074YbRsWVpeJ6\nvPChrYQcopelCCpRWJ7naocYW1hGvaVH6Djj4op4k1XST1muh3fJ6trgo5GHPmjx\nWplo9baP9JLWx19gTHFJAptDZehQs6iedbLkI8kwP9MgHk2VZ4GoMDcqaePRReaV\nZ27W2RZkgAL+qREZjCjl30qMEirQADtF8Grz5B3mdAd5hWfFkdQ1RWmJceF6VNBV\nJ82tz2ONAgMBAAECggEAFAQb5AkfmXzPxK03wJCE3InAohh3kidcq3RMrTfo+uET\nieGhp28AkoIFbsbRnep8krpd5ZeXdFOlYnKTXDzlntJylbIAknnaDRtlwFrlsndV\n3cBtwjFJi9vcwje4C2WLYMX67G6gN54UA72G+Y2fEizs+8tyiemMKXOvzEUCpy8e\nPF8n3yNMp6x460EUTrLEo3G6Eyk5tPgHcopn9cV7QcIQlSjjxJ5NfTPzAyidDqXm\n/9T7v0pSFpZRBeOK185eDvGjqkyTh+19NlbhVDTmHrGfpUxmRikn2B7HlHZmVpqK\ntcHi+W132CUESK22wwybhp+6zo8JNbX/2ZaF9OWNYQKBgQDufW/hTO65NnsJHCcK\n7JIegdLzY0UiDMm8XKHsuiM/dHU2CGnuMzzhkjr7NbSqT6bgrrtnDddcYou7p7Fd\nslRPIeH1Tyor5yM4dOQACvvJkqXXtnFWGeNhFo1Uy7MgpmrS9buERhpEHIwlqmRr\nTHEWLEt0fujY3NKik1v1jVHxbQKBgQC2glrNjhqfCAHdvyQqkIQh1lyOIOzC+NOC\nIbzDmug7KG1s13lf569oT7JXOc+Hgg0ERLR2SH0jiNkCnhvVvLGzCoJMT32bT/nH\nqD7kS7py+694bBwa1xCLtbeFPjxjgrQdShLAB3QvU18DPaWL47OQ4FRWGksPJMwY\nhKw2g1YGoQKBgGjCiQa6uJJ7MAiMaUoPKRBljriC/rc6TtODDU3jZeBV07bsczvD\nHhcoGOiIatf1LSS9HGzkU5mtYBwKSYsS7p3kEFGleKzYV0xRbGXobTnaRSdAaQCd\nVpgrQ+HfqMvKzlnkv34XHSqWL6nL81h+t545zttZdAbu2Ue420g9z6TxAoGATpUN\n99epyrOt6gZ00gbrfY5Ix8GRb9mnaC6Skj5Oo7oic2zLi+m78tPt2/S+UIBEjoPu\nl8daakRv+9qL7ZmTgZ2SwLyxPoBO8hKVEcMxgnSv9s/FwiC7tQwG+s3zPn12g+3y\n6M/MzNu+2yxd7T+bf1O3vGMR0nFrl1r4s3gVQEECgYEApin61j7eA6TvxTfP0QKf\nrgX5aLBuHOMRjufc9AJ+enL4JvuZ7JTLg6RR/cjvaiTfT2shrfqeZWHrTmp/BOi3\nWf+LIrBezcpsKXJta2GwbLus18VRF4MH7+5/KUpfHFp2Ule3c732O6wMjqClSf70\nUKyxgj8nmuayrlqZxGE28CM=\n-----END PRIVATE KEY-----\n",
+  "client_email": "house-music-kitchen@housemusikitchen.iam.gserviceaccount.com",
+  "client_id": "111374744252733925953",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/house-music-kitchen%40housemusikitchen.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
