@@ -4,7 +4,7 @@
         "artist": "Cue",
         "ft_artist": "Sykes",
         "title": "Mzala (Brothers On Cue Remix)",
-        "label": "House Music Kitchen",
+        "label": "House",
         "genre": "Deep House",
         "release_date": "2022",
         "duration": "6:27",
@@ -131,7 +131,7 @@
     },
     {
         "id": 11,
-        "artist": "Mary J Blige",
+        "artist": "Mafia Natives",
         "ft_artist": "",
         "title": "All Night Long (Mafia Natives Dub Mix)",
         "label": "House Music Kitchen",
@@ -157,7 +157,7 @@
     },
     {
         "id": 13,
-        "artist": "Mr Shane SA 10...",
+        "artist": "Mr Shane SA",
         "ft_artist": "",
         "title": "Made For Me (Mr Shane SA 1060 Sounds Remake)",
         "label": "House Music Kitchen",
@@ -209,7 +209,7 @@
     },
     {
         "id": 17,
-        "artist": "QuesterCafe",
+        "artist": "QuestarCafe",
         "ft_artist": "",
         "title": "Nu Groove (Original Mix) [m]",
         "label": "House Music Kitchen",
@@ -218,7 +218,7 @@
         "duration": "7:23",
         "price": "1.99",
         "image": "img/QuesterCafe.png",
-        "audio": "tracks/QuesterCafe - Nu Groove (Original Mix) [m].mp3"
+        "audio": "tracks/QuestarCafe - Nu Groove (Original Mix) [m].mp3"
     },
     {
         "id": 18,
