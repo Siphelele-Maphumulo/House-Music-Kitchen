@@ -310,5 +310,18 @@
         "price": "1.99",
         "image": "img/Demented Soul.png",
         "audio": "tracks/Sick Nature ft Kleckase - Out Of This World (Demented Soul's Imp5 Vocal Mix).mp3"
+    },
+    {
+        "id": 25,
+        "artist": "Khuzani",
+        "ft_artist": "",
+        "title": "Angidlali Nezingane ft Thibela Mp3 Download » TrendyBeatz",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2024",
+        "duration": "8:09",
+        "price": "1.99",
+        "image": "img/Khuzani.png",
+        "audio": "tracks/Khuzani - Angidlali Nezingane ft Thibela Mp3 Download » TrendyBeatz.mp3"
     }
 ]
