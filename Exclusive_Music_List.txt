@@ -50,5 +50,18 @@
         "price": "1.99",
         "image": "img/Emdeep 101.png",
         "audio": "tracks/Emdeep 101 ft. Nkunzi & Zukuzela - Inhliziyo (Original Mix)%.mp3"
+    },
+    {
+        "id": 5,
+        "artist": "Demented Soul",
+        "ft_artist": "",
+        "title": "Out Of This World (Demented Soul's Imp5 Vocal Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2017",
+        "duration": "8:45",
+        "price": "1.99",
+        "image": "img/Demented Soul.png",
+        "audio": "tracks/Sick Nature ft Kleckase - Out Of This World (Demented Soul's Imp5 Vocal Mix).mp3"
     }
 ]
