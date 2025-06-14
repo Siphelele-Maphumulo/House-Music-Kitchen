@@ -1,1 +1,15 @@
-
+[
+    {
+        "id": 1,
+        "artist": "19.Cookie",
+        "ft_artist": "Didi",
+        "title": "Promise Me Not-",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "6:25",
+        "price": "1.99",
+        "image": "img/19.Cookie.png",
+        "audio": "tracks/19.Cookie ft. Didi - Promise Me Not-.mp3"
+    }
+]
