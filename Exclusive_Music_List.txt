@@ -37,5 +37,18 @@
         "price": "1.99",
         "image": "img/Juggernot.png",
         "audio": "tracks/Deep Essentials - Limitless (Juggernot Remix).mp3"
+    },
+    {
+        "id": 4,
+        "artist": "KingTouch",
+        "ft_artist": "",
+        "title": "Untitled",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "7:02",
+        "price": "1.99",
+        "image": "img/KingTouch.png",
+        "audio": "tracks/KingTouch & AndileAndy - Untitled.mp3"
     }
 ]
