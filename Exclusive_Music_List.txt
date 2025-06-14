@@ -1,19 +1,6 @@
 [
     {
         "id": 1,
-        "artist": "Khuzani",
-        "ft_artist": "",
-        "title": "Angidlali Nezingane ft Thibela Mp3 Download » TrendyBeatz",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2024",
-        "duration": "8:09",
-        "price": "1.99",
-        "image": "img/Khuzani.png",
-        "audio": "tracks/Khuzani - Angidlali Nezingane ft Thibela Mp3 Download » TrendyBeatz.mp3"
-    },
-    {
-        "id": 2,
         "artist": "19.Cookie",
         "ft_artist": "Didi",
         "title": "Promise Me Not-",
@@ -26,7 +13,7 @@
         "audio": "tracks/19.Cookie ft. Didi - Promise Me Not-.mp3"
     },
     {
-        "id": 3,
+        "id": 2,
         "artist": "23.Molex Deep ...",
         "ft_artist": "",
         "title": "Towards Dreams",
@@ -39,7 +26,7 @@
         "audio": "tracks/23.Molex Deep ft Amanda Omuhle - Towards Dreams.mp3"
     },
     {
-        "id": 4,
+        "id": 3,
         "artist": "24.Lazy K SA",
         "ft_artist": "Skyzer",
         "title": "######10-",
@@ -52,7 +39,7 @@
         "audio": "tracks/24.Lazy K SA ft. Skyzer - ######10-.mp3"
     },
     {
-        "id": 5,
+        "id": 4,
         "artist": "25.Odest",
         "ft_artist": "Thabo",
         "title": "Missing You (Original Mix)-",
@@ -65,7 +52,7 @@
         "audio": "tracks/25.Odest ft. Thabo - Missing You (Original Mix)-.mp3"
     },
     {
-        "id": 6,
+        "id": 5,
         "artist": "27.Sucresoul",
         "ft_artist": "Paul B",
         "title": "Go On (Original Mix)-",
@@ -78,7 +65,7 @@
         "audio": "tracks/27.Sucresoul ft. Paul B - Go On (Original Mix)-.mp3"
     },
     {
-        "id": 7,
+        "id": 6,
         "artist": "29.FGee",
         "ft_artist": "Ms. Fudge",
         "title": "###### (Soulful Mix)-",
@@ -91,7 +78,7 @@
         "audio": "tracks/29.FGee ft. Ms. Fudge - ###### (Soulful Mix)-.mp3"
     },
     {
-        "id": 8,
+        "id": 7,
         "artist": "Coco SA",
         "ft_artist": "Kay Kay",
         "title": "The Fantasy Of The Loved Ones (Original Mix)",
@@ -104,7 +91,7 @@
         "audio": "tracks/Coco SA ft. Kay Kay - The Fantasy Of The Loved Ones (Original Mix).mp3"
     },
     {
-        "id": 9,
+        "id": 8,
         "artist": "DJ Fortee ft I...",
         "ft_artist": "",
         "title": "Ulithemba Lam [Hooligan MusicLeakz]",
@@ -117,7 +104,7 @@
         "audio": "tracks/DJ Fortee ft Inga Hina - Ulithemba Lam [Hooligan MusicLeakz].mp3"
     },
     {
-        "id": 10,
+        "id": 9,
         "artist": "Emdeep 101",
         "ft_artist": "Nkunzi & Zukuzela",
         "title": "Inhliziyo (Original Mix)%",
@@ -130,7 +117,7 @@
         "audio": "tracks/Emdeep 101 ft. Nkunzi & Zukuzela - Inhliziyo (Original Mix)%.mp3"
     },
     {
-        "id": 11,
+        "id": 10,
         "artist": "Enosoul",
         "ft_artist": "",
         "title": "Ephakadeni (feat. Bukeka Sam)",
@@ -143,7 +130,7 @@
         "audio": "tracks/Enosoul - Ephakadeni (feat. Bukeka Sam).mp3"
     },
     {
-        "id": 12,
+        "id": 11,
         "artist": "Gold Digger (F...",
         "ft_artist": "",
         "title": "DJ Couza",
@@ -156,7 +143,7 @@
         "audio": "tracks/Gold Digger (Ft Lulu) - DJ Couza.mp3"
     },
     {
-        "id": 13,
+        "id": 12,
         "artist": "Demented Soul",
         "ft_artist": "",
         "title": "Out Of This World (Demented Soul's Imp5 Vocal Mix)",
