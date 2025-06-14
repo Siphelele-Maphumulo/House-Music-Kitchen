@@ -11,5 +11,18 @@
         "price": "1.99",
         "image": "img/19.Cookie.png",
         "audio": "tracks/19.Cookie ft. Didi - Promise Me Not-.mp3"
+    },
+    {
+        "id": 2,
+        "artist": "25.Odest",
+        "ft_artist": "Thabo",
+        "title": "Missing You (Original Mix)-",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "5:56",
+        "price": "1.99",
+        "image": "img/25.Odest.png",
+        "audio": "tracks/25.Odest ft. Thabo - Missing You (Original Mix)-.mp3"
     }
 ]
