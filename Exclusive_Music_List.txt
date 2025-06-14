@@ -37,5 +37,18 @@
         "price": "1.99",
         "image": "img/Coco SA.png",
         "audio": "tracks/Coco SA ft. Kay Kay - The Fantasy Of The Loved Ones (Original Mix).mp3"
+    },
+    {
+        "id": 4,
+        "artist": "Emdeep 101",
+        "ft_artist": "Nkunzi & Zukuzela",
+        "title": "Inhliziyo (Original Mix)%",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "8:20",
+        "price": "1.99",
+        "image": "img/Emdeep 101.png",
+        "audio": "tracks/Emdeep 101 ft. Nkunzi & Zukuzela - Inhliziyo (Original Mix)%.mp3"
     }
 ]
