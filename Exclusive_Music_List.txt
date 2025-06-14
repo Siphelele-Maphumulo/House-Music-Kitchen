@@ -1,15 +1,1 @@
-[
-    {
-        "id": 1,
-        "artist": "DJ Fortee ft I...",
-        "ft_artist": "",
-        "title": "Ulithemba Lam [Hooligan MusicLeakz]",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2016-01-01",
-        "duration": "4:12",
-        "price": "1.99",
-        "image": "img/DJ Fortee ft I....png",
-        "audio": "tracks/DJ Fortee ft Inga Hina - Ulithemba Lam [Hooligan MusicLeakz].mp3"
-    }
-]
+
