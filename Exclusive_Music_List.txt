@@ -9,12 +9,12 @@
         "release_date": "2016-01-01",
         "duration": "4:12",
         "price": "1.99",
-        "image": "img/DJ Fortee ft I....png",
+        "image": "/static/uploads/1.jpg",
         "audio": "tracks/DJ Fortee ft Inga Hina - Ulithemba Lam [Hooligan MusicLeakz].mp3"
     },
     {
         "id": 2,
-        "artist": "Coco SA",
+        "artist": "CocoSA",
         "ft_artist": "Kay Kay",
         "title": "The Fantasy Of The Loved Ones (Original Mix)",
         "label": "House Music Kitchen",
@@ -22,12 +22,12 @@
         "release_date": "2020",
         "duration": "5:59",
         "price": "1.99",
-        "image": "img/Coco SA.png",
+        "image": "/static/uploads/CocoSA.png",
         "audio": "tracks/Coco SA ft. Kay Kay - The Fantasy Of The Loved Ones (Original Mix).mp3"
     },
     {
         "id": 3,
-        "artist": "Coco SA",
+        "artist": "CocoSA",
         "ft_artist": "Kay Kay",
         "title": "The Fantasy Of The Loved Ones (Original Mix)",
         "label": "House Music Kitchen",
@@ -35,7 +35,7 @@
         "release_date": "2020",
         "duration": "5:59",
         "price": "1.99",
-        "image": "img/Coco SA.png",
+        "image": "/static/uploads/CocoSA.png",
         "audio": "tracks/Coco SA ft. Kay Kay - The Fantasy Of The Loved Ones (Original Mix).mp3"
     },
     {
@@ -48,7 +48,7 @@
         "release_date": "2025",
         "duration": "8:20",
         "price": "1.99",
-        "image": "img/Emdeep 101.png",
+        "image": "/static/uploads/title.png",
         "audio": "tracks/Emdeep 101 ft. Nkunzi & Zukuzela - Inhliziyo (Original Mix)%.mp3"
     },
     {
@@ -61,7 +61,20 @@
         "release_date": "2017",
         "duration": "8:45",
         "price": "1.99",
-        "image": "img/Demented Soul.png",
+        "image": "/static/uploads/title.png",
         "audio": "tracks/Sick Nature ft Kleckase - Out Of This World (Demented Soul's Imp5 Vocal Mix).mp3"
+    },
+    {
+        "id": 6,
+        "artist": "Jazzbee",
+        "ft_artist": "",
+        "title": "Lift Up Your Voices (Jazzbee Rework)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2024",
+        "duration": "7:07",
+        "price": "1.99",
+        "image": "img/Jazzbee.png",
+        "audio": "tracks/Sunday Service Choir - Lift Up Your Voices (Jazzbee Rework).mp3"
     }
 ]
