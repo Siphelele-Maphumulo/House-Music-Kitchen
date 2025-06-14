@@ -50,5 +50,18 @@
         "price": "1.99",
         "image": "img/KingTouch.png",
         "audio": "tracks/KingTouch & AndileAndy - Untitled.mp3"
+    },
+    {
+        "id": 5,
+        "artist": "Buddynice",
+        "ft_artist": "",
+        "title": "Dub & Synths (Original Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "8:08",
+        "price": "1.99",
+        "image": "img/Buddynice.png",
+        "audio": "tracks/Buddynice - Dub & Synths (Original Mix).mp3"
     }
 ]
