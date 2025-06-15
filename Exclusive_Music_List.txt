@@ -41,7 +41,7 @@
     {
         "id": 4,
         "artist": "KingTouch",
-        "ft_artist": "",
+        "ft_artist": "AndileAndy",
         "title": "Untitled",
         "label": "House Music Kitchen",
         "genre": "Deep House",
@@ -104,21 +104,8 @@
         "audio": "tracks/Gvin Deep & Bonga Black - Places (Original Mix).mp3"
     },
     {
-        "id": 10,
-        "artist": "RSS",
-        "ft_artist": "",
-        "title": "Goddess O Re Jesa Leeto (RSS Soulful Mix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "7:50",
-        "price": "1.99",
-        "image": "img/RSS.png",
-        "audio": "tracks/Amen Deep T - Goddess O Re Jesa Leeto (RSS Soulful Mix).mp3"
-    },
-    {
         "id": 11,
-        "artist": "2025",
+        "artist": "Donald",
         "ft_artist": "",
         "title": "I Deserve (2025 Soulful Mix)",
         "label": "House Music Kitchen",
@@ -128,32 +115,6 @@
         "price": "1.99",
         "image": "img/2025.png",
         "audio": "tracks/Donald - I Deserve (2025 Soulful Mix).mp3"
-    },
-    {
-        "id": 12,
-        "artist": "Makhubela SA",
-        "ft_artist": "",
-        "title": "I Love You (Makhubela SA's Club Edit)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "6:26",
-        "price": "1.99",
-        "image": "img/Makhubela SA.png",
-        "audio": "tracks/Keith Washington & Chante Moore - I Love You (Makhubela SA's Club Edit).mp3"
-    },
-    {
-        "id": 13,
-        "artist": "KingTouch",
-        "ft_artist": "",
-        "title": "Untitled",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "7:02",
-        "price": "1.99",
-        "image": "img/KingTouch.png",
-        "audio": "tracks/KingTouch & AndileAndy - Untitled.mp3"
     },
     {
         "id": 14,
@@ -182,35 +143,9 @@
         "audio": "tracks/Young Molz - Jazzmates (Original Mix).mp3"
     },
     {
-        "id": 16,
-        "artist": "RSS",
-        "ft_artist": "",
-        "title": "Goddess O Re Jesa Leeto (RSS Soulful Mix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "7:50",
-        "price": "1.99",
-        "image": "img/RSS.png",
-        "audio": "tracks/Amen Deep T - Goddess O Re Jesa Leeto (RSS Soulful Mix).mp3"
-    },
-    {
-        "id": 17,
-        "artist": "2025",
-        "ft_artist": "",
-        "title": "I Deserve (2025 Soulful Mix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "6:31",
-        "price": "1.99",
-        "image": "img/2025.png",
-        "audio": "tracks/Donald - I Deserve (2025 Soulful Mix).mp3"
-    },
-    {
         "id": 18,
         "artist": "Makhubela SA",
-        "ft_artist": "",
+        "ft_artist": "Keith Washington & Chante Moore",
         "title": "I Love You (Makhubela SA's Club Edit)",
         "label": "House Music Kitchen",
         "genre": "Deep House",
@@ -219,50 +154,11 @@
         "price": "1.99",
         "image": "img/Makhubela SA.png",
         "audio": "tracks/Keith Washington & Chante Moore - I Love You (Makhubela SA's Club Edit).mp3"
-    },
-    {
-        "id": 19,
-        "artist": "KingTouch",
-        "ft_artist": "",
-        "title": "Untitled",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "7:02",
-        "price": "1.99",
-        "image": "img/KingTouch.png",
-        "audio": "tracks/KingTouch & AndileAndy - Untitled.mp3"
-    },
-    {
-        "id": 20,
-        "artist": "Mk Da Soul",
-        "ft_artist": "",
-        "title": "Apologize This (Original Mix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "7:14",
-        "price": "1.99",
-        "image": "img/Mk Da Soul.png",
-        "audio": "tracks/Mk Da Soul - Apologize This (Original Mix).mp3"
-    },
-    {
-        "id": 21,
-        "artist": "Young Molz",
-        "ft_artist": "",
-        "title": "Jazzmates (Original Mix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "7:06",
-        "price": "1.99",
-        "image": "img/Young Molz.png",
-        "audio": "tracks/Young Molz - Jazzmates (Original Mix).mp3"
     },
     {
         "id": 22,
         "artist": "RSS",
-        "ft_artist": "",
+        "ft_artist": "Amen Deep T ",
         "title": "Goddess O Re Jesa Leeto (RSS Soulful Mix)",
         "label": "House Music Kitchen",
         "genre": "Deep House",
@@ -273,74 +169,9 @@
         "audio": "tracks/Amen Deep T - Goddess O Re Jesa Leeto (RSS Soulful Mix).mp3"
     },
     {
-        "id": 23,
-        "artist": "2025",
-        "ft_artist": "",
-        "title": "I Deserve (2025 Soulful Mix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "6:31",
-        "price": "1.99",
-        "image": "img/2025.png",
-        "audio": "tracks/Donald - I Deserve (2025 Soulful Mix).mp3"
-    },
-    {
-        "id": 24,
-        "artist": "Makhubela SA",
-        "ft_artist": "",
-        "title": "I Love You (Makhubela SA's Club Edit)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "6:26",
-        "price": "1.99",
-        "image": "img/Makhubela SA.png",
-        "audio": "tracks/Keith Washington & Chante Moore - I Love You (Makhubela SA's Club Edit).mp3"
-    },
-    {
-        "id": 25,
-        "artist": "KingTouch",
-        "ft_artist": "",
-        "title": "Untitled",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "7:02",
-        "price": "1.99",
-        "image": "img/KingTouch.png",
-        "audio": "tracks/KingTouch & AndileAndy - Untitled.mp3"
-    },
-    {
-        "id": 26,
-        "artist": "Mk Da Soul",
-        "ft_artist": "",
-        "title": "Apologize This (Original Mix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "7:14",
-        "price": "1.99",
-        "image": "img/Mk Da Soul.png",
-        "audio": "tracks/Mk Da Soul - Apologize This (Original Mix).mp3"
-    },
-    {
-        "id": 27,
-        "artist": "Young Molz",
-        "ft_artist": "",
-        "title": "Jazzmates (Original Mix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "7:06",
-        "price": "1.99",
-        "image": "img/Young Molz.png",
-        "audio": "tracks/Young Molz - Jazzmates (Original Mix).mp3"
-    },
-    {
         "id": 28,
         "artist": "Jazzbee",
-        "ft_artist": "",
+        "ft_artist": "Mr. Probz",
         "title": "Waves (Jazzbee Rework)",
         "label": "House Music Kitchen",
         "genre": "Deep House",
@@ -362,19 +193,6 @@
         "price": "1.99",
         "image": "img/Teedra Moses.png",
         "audio": "tracks/Teedra Moses - Wish You Were Here (Komplexity Cognac Mix).mp3"
-    },
-    {
-        "id": 30,
-        "artist": "8nine Muzique",
-        "ft_artist": "",
-        "title": "Friday Guitar Vibes (Original Mix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "8:00",
-        "price": "1.99",
-        "image": "img/8nine Muzique.png",
-        "audio": "tracks/8nine Muzique & Dj Star A  - Friday Guitar Vibes (Original Mix).mp3"
     },
     {
         "id": 31,
@@ -401,19 +219,6 @@
         "price": "1.99",
         "image": "img/Don Groovy.png",
         "audio": "tracks/Don Groovy - Deep Within 2.0 (Original Mix).mp3"
-    },
-    {
-        "id": 33,
-        "artist": "Jazzbee",
-        "ft_artist": "",
-        "title": "Waves (Jazzbee Rework)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "5:16",
-        "price": "1.99",
-        "image": "img/Jazzbee.png",
-        "audio": "tracks/Mr. Probz - Waves (Jazzbee Rework).mp3"
     },
     {
         "id": 34,
@@ -442,19 +247,6 @@
         "audio": "tracks/Teedra Moses - Wish You Were Here (Komplexity Cognac Mix).mp3"
     },
     {
-        "id": 30,
-        "artist": "8nine Muzique",
-        "ft_artist": "",
-        "title": "Friday Guitar Vibes (Original Mix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "8:00",
-        "price": "1.99",
-        "image": "img/8nine Muzique.png",
-        "audio": "tracks/8nine Muzique & Dj Star A  - Friday Guitar Vibes (Original Mix).mp3"
-    },
-    {
         "id": 31,
         "artist": "Artistic Rhythmz",
         "ft_artist": "Sbani",
@@ -479,19 +271,6 @@
         "price": "1.99",
         "image": "img/Don Groovy.png",
         "audio": "tracks/Don Groovy - Deep Within 2.0 (Original Mix).mp3"
-    },
-    {
-        "id": 33,
-        "artist": "Jazzbee",
-        "ft_artist": "",
-        "title": "Waves (Jazzbee Rework)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "5:16",
-        "price": "1.99",
-        "image": "img/Jazzbee.png",
-        "audio": "tracks/Mr. Probz - Waves (Jazzbee Rework).mp3"
     },
     {
         "id": 34,
@@ -596,5 +375,57 @@
         "price": "1.99",
         "image": "img/Random Thoughts.png",
         "audio": "tracks/Random Thoughts & Roughica - Baile (Remix).mp3"
+    },
+    {
+        "id": 42,
+        "artist": "Unknown",
+        "ft_artist": "",
+        "title": "Goodbye (Soulful Remix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "6:25",
+        "price": "1.99",
+        "image": "img/Unknown.png",
+        "audio": "tracks/Azana - Goodbye (Soulful Remix).mp3"
+    },
+    {
+        "id": 43,
+        "artist": "French Boss",
+        "ft_artist": "",
+        "title": "Kind Of Love (Original Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "7:14",
+        "price": "1.99",
+        "image": "img/French Boss.png",
+        "audio": "tracks/French Boss - Kind Of Love (Original Mix).mp3"
+    },
+    {
+        "id": 44,
+        "artist": "Random Thoughts",
+        "ft_artist": "",
+        "title": "Baile (Remix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "5:55",
+        "price": "1.99",
+        "image": "img/Random Thoughts.png",
+        "audio": "tracks/Random Thoughts & Roughica - Baile (Remix).mp3"
+    },
+    {
+        "id": 45,
+        "artist": "8nine Muzique",
+        "ft_artist": "",
+        "title": "Friday Guitar Vibes (Original Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "8:00",
+        "price": "1.99",
+        "image": "img/8nine Muzique.png",
+        "audio": "tracks/8nine Muzique & Dj Star A  - Friday Guitar Vibes (Original Mix).mp3"
     }
 ]
