@@ -8,7 +8,7 @@
         "genre": "Deep House",
         "release_date": "2016-01-01",
         "duration": "4:12",
-        "price": "5.99",
+        "price": "1.99",
         "image": "img/DJ Fortee.png",
         "audio": "tracks/DJ Fortee ft Inga Hina - Ulithemba Lam [Hooligan MusicLeakz].mp3"
     },
@@ -89,5 +89,18 @@
         "price": "1.99",
         "image": "img/Da Capo.png",
         "audio": "tracks/Da Capo - Bakone Lebowa (2022 Edit) [Unreleased].mp3"
+    },
+    {
+        "id": 9,
+        "artist": "Gvin Deep",
+        "ft_artist": "",
+        "title": "Places (Original Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "7:43",
+        "price": "1.99",
+        "image": "img/Gvin Deep.png",
+        "audio": "tracks/Gvin Deep & Bonga Black - Places (Original Mix).mp3"
     }
 ]
