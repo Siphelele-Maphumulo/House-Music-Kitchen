@@ -8,7 +8,7 @@
         "genre": "Deep House",
         "release_date": "2016-01-01",
         "duration": "4:12",
-        "price": "1.99",
+        "price": "5.99",
         "image": "img/DJ Fortee ft I....png",
         "audio": "tracks/DJ Fortee ft Inga Hina - Ulithemba Lam [Hooligan MusicLeakz].mp3"
     },
@@ -92,15 +92,15 @@
     },
     {
         "id": 8,
-        "artist": "Bones__Ed-Ward...",
-        "ft_artist": "",
-        "title": "Unknown Title",
+        "artist": "Shimza",
+        "ft_artist": "Mavhungu",
+        "title": "Manda Aluimbo (Shimza Remix)",
         "label": "House Music Kitchen",
         "genre": "Deep House",
-        "release_date": "2024",
-        "duration": "6:37",
+        "release_date": "2025",
+        "duration": "6:24",
         "price": "1.99",
-        "image": "img/default.jpg",
-        "audio": "tracks/Bones__Ed-Ward_-_Ini_Kaap.mp3__pixeldrain.mp3"
+        "image": "img/Shimza.png",
+        "audio": "tracks/Conde ft. Mavhungu - Manda Aluimbo (Shimza Remix).mp3"
     }
 ]
