@@ -79,28 +79,15 @@
     },
     {
         "id": 7,
-        "artist": "Bongeziwe_Mabandla_-_Ndanele_Muzari_Remix",
+        "artist": "Beat Soul",
         "ft_artist": "",
-        "title": "Unknown Title",
+        "title": "Any Further (Vocal Mix) [Promo]",
         "label": "House Music Kitchen",
         "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "0:00",
+        "release_date": "2023",
+        "duration": "7:14",
         "price": "1.99",
-        "image": "img/default.jpg",
-        "audio": "tracks/Bongeziwe_Mabandla_-_Ndanele_Muzari_Remix.mp3"
-    },
-    {
-        "id": 8,
-        "artist": "Shimza",
-        "ft_artist": "Mavhungu",
-        "title": "Manda Aluimbo (Shimza Remix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "6:24",
-        "price": "1.99",
-        "image": "img/Shimza.png",
-        "audio": "tracks/Conde ft. Mavhungu - Manda Aluimbo (Shimza Remix).mp3"
+        "image": "img/Beat Soul.png",
+        "audio": "tracks/Beat Soul - Any Further (Vocal Mix) [Promo].mp3"
     }
 ]
