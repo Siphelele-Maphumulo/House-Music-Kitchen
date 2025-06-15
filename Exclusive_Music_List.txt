@@ -209,7 +209,7 @@
     },
     {
         "id": 46,
-        "artist": "Unknown",
+        "artist": "Azana",
         "ft_artist": "",
         "title": "Goodbye (Soulful Remix)",
         "label": "House Music Kitchen",
@@ -248,8 +248,8 @@
     },
     {
         "id": 49,
-        "artist": "Teedra Moses",
-        "ft_artist": "",
+        "artist": "Komplexity Cognac",
+        "ft_artist": "Teedra Moses",
         "title": "Wish You Were Here (Komplexity Cognac Mix)",
         "label": "House Music Kitchen",
         "genre": "Deep House",
@@ -262,7 +262,7 @@
     {
         "id": 50,
         "artist": "Random Thoughts",
-        "ft_artist": "",
+        "ft_artist": "Roughica",
         "title": "Baile (Remix)",
         "label": "House Music Kitchen",
         "genre": "Deep House",
@@ -271,5 +271,18 @@
         "price": "1.99",
         "image": "img/Random Thoughts.png",
         "audio": "tracks/Random Thoughts & Roughica - Baile (Remix).mp3"
+    },
+    {
+        "id": 51,
+        "artist": "Artistic Rhythmz",
+        "ft_artist": "Sbani",
+        "title": "Isihlobo Esihle (Original Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "7:43",
+        "price": "1.99",
+        "image": "img/Artistic Rhythmz.png",
+        "audio": "tracks/Artistic Rhythmz & Elementicsoul ft. Sbani - Isihlobo Esihle (Original Mix).mp3"
     }
 ]
