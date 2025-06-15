@@ -76,5 +76,31 @@
         "price": "1.99",
         "image": "img/Bobby M.png",
         "audio": "tracks/Bobby M & Roctonic SA - Tjo.mp3 ~ pixeldrain.mp3"
+    },
+    {
+        "id": 7,
+        "artist": "Bongeziwe_Mabandla_-_Ndanele_Muzari_Remix",
+        "ft_artist": "",
+        "title": "Unknown Title",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "0:00",
+        "price": "1.99",
+        "image": "img/default.jpg",
+        "audio": "tracks/Bongeziwe_Mabandla_-_Ndanele_Muzari_Remix.mp3"
+    },
+    {
+        "id": 8,
+        "artist": "Bones__Ed-Ward...",
+        "ft_artist": "",
+        "title": "Unknown Title",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2024",
+        "duration": "6:37",
+        "price": "1.99",
+        "image": "img/default.jpg",
+        "audio": "tracks/Bones__Ed-Ward_-_Ini_Kaap.mp3__pixeldrain.mp3"
     }
 ]
