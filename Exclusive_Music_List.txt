@@ -1,15 +1,15 @@
 [
     {
         "id": 1,
-        "artist": "DJ Fortee ft I...",
+        "artist": "DJ Fortee",
         "ft_artist": "",
-        "title": "Ulithemba Lam [Hooligan MusicLeakz]",
+        "title": "Ulithemba Lam",
         "label": "House Music Kitchen",
         "genre": "Deep House",
         "release_date": "2016-01-01",
         "duration": "4:12",
         "price": "5.99",
-        "image": "img/DJ Fortee ft I....png",
+        "image": "img/DJ Fortee.png",
         "audio": "tracks/DJ Fortee ft Inga Hina - Ulithemba Lam [Hooligan MusicLeakz].mp3"
     },
     {
@@ -48,7 +48,7 @@
         "release_date": "2025",
         "duration": "7:02",
         "price": "1.99",
-        "image": "img/King_Touch.png",
+        "image": "img/King Touch.png",
         "audio": "tracks/KingTouch & AndileAndy - Untitled.mp3"
     },
     {
@@ -65,19 +65,6 @@
         "audio": "tracks/Buddynice - Dub & Synths (Original Mix).mp3"
     },
     {
-        "id": 6,
-        "artist": "Bobby M",
-        "ft_artist": "",
-        "title": "Tjo.mp3 ~ pixeldrain",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2024",
-        "duration": "6:43",
-        "price": "1.99",
-        "image": "img/Bobby M.png",
-        "audio": "tracks/Bobby M & Roctonic SA - Tjo.mp3 ~ pixeldrain.mp3"
-    },
-    {
         "id": 7,
         "artist": "Beat Soul",
         "ft_artist": "",
@@ -89,5 +76,18 @@
         "price": "1.99",
         "image": "img/Beat Soul.png",
         "audio": "tracks/Beat Soul - Any Further (Vocal Mix) [Promo].mp3"
+    },
+    {
+        "id": 8,
+        "artist": "Da Capo",
+        "ft_artist": "",
+        "title": "Bakone Lebowa (2022 Edit) [Unreleased]",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "6:35",
+        "price": "1.99",
+        "image": "img/Da Capo.png",
+        "audio": "tracks/Da Capo - Bakone Lebowa (2022 Edit) [Unreleased].mp3"
     }
 ]
