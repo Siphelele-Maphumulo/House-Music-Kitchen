@@ -66,15 +66,15 @@
     },
     {
         "id": 6,
-        "artist": "11.Problem Chi...",
+        "artist": "Bobby M",
         "ft_artist": "",
-        "title": "Unknown Title",
+        "title": "Tjo.mp3 ~ pixeldrain",
         "label": "House Music Kitchen",
         "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "5:45",
+        "release_date": "2024",
+        "duration": "6:43",
         "price": "1.99",
-        "image": "img/11.Problem Chi....png",
-        "audio": "tracks/11.Problem Child Ten83 – Lathe Chase (Original).mp3"
+        "image": "img/Bobby M.png",
+        "audio": "tracks/Bobby M & Roctonic SA - Tjo.mp3 ~ pixeldrain.mp3"
     }
 ]
