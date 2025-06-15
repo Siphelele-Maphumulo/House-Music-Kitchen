@@ -258,5 +258,18 @@
         "price": "1.99",
         "image": "img/Teedra Moses.png",
         "audio": "tracks/Teedra Moses - Wish You Were Here (Komplexity Cognac Mix).mp3"
+    },
+    {
+        "id": 50,
+        "artist": "Random Thoughts",
+        "ft_artist": "",
+        "title": "Baile (Remix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "5:55",
+        "price": "1.99",
+        "image": "img/Random Thoughts.png",
+        "audio": "tracks/Random Thoughts & Roughica - Baile (Remix).mp3"
     }
 ]
