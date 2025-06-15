@@ -102,5 +102,83 @@
         "price": "1.99",
         "image": "img/Gvin Deep.png",
         "audio": "tracks/Gvin Deep & Bonga Black - Places (Original Mix).mp3"
+    },
+    {
+        "id": 10,
+        "artist": "RSS",
+        "ft_artist": "",
+        "title": "Goddess O Re Jesa Leeto (RSS Soulful Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "7:50",
+        "price": "1.99",
+        "image": "img/RSS.png",
+        "audio": "tracks/Amen Deep T - Goddess O Re Jesa Leeto (RSS Soulful Mix).mp3"
+    },
+    {
+        "id": 11,
+        "artist": "2025",
+        "ft_artist": "",
+        "title": "I Deserve (2025 Soulful Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "6:31",
+        "price": "1.99",
+        "image": "img/2025.png",
+        "audio": "tracks/Donald - I Deserve (2025 Soulful Mix).mp3"
+    },
+    {
+        "id": 12,
+        "artist": "Makhubela SA",
+        "ft_artist": "",
+        "title": "I Love You (Makhubela SA's Club Edit)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "6:26",
+        "price": "1.99",
+        "image": "img/Makhubela SA.png",
+        "audio": "tracks/Keith Washington & Chante Moore - I Love You (Makhubela SA's Club Edit).mp3"
+    },
+    {
+        "id": 13,
+        "artist": "KingTouch",
+        "ft_artist": "",
+        "title": "Untitled",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "7:02",
+        "price": "1.99",
+        "image": "img/KingTouch.png",
+        "audio": "tracks/KingTouch & AndileAndy - Untitled.mp3"
+    },
+    {
+        "id": 14,
+        "artist": "Mk Da Soul",
+        "ft_artist": "",
+        "title": "Apologize This (Original Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "7:14",
+        "price": "1.99",
+        "image": "img/Mk Da Soul.png",
+        "audio": "tracks/Mk Da Soul - Apologize This (Original Mix).mp3"
+    },
+    {
+        "id": 15,
+        "artist": "Young Molz",
+        "ft_artist": "",
+        "title": "Jazzmates (Original Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "7:06",
+        "price": "1.99",
+        "image": "img/Young Molz.png",
+        "audio": "tracks/Young Molz - Jazzmates (Original Mix).mp3"
     }
 ]
