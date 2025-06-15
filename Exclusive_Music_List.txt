@@ -518,5 +518,83 @@
         "price": "1.99",
         "image": "img/Teedra Moses.png",
         "audio": "tracks/Teedra Moses - Wish You Were Here (Komplexity Cognac Mix).mp3"
+    },
+    {
+        "id": 36,
+        "artist": "Unknown",
+        "ft_artist": "",
+        "title": "Goodbye (Soulful Remix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "6:25",
+        "price": "1.99",
+        "image": "img/Unknown.png",
+        "audio": "tracks/Azana - Goodbye (Soulful Remix).mp3"
+    },
+    {
+        "id": 37,
+        "artist": "French Boss",
+        "ft_artist": "",
+        "title": "Kind Of Love (Original Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "7:14",
+        "price": "1.99",
+        "image": "img/French Boss.png",
+        "audio": "tracks/French Boss - Kind Of Love (Original Mix).mp3"
+    },
+    {
+        "id": 38,
+        "artist": "Random Thoughts",
+        "ft_artist": "",
+        "title": "Baile (Remix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "5:55",
+        "price": "1.99",
+        "image": "img/Random Thoughts.png",
+        "audio": "tracks/Random Thoughts & Roughica - Baile (Remix).mp3"
+    },
+    {
+        "id": 39,
+        "artist": "Unknown",
+        "ft_artist": "",
+        "title": "Goodbye (Soulful Remix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "6:25",
+        "price": "1.99",
+        "image": "img/Unknown.png",
+        "audio": "tracks/Azana - Goodbye (Soulful Remix).mp3"
+    },
+    {
+        "id": 40,
+        "artist": "French Boss",
+        "ft_artist": "",
+        "title": "Kind Of Love (Original Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "7:14",
+        "price": "1.99",
+        "image": "img/French Boss.png",
+        "audio": "tracks/French Boss - Kind Of Love (Original Mix).mp3"
+    },
+    {
+        "id": 41,
+        "artist": "Random Thoughts",
+        "ft_artist": "",
+        "title": "Baile (Remix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "5:55",
+        "price": "1.99",
+        "image": "img/Random Thoughts.png",
+        "audio": "tracks/Random Thoughts & Roughica - Baile (Remix).mp3"
     }
 ]
