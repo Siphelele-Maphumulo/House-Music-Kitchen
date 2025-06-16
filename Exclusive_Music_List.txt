@@ -232,5 +232,18 @@
         "price": "1.99",
         "image": "img/Rocka Fobic De....png",
         "audio": "tracks/Rocka Fobic Deep Ft. Andic Uphi Umkhize(Original Mix).mp3"
+    },
+    {
+        "id": 19,
+        "artist": "LebtoniQ",
+        "ft_artist": "",
+        "title": "Not Over (Original Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "6:37",
+        "price": "1.99",
+        "image": "img/LebtoniQ.png",
+        "audio": "tracks/LebtoniQ - Not Over (Original Mix).mp3"
     }
 ]
