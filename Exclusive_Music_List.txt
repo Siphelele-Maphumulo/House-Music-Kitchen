@@ -247,19 +247,6 @@
         "audio": "tracks/LebtoniQ - Not Over (Original Mix).mp3"
     },
     {
-        "id": 20,
-        "artist": "LS",
-        "ft_artist": "",
-        "title": "Tlhase (Da Lee LS Rework)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "7:11",
-        "price": "1.99",
-        "image": "img/LS.png",
-        "audio": "tracks/Cityzeen LS - Tlhase (Da Lee LS Rework).mp3"
-    },
-    {
         "id": 21,
         "artist": "AUD-20171122-W...",
         "ft_artist": "",
@@ -336,5 +323,18 @@
         "price": "1.99",
         "image": "img/vlc-record-202....png",
         "audio": "tracks/vlc-record-2025-02-15-12h34m57s-Uhambe Wrongo-.mp3"
+    },
+    {
+        "id": 27,
+        "artist": "LS",
+        "ft_artist": "",
+        "title": "Tlhase (Da Lee LS Rework)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "7:11",
+        "price": "1.99",
+        "image": "img/LS.png",
+        "audio": "tracks/Cityzeen LS - Tlhase (Da Lee LS Rework).mp3"
     }
 ]
