@@ -191,7 +191,7 @@
         "release_date": "2025",
         "duration": "8:00",
         "price": "1.99",
-        "image": "img/8nine Muzique.png",
+        "image": "img/8nine Muziqueee.png",
         "audio": "tracks/8nine Muzique & Dj Star A  - Friday Guitar Vibes (Original Mix).mp3"
     },
     {
@@ -222,9 +222,9 @@
     },
     {
         "id": 48,
-        "artist": "Khomotxo M",
-        "ft_artist": "",
-        "title": "######",
+        "artist": "Delica Soul",
+        "ft_artist": "Khomotxo M",
+        "title": "Lost For Words",
         "label": "House Music Kitchen",
         "genre": "Deep House",
         "release_date": "2025",
@@ -274,15 +274,15 @@
     },
     {
         "id": 52,
-        "artist": "Uncle-Waffles-...",
+        "artist": "Endearing Souls",
         "ft_artist": "",
-        "title": "Unknown Title",
+        "title": "Woza La (Original Mix)",
         "label": "House Music Kitchen",
         "genre": "Deep House",
         "release_date": "2025",
-        "duration": "4:33",
+        "duration": "7:10",
         "price": "1.99",
-        "image": "img/Uncle-Waffles-....png",
-        "audio": "tracks/Uncle-Waffles-Royal-MusiQ-Uncool-MC-ft-Xduppy-CowBoii-Zenzele.mp3"
+        "image": "img/Endearing Souls.png",
+        "audio": "tracks/Endearing Souls - Woza La (Original Mix).mp3"
     }
 ]
