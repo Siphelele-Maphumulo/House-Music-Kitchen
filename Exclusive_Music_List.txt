@@ -102,31 +102,5 @@
         "price": "1.99",
         "image": "img/Gvin Deep.png",
         "audio": "tracks/Gvin Deep & Bonga Black - Places (Original Mix).mp3"
-    },
-    {
-        "id": 10,
-        "artist": "Jazzbee",
-        "ft_artist": "",
-        "title": "Yahweh (Jazzbee Rework)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "6:02",
-        "price": "1.99",
-        "image": "img/Jazzbee.png",
-        "audio": "tracks/Dan Shaw - Yahweh (Jazzbee Rework).mp3"
-    },
-    {
-        "id": 11,
-        "artist": "Endearing Souls",
-        "ft_artist": "",
-        "title": "Woza La (Original Mix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "7:10",
-        "price": "1.99",
-        "image": "img/Endearing Souls.png",
-        "audio": "tracks/Endearing Souls - Woza La (Original Mix).mp3"
     }
 ]
