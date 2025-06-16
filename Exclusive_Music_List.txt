@@ -219,5 +219,18 @@
         "price": "1.99",
         "image": "img/Jazzbee.png",
         "audio": "tracks/Mr. Probz - Waves (Jazzbee Rework).mp3"
+    },
+    {
+        "id": 18,
+        "artist": "Rocka Fobic De...",
+        "ft_artist": "",
+        "title": "Unknown Title",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "7:02",
+        "price": "1.99",
+        "image": "img/Rocka Fobic De....png",
+        "audio": "tracks/Rocka Fobic Deep Ft. Andic Uphi Umkhize(Original Mix).mp3"
     }
 ]
