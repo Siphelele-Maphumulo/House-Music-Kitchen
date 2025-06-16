@@ -258,5 +258,83 @@
         "price": "1.99",
         "image": "img/LS.png",
         "audio": "tracks/Cityzeen LS - Tlhase (Da Lee LS Rework).mp3"
+    },
+    {
+        "id": 21,
+        "artist": "AUD-20171122-W...",
+        "ft_artist": "",
+        "title": "Unknown Title",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2017",
+        "duration": "3:54",
+        "price": "1.99",
+        "image": "img/AUD-20171122-W....png",
+        "audio": "tracks/AUD-20171122-WA0001.mp3"
+    },
+    {
+        "id": 22,
+        "artist": "Black Women",
+        "ft_artist": "",
+        "title": "Unknown Title",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2020-01-01",
+        "duration": "1:57",
+        "price": "1.99",
+        "image": "img/Black Women.png",
+        "audio": "tracks/Black Women.mp3"
+    },
+    {
+        "id": 23,
+        "artist": "cici_amandla_a...",
+        "ft_artist": "",
+        "title": "Unknown Title",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "4:02",
+        "price": "1.99",
+        "image": "img/cici_amandla_a....png",
+        "audio": "tracks/cici_amandla_akho_official_audio_produced_by_ronepidemic_ruff_mp3_75841.mp3"
+    },
+    {
+        "id": 24,
+        "artist": "Holly-Rey-Deeper",
+        "ft_artist": "",
+        "title": "Unknown Title",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2018",
+        "duration": "5:14",
+        "price": "1.99",
+        "image": "img/Holly-Rey-Deeper.png",
+        "audio": "tracks/Holly-Rey-Deeper.mp3"
+    },
+    {
+        "id": 25,
+        "artist": "Sjava_-_Abanga...",
+        "ft_artist": "",
+        "title": "Unknown Title",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2018",
+        "duration": "5:10",
+        "price": "1.99",
+        "image": "img/Sjava_-_Abanga....png",
+        "audio": "tracks/Sjava_-_Abangani_ft_Emtee_Saudi.mp3"
+    },
+    {
+        "id": 26,
+        "artist": "vlc-record-202...",
+        "ft_artist": "",
+        "title": "Unknown Title",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "0:29",
+        "price": "1.99",
+        "image": "img/vlc-record-202....png",
+        "audio": "tracks/vlc-record-2025-02-15-12h34m57s-Uhambe Wrongo-.mp3"
     }
 ]
