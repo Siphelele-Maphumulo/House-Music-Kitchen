@@ -102,5 +102,18 @@
         "price": "1.99",
         "image": "img/Gvin Deep.png",
         "audio": "tracks/Gvin Deep & Bonga Black - Places (Original Mix).mp3"
+    },
+    {
+        "id": 10,
+        "artist": "Endearing Souls",
+        "ft_artist": "",
+        "title": "Woza La (Original Mix)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "7:10",
+        "price": "1.99",
+        "image": "img/Endearing Souls.png",
+        "audio": "tracks/Endearing Souls - Woza La (Original Mix).mp3"
     }
 ]
