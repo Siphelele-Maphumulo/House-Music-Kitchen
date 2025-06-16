@@ -261,19 +261,6 @@
     },
     {
         "id": 21,
-        "artist": "Young Molz",
-        "ft_artist": "",
-        "title": "Jazzmates (Original Mix)",
-        "label": "House Music Kitchen",
-        "genre": "Deep House",
-        "release_date": "2025",
-        "duration": "7:06",
-        "price": "1.99",
-        "image": "img/Young Molz.png",
-        "audio": "tracks/Young Molz - Jazzmates (Original Mix).mp3"
-    },
-    {
-        "id": 22,
         "artist": "AUD-20171122-W...",
         "ft_artist": "",
         "title": "Unknown Title",
@@ -286,7 +273,7 @@
         "audio": "tracks/AUD-20171122-WA0001.mp3"
     },
     {
-        "id": 23,
+        "id": 22,
         "artist": "Black Women",
         "ft_artist": "",
         "title": "Unknown Title",
@@ -299,7 +286,7 @@
         "audio": "tracks/Black Women.mp3"
     },
     {
-        "id": 24,
+        "id": 23,
         "artist": "cici_amandla_a...",
         "ft_artist": "",
         "title": "Unknown Title",
@@ -312,7 +299,7 @@
         "audio": "tracks/cici_amandla_akho_official_audio_produced_by_ronepidemic_ruff_mp3_75841.mp3"
     },
     {
-        "id": 25,
+        "id": 24,
         "artist": "Holly-Rey-Deeper",
         "ft_artist": "",
         "title": "Unknown Title",
@@ -325,7 +312,7 @@
         "audio": "tracks/Holly-Rey-Deeper.mp3"
     },
     {
-        "id": 26,
+        "id": 25,
         "artist": "Sjava_-_Abanga...",
         "ft_artist": "",
         "title": "Unknown Title",
@@ -338,7 +325,7 @@
         "audio": "tracks/Sjava_-_Abangani_ft_Emtee_Saudi.mp3"
     },
     {
-        "id": 27,
+        "id": 26,
         "artist": "vlc-record-202...",
         "ft_artist": "",
         "title": "Unknown Title",
