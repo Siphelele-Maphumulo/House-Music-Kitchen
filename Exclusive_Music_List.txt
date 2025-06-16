@@ -245,5 +245,18 @@
         "price": "1.99",
         "image": "img/LS.png",
         "audio": "tracks/Cityzeen LS - Tlhase (Da Lee LS Rework).mp3"
+    },
+    {
+        "id": 21,
+        "artist": "LS",
+        "ft_artist": "",
+        "title": "Tlhase (Da Lee LS Rework)",
+        "label": "House Music Kitchen",
+        "genre": "Deep House",
+        "release_date": "2025",
+        "duration": "7:11",
+        "price": "1.99",
+        "image": "img/LS.png",
+        "audio": "tracks/Cityzeen LS - Tlhase (Da Lee LS Rework).mp3"
     }
 ]
