@@ -11,6 +11,7 @@ from tkinter import filedialog
 from mutagen.mp3 import MP3
 from mutagen.id3 import ID3, ID3NoHeaderError
 from mutagen.asf import ASF
+from tqdm import tqdm
 
 # Initialize Tkinter (without opening the full GUI)
 root = tk.Tk()
@@ -34,6 +35,7 @@ GENRE = "Deep House"
 PRICE = "1.99"
 CURRENT_YEAR = datetime.datetime.now().year
 OUTPUT_FILE = "Exclusive_Music_List.txt"
+UPLOAD_DIR = "uploads"  # Directory where files are uploaded
 
 def connect_db():
     return mysql.connector.connect(host=DB_HOST, user=DB_USER, password=DB_PASSWORD, database=DB_NAME)
@@ -93,35 +95,58 @@ def clean_artist_name(artist):
         "Gigg": "Gigg Cosco",
         "Griffith": "Griffith Malo",
         "Lady": "Lady Deep",
+        "Xcape": "Soulful Xcape",
         "Lazy": "Lazy K SA",
         "Lunaticsoul": "Lunaticsoul",
         "Leonard": "Leonard Canticle",
         "1060": "Mr Shane SA",
         "Mr Shane SA 10...": "Mr Shane SA",
+        "Mr Shane SA 10": "Mr Shane SA",
         "OG": "OG France",
+        "Peekay Mzee Be...": "Peekay Mzee",
+        "3 Step mix": "3 Step Remix",
+        "Sunset": "KG Sunset",
+        "3": "3 Step Remix",
+        "Step": "3 Step Remix",
+        "KG": "KG Sunset",
         "Nastic": "Nastic Groove",
         "Groove": "Nastic Groove",
         "Massive": "Massive R",
         "Endearing": "Endearing Souls",
         "Groovy": "Groovy Smallz",
+        "Refla Musiq": "MusiQ Rebels",
+        "Musiq": "MusiQ Rebels",
         "MusiQ": "MusiQ Rebels",
         "Nick": "Nick SA",
         "Mafia": "Mafia Natives",
         "Efkay": "Efkay Da Shiqwan",
+        "Morda": "MÖRDA",
         "Jnr": "Jnr SA",
         "McCuemza": "McCuemza Isaac",
         "Dawn": "Dawn Deep",
         "Da": "Da Capo",
         "Oscar": "Oscar Mbo",
+        "Unknown": "House Music Kitchen",
         "Brothers": "Brothers On Cue",
         "Andy": "Andy Bankx",
         "Kuthathu": "Kuthathu SA",
+        "Dj Tears PLK KasiDeep": "Dj Tears PLK",
+        "KasiDeep": "Dj Tears PLK",
+        "Spin Worx & Dy...": "Spin Worx",
+        "Pablo": "PabloSoul",
+        "Alternativ3": "Beat Soul",
         "Afrikhana's": "Afrikhana's Flava",
-        "QuesterCafe" : "QuestarCafe"
+        "QuesterCafe" : "QuestarCafe"   
     }
     
     artist = artist.replace("'s", "")
     return artist_mapping.get(artist, artist)
+
+def shorten_artist_name(artist_name):
+    """Shortens artist names longer than 17 characters, including spaces."""
+    if len(artist_name) > 17:
+        return artist_name[:14] + "..."
+    return artist_name
 
 def extract_featured_artist(ft_artist):
     match = re.search(r'[,&] *([^\(]+)', ft_artist)
@@ -153,94 +178,142 @@ def get_last_id():
         return 0
     return 0
 
+def write_tracks_to_file(tracks):
+    """Optimized function to write tracks to file with minimal I/O operations"""
+    # Use a single write operation with json.dumps instead of multiple small writes
+    json_data = json.dumps(tracks, indent=4, ensure_ascii=False)
+    
+    # Write to a temporary file first to ensure atomic write operation
+    temp_file = f"{OUTPUT_FILE}.tmp"
+    
+    try:
+        # Use buffered writing with a large buffer size (1MB)
+        with open(temp_file, "w", encoding="utf-8", buffering=1024*1024) as f:
+            f.write(json_data)
+        
+        # Atomic rename operation (works on Unix and Windows)
+        if os.path.exists(OUTPUT_FILE):
+            os.replace(temp_file, OUTPUT_FILE)
+        else:
+            os.rename(temp_file, OUTPUT_FILE)
+            
+    except Exception as e:
+        if os.path.exists(temp_file):
+            os.remove(temp_file)
+        raise e
 
-def insert_into_db(track_data):
+def insert_into_db_batch(tracks_data):
+    """Batch insert tracks into database for better performance"""
     try:
         connection = connect_db()
         cursor = connection.cursor()
+        
+        # Prepare SQL and values
         sql = """
         INSERT INTO music (id, artist, ft_artist, title, label, genre, release_date, duration, price, image, audio)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
-        values = (
-            track_data["id"],
-            track_data["artist"],
-            track_data["ft_artist"],
-            track_data["title"],
-            track_data["label"],
-            track_data["genre"],
-            track_data["release_date"],
-            track_data["duration"],
-            track_data["price"],
-            track_data["image"],
-            track_data["audio"],
-        )
-        cursor.execute(sql, values)
-        connection.commit()
+        
+        values = [(track["id"], track["artist"], track["ft_artist"], track["title"], 
+                  track["label"], track["genre"], track["release_date"],
+                  track["duration"], track["price"], track["image"], track["audio"]) 
+                 for track in tracks_data]
+        
+        # Execute in batches of 100 for better performance
+        batch_size = 100
+        with tqdm(total=len(values), desc="Inserting to database") as pbar:
+            for i in range(0, len(values), batch_size):
+                batch = values[i:i + batch_size]
+                cursor.executemany(sql, batch)
+                connection.commit()
+                pbar.update(len(batch))
+                
         cursor.close()
         connection.close()
+        return True
     except mysql.connector.Error as err:
         print(f"Database error: {err}")
+        return False
 
-def upload_to_github(file_path):
+def upload_to_github(file_path, session=None):
+    """Optimized GitHub upload with session reuse and error handling"""
     try:
         url = f"https://api.github.com/repos/{GITHUB_USERNAME}/{GITHUB_REPO}/contents/{GITHUB_FILE_PATH}"
         
-        # Read file content
+        # Read file content once
         with open(file_path, "rb") as file:
             content = file.read()
             encoded_content = base64.b64encode(content).decode("utf-8")
 
-        # Get SHA of the existing file (if it exists)
-        response = requests.get(url, headers={"Authorization": f"token {GITHUB_TOKEN}"})
-        sha = response.json().get("sha", None) if response.status_code == 200 else None
+        # Use session if provided, otherwise create a new one
+        req = session.get if session else requests.get
+        put = session.put if session else requests.put
+
+        # Get SHA of existing file (if any)
+        response = req(url, headers={
+            "Authorization": f"token {GITHUB_TOKEN}",
+            "Accept": "application/vnd.github.v3+json"
+        })
+        
+        sha = None
+        if response.status_code == 200:
+            sha = response.json().get("sha")
+        elif response.status_code != 404:  # 404 means file doesn't exist yet
+            print(f"GitHub check failed: {response.status_code} - {response.text}")
+            return False
 
         # Prepare payload
         payload = {
-            "message": "Updated Exclusive Music List",
+            "message": f"Updated music list - {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
             "content": encoded_content,
             "branch": GITHUB_BRANCH
         }
         if sha:
-            payload["sha"] = sha  # Needed for updating an existing file
+            payload["sha"] = sha
 
-        # Make API request
-        response = requests.put(url, json=payload, headers={"Authorization": f"token {GITHUB_TOKEN}"})
-        
+        # Upload with timeout
+        response = put(url, json=payload, headers={
+            "Authorization": f"token {GITHUB_TOKEN}",
+            "Accept": "application/vnd.github.v3+json"
+        }, timeout=10)
+
         if response.status_code in [200, 201]:
-            print("File successfully uploaded to GitHub.")
+            return True
         else:
-            print(f"GitHub upload failed: {response.json()}")
+            print(f"GitHub upload failed: {response.status_code} - {response.text}")
+            return False
 
+    except requests.exceptions.RequestException as e:
+        print(f"Network error uploading to GitHub: {str(e)}")
+        return False
     except Exception as e:
-        print(f"Error uploading to GitHub: {e}")
-
-def shorten_artist_name(artist_name):
-    """Shortens artist names longer than 17 characters, including spaces."""
-    if len(artist_name) > 17:
-        return artist_name[:14] + "..."
-    return artist_name
+        print(f"Unexpected error uploading to GitHub: {str(e)}")
+        return False
 
 def process_folder(folder_path, start_id):
     current_id = start_id
     tracks = []
+    # Load existing tracks only once at the beginning
     if os.path.exists(OUTPUT_FILE):
         try:
             with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
                 tracks = json.load(f)
         except json.JSONDecodeError:
             tracks = []
-    for file in os.listdir(folder_path):
+    
+    # Process all files first, then write once at the end
+    new_tracks = []
+    file_list = [f for f in os.listdir(folder_path) if f.lower().endswith(('.mp3', '.wma'))]
+    
+    for file in tqdm(file_list, desc=f"Processing {os.path.basename(folder_path)}"):
         file_path = os.path.join(folder_path, file)
+        
         if file.lower().endswith(".mp3"):
             metadata = get_mp3_metadata(file_path)
-        elif file.lower().endswith(".wma"):
+        else:  # .wma
             metadata = get_wma_metadata(file_path)
-        else:
-            continue
         
         artist, ft_artist, title = parse_filename(file)
-
         artist = clean_artist_name(artist)
         artist = shorten_artist_name(artist)
         
@@ -258,39 +331,77 @@ def process_folder(folder_path, start_id):
             "image": f"img/{artist.replace(' ', ' ')}.png",
             "audio": f"tracks/{file}"
         }
-        tracks.append(track_data)
-        
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-        json.dump(tracks, f, indent=4, ensure_ascii=False)
-
-    return current_id, tracks
-
-folder_paths = []
-while True:
-    folder_path = filedialog.askdirectory(title="Select a Folder for Music Files")
+        new_tracks.append(track_data)
     
-    if folder_path:  # Check if a folder was selected
-        folder_paths.append(folder_path)
-        print(f"Folder added: {folder_path}")
+    # Combine existing and new tracks
+    tracks.extend(new_tracks)
+    
+    # Write all tracks at once
+    write_tracks_to_file(tracks)
+    
+    return current_id, new_tracks
+
+def main():
+    import sys
+
+    # Check if we're running from PHP or interactively
+    is_headless = "php" in sys.argv or "--headless" in sys.argv
+
+    folder_paths = []
+
+    if is_headless:
+        # Server mode: use predefined upload directory
+        folder_paths = [UPLOAD_DIR]
     else:
-        print("No folder selected. Please try again.")
+        # Interactive mode: allow user to select folders
+        while True:
+            folder_path = filedialog.askdirectory(title="Select a Folder for Music Files")
+            if folder_path:
+                folder_paths.append(folder_path)
+                print(f"Folder added: {folder_path}")
+            else:
+                print("No folder selected.")
+            
+            add_more = input("Would you like to add another folder? (yes/no): ").strip().lower()
+            if add_more != "yes":
+                break
 
-    add_more = input("Would you like to add another folder? (yes/no): ").strip().lower()
-    if add_more != "yes":
-        break
-starting_id = get_last_id()
-all_tracks_data = []
+        if not folder_paths:
+            print("No folders selected. Exiting.")
+            return
 
-for path in folder_paths:
-    starting_id, tracks_data = process_folder(path, starting_id)
-    all_tracks_data.extend(tracks_data)
+    starting_id = get_last_id()
+    all_tracks_data = []
 
-print("Inserting data into the database...")
+    print("Processing folder(s)...")
+    for path in tqdm(folder_paths, desc="Processing folders"):
+        starting_id, tracks_data = process_folder(path, starting_id)
+        all_tracks_data.extend(tracks_data)
 
-for track_data in all_tracks_data:
-    insert_into_db(track_data)  # Store in MySQL
-    upload_to_github(OUTPUT_FILE)  # Upload to GitHub
+    print("\nProcessing complete. Saving data...")
+
+    print("Inserting data into the database...")
+    if insert_into_db_batch(all_tracks_data):
+        print("Database update successful!")
+    else:
+        print("Database update completed with errors")
+
+    print("\nUploading to GitHub...")
+    with requests.Session() as session:
+        if upload_to_github(OUTPUT_FILE, session):
+            print("File successfully uploaded to GitHub.")
+        else:
+            print("Failed to upload to GitHub")
+
+    print("\nMusic metadata successfully saved to:")
+    print(f"- Local file: {OUTPUT_FILE}")
+    print("- Database")
+    print("- GitHub repository")
 
 
+if __name__ == "__main__":
+    main()
 
-print("Music metadata successfully saved to text file, database, GitHub, and Google Drive.")
+# Clear uploads after processing
+for f in os.listdir(UPLOAD_DIR):
+    os.remove(os.path.join(UPLOAD_DIR, f))

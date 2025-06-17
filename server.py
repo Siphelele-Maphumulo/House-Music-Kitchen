@@ -1,192 +1,183 @@
-
-from flask import Flask, jsonify, render_template, request
-import subprocess
+from flask import Flask, jsonify, render_template, request, send_from_directory
 import os
-import sys
-import json  # Missing import for JSON handling
+import json
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
-# Route for running the Python script (Generate Text.py)
-@app.route('/run-python', methods=['GET'])
-def run_python():
-    try:
-        # Get the full path of the script
-        script_path = os.path.abspath("Generate Text.py")
-
-        # Open IDLE and run the script automatically
-        subprocess.run([sys.executable, "-m", "idlelib", "-r", script_path], check=True)
-
-        return jsonify({"message": "Python script opened and executed in IDLE successfully!"})
-    except subprocess.CalledProcessError as e:
-        return jsonify({"error": str(e)})
-
-# Path to the music list file
+# File path for music list
 MUSIC_LIST_FILE = 'Exclusive_Music_List.txt'
 
-# Helper function to read the music list from the file
+# Image upload config
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+# Folder where uploaded images are stored
+IMAGE_FOLDER = 'img'
+os.makedirs(IMAGE_FOLDER, exist_ok=True)
+
+app.config['IMAGE_FOLDER'] = IMAGE_FOLDER
+
+# -------------------
+# Helper Functions
+# -------------------
+
 def read_music_list():
     try:
-        with open(MUSIC_LIST_FILE, 'r') as file:
-            return json.load(file)
-    except Exception as e:
-        return {"success": False, "error": str(e)}
+        if not os.path.exists(MUSIC_LIST_FILE):
+            return []
+        with open(MUSIC_LIST_FILE, 'r', encoding='utf-8') as file:
+            content = file.read()
+            if not content.strip():
+                return []
+            return json.loads(content)
+    except (json.JSONDecodeError, Exception) as e:
+        print(f"Error reading music list: {e}")
+        return []
 
-# Helper function to write the music list back to the file
 def write_music_list(music_list):
     try:
-        with open(MUSIC_LIST_FILE, 'w') as file:
-            json.dump(music_list, file, indent=4)
+        with open(MUSIC_LIST_FILE, 'w', encoding='utf-8') as file:
+            json.dump(music_list, file, indent=4, ensure_ascii=False)
+        return True
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        print(f"Error writing music list: {e}")
+        return False
 
-# Route to display and edit the Exclusive_Music_List.txt
-@app.route('/edit-file', methods=['GET', 'POST'])
-def edit_music_file():
-    if request.method == 'POST':
-        updated_content = request.form['content']
-        try:
-            # Update the file with the new content
-            with open(MUSIC_LIST_FILE, 'w') as file:
-                file.write(updated_content)
-            return jsonify({"message": "File updated successfully!"})
-        except Exception as e:
-            return jsonify({"error": f"Failed to update file: {str(e)}"})
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-    else:
-        try:
-            music_data = read_music_list()  # Read the data from the file
-            return render_template('edit_file.html', music_data=music_data)
-        except Exception as e:
-            return jsonify({"error": f"Failed to read file: {str(e)}"})
+# -------------------
+# Routes
+# -------------------
 
-# Route to update a music entry by ID
+@app.route('/edit-music-list')
+def edit_music_list():
+    music_data = read_music_list()
+    return render_template('edit_file.html', music_data=music_data)
+
 @app.route('/update-music/<int:id>', methods=['POST'])
 def update_music(id):
-    try:
-        updated_data = request.get_json()
-        music_list = read_music_list()
+    updated_data = request.get_json()
+    music_list = read_music_list()
 
-        for music in music_list:
-            if music['id'] == id:
-                music.update(updated_data)
-                write_music_list(music_list)
-                return jsonify({"success": True})
+    found = False
+    for music in music_list:
+        if music.get("id") == id:
+            music.update(updated_data)
+            found = True
+            break
 
+    if not found:
         return jsonify({"success": False, "error": "Music entry not found"})
 
-    except Exception as e:
-        return jsonify({"success": False, "error": str(e)})
-
-# Route to delete a music entry by ID
-@app.route('/delete-music/<int:id>', methods=['DELETE'])
-def delete_music(id):
-    try:
-        music_list = read_music_list()
-        music_list = [music for music in music_list if music['id'] != id]
-
-        write_music_list(music_list)
-
+    if write_music_list(music_list):
         return jsonify({"success": True})
-
-    except Exception as e:
-        return jsonify({"success": False, "error": str(e)})
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
-from flask import Flask, jsonify, render_template, request
-import subprocess
-import os
-import sys
-import json  # Missing import for JSON handling
-
-app = Flask(__name__)
-
-# Route for running the Python script (Generate Text.py)
-@app.route('/run-python', methods=['GET'])
-def run_python():
-    try:
-        # Get the full path of the script
-        script_path = os.path.abspath("Generate Text.py")
-
-        # Open IDLE and run the script automatically
-        subprocess.run([sys.executable, "-m", "idlelib", "-r", script_path], check=True)
-
-        return jsonify({"message": "Python script opened and executed in IDLE successfully!"})
-    except subprocess.CalledProcessError as e:
-        return jsonify({"error": str(e)})
-
-# Path to the music list file
-MUSIC_LIST_FILE = 'Exclusive_Music_List.txt'
-
-# Helper function to read the music list from the file
-def read_music_list():
-    try:
-        with open(MUSIC_LIST_FILE, 'r') as file:
-            return json.load(file)
-    except Exception as e:
-        return {"success": False, "error": str(e)}
-
-# Helper function to write the music list back to the file
-def write_music_list(music_list):
-    try:
-        with open(MUSIC_LIST_FILE, 'w') as file:
-            json.dump(music_list, file, indent=4)
-    except Exception as e:
-        return {"success": False, "error": str(e)}
-
-# Route to display and edit the Exclusive_Music_List.txt
-@app.route('/edit-file', methods=['GET', 'POST'])
-def edit_music_file():
-    if request.method == 'POST':
-        updated_content = request.form['content']
-        try:
-            # Update the file with the new content
-            with open(MUSIC_LIST_FILE, 'w') as file:
-                file.write(updated_content)
-            return jsonify({"message": "File updated successfully!"})
-        except Exception as e:
-            return jsonify({"error": f"Failed to update file: {str(e)}"})
-
     else:
-        try:
-            music_data = read_music_list()  # Read the data from the file
-            return render_template('edit_file.html', music_data=music_data)
-        except Exception as e:
-            return jsonify({"error": f"Failed to read file: {str(e)}"})
+        return jsonify({"success": False, "error": "Failed to write file"})
 
-# Route to update a music entry by ID
-@app.route('/update-music/<int:id>', methods=['POST'])
-def update_music(id):
-    try:
-        updated_data = request.get_json()
-        music_list = read_music_list()
-
-        for music in music_list:
-            if music['id'] == id:
-                music.update(updated_data)
-                write_music_list(music_list)
-                return jsonify({"success": True})
-
-        return jsonify({"success": False, "error": "Music entry not found"})
-
-    except Exception as e:
-        return jsonify({"success": False, "error": str(e)})
-
-# Route to delete a music entry by ID
 @app.route('/delete-music/<int:id>', methods=['DELETE'])
 def delete_music(id):
-    try:
-        music_list = read_music_list()
-        music_list = [music for music in music_list if music['id'] != id]
+    music_list = read_music_list()
+    updated_list = [music for music in music_list if music.get("id") != id]
 
-        write_music_list(music_list)
-
+    if write_music_list(updated_list):
         return jsonify({"success": True})
+    else:
+        return jsonify({"success": False, "error": "Failed to write file"})
+
+
+@app.route('/delete-multiple-music', methods=['POST'])
+def delete_multiple_music():
+    try:
+        # Get the list of IDs to delete
+        ids_to_delete = request.json.get('ids', [])
+        if not ids_to_delete:
+            return jsonify({"success": False, "error": "No IDs provided"}), 400
+
+        # Read current music list
+        music_list = read_music_list()
+        if not music_list:
+            return jsonify({"success": False, "error": "No music list found"}), 404
+
+        # Filter out the tracks to delete
+        updated_list = []
+        deleted_count = 0
+        
+        for music in music_list:
+            if music.get("id") not in ids_to_delete:
+                updated_list.append(music)
+            else:
+                deleted_count += 1
+                # Delete associated files if they exist
+                for file_type in ['image', 'audio']:
+                    file_path = music.get(file_type, "")
+                    if file_path:
+                        full_path = os.path.join(app.root_path, file_path)
+                        if os.path.exists(full_path):
+                            try:
+                                os.remove(full_path)
+                            except Exception as e:
+                                print(f"Error deleting {file_type} file: {e}")
+
+        # Write the updated list back to the text file
+        if not write_music_list(updated_list):
+            return jsonify({"success": False, "error": "Failed to update music file"}), 500
+
+        return jsonify({
+            "success": True,
+            "message": f"Deleted {deleted_count} tracks",
+            "remaining": len(updated_list)
+        })
 
     except Exception as e:
-        return jsonify({"success": False, "error": str(e)})
+        return jsonify({"success": False, "error": str(e)}), 500
 
+@app.route('/update-music-image/<int:id>', methods=['POST'])
+def update_music_image(id):
+    if 'image' not in request.files:
+        return jsonify({"success": False, "error": "No image file part"})
+
+    file = request.files['image']
+    if file.filename == '':
+        return jsonify({"success": False, "error": "No selected file"})
+
+    if not allowed_file(file.filename):
+        return jsonify({"success": False, "error": "Invalid file type"})
+
+    music_list = read_music_list()
+    music_entry = next((m for m in music_list if m.get("id") == id), None)
+
+    if not music_entry:
+        return jsonify({"success": False, "error": "Music entry not found"})
+
+    # Preserve original filename (with spaces)
+    original_filename = file.filename
+    filename = secure_filename(original_filename)
+
+    # Ensure spaces stay instead of being replaced by underscores
+    filename = filename.replace('_', ' ')
+
+    # Save to img folder
+    filepath = os.path.join(app.config['IMAGE_FOLDER'], filename)
+    file.save(filepath)
+
+    # Update JSON with new image path
+    music_entry['image'] = f"img/{filename}"
+
+    if write_music_list(music_list):
+        return jsonify({
+            "success": True,
+            "newImageUrl": music_entry['image']
+        })
+    else:
+        return jsonify({"success": False, "error": "Failed to update image path"})
+
+@app.route('/img/<filename>')
+def serve_uploaded_file(filename):
+    return send_from_directory(app.config['IMAGE_FOLDER'], filename)
+
+# -------------------
+# Run Server
+# -------------------
 if __name__ == '__main__':
     app.run(debug=True)

@@ -33,18 +33,185 @@ foreach ($tracks as $track) {
 }
 ?>
 <style>
-/* Hide the div by default */
+/* Original CSS (unchanged) */
+.menu {
+    font-family: Arial, sans-serif;
+    max-width: 920px;
+    transition: all 0.5s ease;
+}
+
+.trk-cell.thumb img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+/* Frosted Glass Effect for Images */
+.menu__item-img {
+    border-radius: 8px;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.menu__item-img::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    filter: blur(8px);
+    z-index: -1;
+    opacity: 0.7;
+    transition: all 0.4s ease;
+}
+
+.menu__item-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.menu__item-img:hover::before {
+    filter: blur(10px);
+    opacity: 0.9;
+}
+
+/* Menu Toggle Button */
+.menu-toggle {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Animation for Menu Items */
+.menu__item {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s forwards;
+    animation-delay: calc(var(--item-order) * 0.1s);
+}
+
+.menu__item-link {
+    cursor: pointer;
+    position: relative;
+    z-index: 2; /* Ensures clickable area is above other elements */
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+    .menu__item-link {
+        display: inline-block;
+        padding: 8px 12px;
+        background: rgba(0,0,0,0.1);
+        border-radius: 4px;
+    }
+}
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.play-fly {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.track-art {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-left: 20px;
+    border: 2px solid #fff;
+    border-radius: 6px;
+    box-shadow: 0 0 8px rgba(255,255,255,0.7);
+}
+
 .small-screen-message {
     display: none;
 }
 
-/* Show the div only on small screens */
+/* MOBILE-ONLY ADJUSTMENTS (NEW) */
 @media (max-width: 768px) {
+    .trk-row.hdr {
+        display: none; /* Hide header row on mobile */
+    }
+    
+    .trk-row {
+        display: block;
+        padding: 12px 0;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .trk-cell {
+        display: block;
+        width: 100% !important;
+        padding: 4px 0;
+        text-align: center;
+    }
+    
+    .trk-cell.thumb img {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .trk-cell.btncell button {
+        background-color: green !important;
+        padding: 8px 20px !important;
+        border-radius: 4px;
+    }
+    
     .small-screen-message {
         display: block;
+        margin: 15px 0;
+        padding: 10px;
+        background: #f8f8f8;
+        border-radius: 4px;
+        text-align: center;
+    }
+}
+@media (max-width: 768px) {
+    /* Previous mobile styles remain... */
+    
+    /* NEW: Cart button positioning */
+    .trk-cell.label {
+        position: relative;
+        padding-bottom: 40px; /* Space for button */
+    }
+    
+    .trk-cell.btncell {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        z-index: 10; /* Ensures button stays clickable */
+    }
+    
+    .trk-cell.btncell button {
+        display: inline-block;
+        width: auto;
+        min-width: 120px;
     }
 }
 </style>
+
+
 
 <nav class="menu">
     <?php foreach ($tracksByArtist as $artist => $artistTracks): ?>
@@ -97,7 +264,7 @@ foreach ($tracks as $track) {
                                         <a href="javascript:void(0);" 
                                            id="track-<?php echo $track['id']; ?>" 
                                            onclick="addToCartOnce(this, <?php echo $track['id']; ?>)">
-                                            <?php echo $track['artist']; ?> <?php echo $track['ft_artist']; ?> - <?php echo $track['title']; ?>
+                                             <?php echo $track['title']; ?>
                                         </a>
                                         <span class="adap-br"><br /></span>
                                         <span class="duration">(<?php echo $track['duration']; ?>)</span>
@@ -163,6 +330,42 @@ foreach ($tracks as $track) {
         </div>
     <?php endforeach; ?>
 </nav>
+
+<script>
+// Replace your existing toggleCategory function with this:
+function toggleCategory(categoryId, event) {
+    event.stopPropagation(); // Prevent event from bubbling up
+    
+    var categoryDiv = document.getElementById(categoryId);
+    var allCategories = document.querySelectorAll('.category');
+    
+    // Toggle the clicked category
+    if (categoryDiv.style.display === "none") {
+        // Hide all categories first
+        allCategories.forEach(function(cat) {
+            cat.style.display = "none";
+        });
+        // Show the clicked one
+        categoryDiv.style.display = "block";
+    } else {
+        categoryDiv.style.display = "none";
+    }
+}
+
+// Add this new click handler for the document
+document.addEventListener('click', function(event) {
+    // Check if we clicked outside any artist link or category
+    if (!event.target.closest('.menu__item-link') && !event.target.closest('.category')) {
+        var allCategories = document.querySelectorAll('.category');
+        allCategories.forEach(function(cat) {
+            cat.style.display = "none";
+        });
+    }
+});
+
+// Update your artist links in the PHP to include onclick:
+<a class="menu__item-link" onclick="toggleCategory('<?php echo $artist_safe; ?>', event)"><?php echo $artist; ?></a>
+</script>
 
 <script>
     function addToCartOnce(element, trackId) {

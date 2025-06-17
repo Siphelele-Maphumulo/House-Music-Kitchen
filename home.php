@@ -1,34 +1,115 @@
 <?php
-// Start session
+// Increase server limits
+ini_set('upload_max_filesize', '500M');
+ini_set('post_max_size', '500M');
+ini_set('memory_limit', '512M');
+ini_set('max_execution_time', '300');
+ini_set('max_input_time', '300');
+
+// Output buffering & session start
+ob_start();
 session_start();
-$role = isset($_SESSION['role']) ? $_SESSION['role'] : ''; // Get user role from session
-$isAdmin = ($role === 'admin'); // Determine if the user is an admin
 
-
-// Check if user is not logged in, redirect to login page
+// Redirect if not logged in
 if (!isset($_SESSION['user'])) {
-    header("Location: index.php"); // Redirect to your login page
+    header("Location: index.php");
     exit;
 }
 
-// Check the user's role based on session data
-if ($_SESSION['firstname'] === 'Admin' && $_SESSION['lastname'] === 'Admin') {
-    // Set the role to admin if the user is Admin
-    $role = 'admin';  
-} else {
-    // Otherwise, set the role to user
-    $role = 'user';  
-}
+// Set role
+$role = ($_SESSION['firstname'] === 'Admin' && $_SESSION['lastname'] === 'Admin') ? 'admin' : 'user';
+$_SESSION['role'] = $role;
+setcookie('role', $role, time() + (86400 * 30), '/');
 
-// Set the role cookie for 30 days
-setcookie('role', $role, time() + (86400 * 30), '/');  // 86400 = 1 day
-
-// Enable error reporting for debugging purposes (optional)
+// Enable error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require 'vendor/autoload.php';
+// ✅ Handle large POST size error manually
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && empty($_FILES)) {
+    header('Content-Type: application/json');
+    echo json_encode([
+        'success' => false,
+        'error' => '❌ POST size too large or empty upload. Please reduce the number of files or manually place them in /uploads.'
+    ]);
+    exit;
+}
+
+// ✅ If using file upload (optional fallback)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['files'])) {
+    header('Content-Type: application/json');
+
+    $uploadDir = __DIR__ . '/uploads/';
+    if (!file_exists($uploadDir)) {
+        mkdir($uploadDir, 0777, true);
+    }
+
+    $uploadedFiles = [];
+    $errors = [];
+
+    foreach ($_FILES['files']['tmp_name'] as $key => $tmpName) {
+        $fileName = basename($_FILES['files']['name'][$key]);
+        $targetPath = $uploadDir . $fileName;
+
+        // Only check file type if you want to filter
+        $allowedMimeTypes = ['audio/mpeg', 'audio/wav', 'audio/x-wav', 'audio/x-ms-wma'];
+        $fileType = mime_content_type($tmpName);
+
+        if (!in_array($fileType, $allowedMimeTypes)) {
+            $errors[] = "Invalid file type for $fileName";
+            continue;
+        }
+
+        if (move_uploaded_file($tmpName, $targetPath)) {
+            $uploadedFiles[] = $fileName;
+        } else {
+            $errors[] = "Failed to upload $fileName";
+        }
+    }
+
+    if (!empty($errors)) {
+        echo json_encode(['success' => false, 'error' => implode("\n", $errors)]);
+        exit;
+    }
+
+    echo json_encode(['success' => true, 'files' => $uploadedFiles]);
+    exit;
+}
+
+// ✅ Run Python script if requested (even without upload)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' || isset($_GET['run_python'])) {
+    header('Content-Type: application/json');
+
+    $pythonScriptPath = __DIR__ . '/GenerateText.py';
+
+    if (!file_exists($pythonScriptPath)) {
+        echo json_encode(['success' => false, 'error' => 'Python script not found']);
+        exit;
+    }
+
+    // Run the Python script
+    $command = 'python3 ' . escapeshellarg($pythonScriptPath) . ' --headless 2>&1';
+    $output = [];
+    $return_var = 0;
+
+    exec($command, $output, $return_var);
+
+    if ($return_var !== 0) {
+        echo json_encode([
+            'success' => false,
+            'error' => 'Failed to execute Python script',
+            'output' => $output,
+            'return_code' => $return_var
+        ]);
+        exit;
+    }
+
+    echo json_encode(['success' => true, 'output' => $output]);
+    exit;
+}
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,11 +120,13 @@ require 'vendor/autoload.php';
     <meta name="keywords" content="marquee, css, animation, loop, infinite, hover, menu, navigation" />
     <title>House Music Kitchen</title>
 
-    <link rel="shortcut icon" href="favicon.ico">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTGHpAS2o8G4c_0KPAr8MTxgMPFGamduI6jQ&s">
     <link rel="stylesheet" href="https://use.typekit.net/zhq0vyf.css">
 
     <link rel="stylesheet" type="text/css" href="https://geo-w-static.traxsource.com/css/ts_plugs.min.css?ts=1560271691">
   <link rel="stylesheet" type="text/css" href="https://geo-w-static.traxsource.com/scripts/src.php/1707232980/css/ts_index.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
 
   <link href='https://fonts.googleapis.com/css?family=Oswald:700,400' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Roboto:700,400' rel='stylesheet' type='text/css'>
@@ -63,9 +146,8 @@ require 'vendor/autoload.php';
   <link rel="apple-touch-icon" sizes="72x72" href="https://geo-static.traxsource.com/img/apple-touch-icon-72x72.png">
   <link rel="apple-touch-icon" sizes="57x57" href="https://geo-static.traxsource.com/img/apple-touch-icon-57x57.png">
 
-  <link rel="shortcut icon" type="image/x-icon" href="https://geo-static.traxsource.com/img/fav_icon.png">
-  <link rel="icon" sizes="196x196" href="https://geo-static.traxsource.com/img/favicon-196x196.png">
-  <link rel="icon" sizes="128x128" href="https://geo-static.traxsource.com/img/favicon-128x128.png">
+
+
   <meta name="msapplication-TileImage" content="https://geo-static.traxsource.com/img/apple-touch-icon-144x144.png">
   <meta name="msapplication-TileColor" content="#262626">
   <link rel="stylesheet" type="text/css" href="https://geo-w-static.traxsource.com/css/ts_plugs.min.css?ts=1560271691">
@@ -95,6 +177,33 @@ require 'vendor/autoload.php';
     
     
     <style>
+           /* Add your styles here */
+        #loaderOverlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     /* Full-screen loader overlay */
     body {
         font-family: Arial, sans-serif;
@@ -138,14 +247,14 @@ require 'vendor/autoload.php';
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scrolling if needed */
-    background-color: rgba(0, 0, 0, 0.5); /* Dark background */
+    background-color: rgba(0, 0, 0, 0.33); /* Dark background */
     justify-content: center; /* Center child items horizontally */
     align-items: center; /* Center child items vertically */
 }
 
 .modal-content {
     font-size: 20px;
-    background: white;
+    background: rgba(0, 0, 0, 0.3); /* semi-transparent black */
     padding: 20px;
     border-radius: 10px;
     text-align: center;
@@ -216,7 +325,217 @@ require 'vendor/autoload.php';
     padding: 5px; /* Optional: Add some padding */  
     background-color: #f9f9f9; /* Optional: Background color for events */  
 }  
-    
+
+
+
+/* Music Upload Loader Styles */
+.music-upload-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.music-wave {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    margin-bottom: 30px;
+}
+
+.music-bar {
+    background: linear-gradient(to top, #8e44ad, #3498db);
+    width: 10px;
+    height: 20px;
+    margin: 0 3px;
+    border-radius: 5px;
+    animation: musicWave 1.5s infinite ease-in-out;
+}
+
+.music-bar:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.music-bar:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.music-bar:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+.music-bar:nth-child(5) {
+    animation-delay: 0.8s;
+}
+
+@keyframes musicWave {
+    0%, 100% {
+        height: 20px;
+    }
+    50% {
+        height: 80px;
+    }
+}
+
+.upload-progress {
+    width: 80%;
+    max-width: 400px;
+    background: #333;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.progress-bar {
+    height: 10px;
+    background: linear-gradient(to right, #3498db, #8e44ad);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.upload-status {
+    margin-top: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.upload-details {
+    margin-top: 10px;
+    color: #aaa;
+}
+
+.vinyl {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #111 50%, #333 50%);
+    position: relative;
+    margin-bottom: 30px;
+    animation: spin 2s linear infinite;
+}
+
+.vinyl-center {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.upload-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.3); /* semi-transparent black */
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.upload-modal {
+color: white;
+  position: relative;
+  background: rgba(0, 0, 0, 0.3); /* semi-transparent black */
+  padding: 30px 40px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 90%;
+}
+
+
+.upload-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #e74c3c; /* red */
+  border: none;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 1;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.upload-close-btn:hover {
+  background: #c0392b;
+}
+
+.upload-modal h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+.upload-modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 30px; /* bigger gap between buttons */
+  margin-top: 20px;
+}
+
+.upload-modal-buttons button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+  min-width: 130px;
+}
+
+.upload-modal-buttons button:hover {
+  background-color: #45a049;
+}
+
+@keyframes fadeIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.upload-modal {
+  background: rgba(255, 255, 255, 0.85); /* slightly see-through white */
+  backdrop-filter: blur(8px); /* optional, for glassy blur effect */
+  -webkit-backdrop-filter: blur(8px);
+  /* rest same */
+}
+
+
+
 </style>
 
 
@@ -284,33 +603,33 @@ require 'vendor/autoload.php';
     }
 </script>
 
-<!-- Container for admin buttons -->
-<div id="admin-buttons" style="display: none; gap: 20px; align-items: center;">
-    <button onclick="runPython()" style="font-size: 18px; color: green; border: none; background: none; cursor: pointer; display: flex; align-items: center; gap: 8px;">
-        <i class="fas fa-cloud-upload" style="font-size: 24px; color: green;"></i> Upload Music
+<!-- Admin buttons -->
+<?php if ($_SESSION['role'] === 'admin'): ?>
+<div id="admin-buttons" style="display: flex; gap: 20px; padding: 20px;">
+    <button onclick="chooseUploadType()" style="font-size: 18px; padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 16px;">
+      <i class="fas fa-cloud-upload"></i>
     </button>
-    <button onclick="window.open('http://127.0.0.1:5000/edit-file', '_blank')" 
-        style="font-size: 18px; color: blue; border: none; background: none; cursor: pointer; display: flex; align-items: center; gap: 8px;">
-    <i class="fas fa-edit" style="font-size: 24px; color: blue;"></i> Edit Music
-</button>
 
+
+        
+    <button onclick="openEditor()" style="font-size: 18px; padding: 10px 20px; background: #2196F3; color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 16px;">
+        <i class="fas fa-edit"></i>
+    </button>
 </div>
+<?php endif; ?>
 
-<!-- Container for user buttons -->
-<div id="user-buttons" style="display: none; gap: 20px; align-items: center;">
-    <!-- Open Capitec App -->
-    <button onclick="openCapitecApp()" 
-            style="font-size: 18px; color: #009688; border: none; background: none; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+<!-- User buttons -->
+<?php if ($_SESSION['role'] === 'user'): ?>
+<div id="user-buttons" style="display: flex; gap: 20px; align-items: center; padding: 20px;">
+    <button onclick="openCapitecApp()" style="font-size: 18px; color: #009688; background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 16px;">
         <i class="fas fa-credit-card" style="font-size: 24px; color: #009688;"></i> Payment
     </button>
 
-    <!-- Open WhatsApp chat -->
-    <button onclick="openWhatsApp()" 
-            style="font-size: 18px; color: #25D366; border: none; background: none; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+    <button onclick="openWhatsApp()" style="font-size: 18px; color: #25D366; background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 16px;">
         <i class="fab fa-whatsapp" style="font-size: 24px; color: #25D366;"></i> WhatsApp
     </button>
 </div>
-
+<?php endif; ?>
 
 
 <!-- Include Font Awesome -->
@@ -331,8 +650,8 @@ require 'vendor/autoload.php';
     <h2>Shopping Cart</h2>
     <table id="cart-items"></table>
     <p>Total Amount Due: $<span id="total-amount">0</span></p>
-    <button id="checkout-button" onclick="checkout()">Checkout</button>
-    <button id="clear-button" onclick="clearCart()">Clear Cart</button>
+    <button id="checkout-button" onclick="checkout()" style="gap: 20px;">Checkout</button>
+    <button id="clear-button" onclick="clearCart()" style="color: rgb(255, 255, 255);">Clear Cart</button>
 
     <div>
         <p style="color: rgb(242, 0, 255); font-size: large;">Please make sure you reach Google forms page</p>
@@ -425,7 +744,43 @@ require 'vendor/autoload.php';
             <p class="highlight">Thank you for choosing House Music Kitchen for all your house music needs. Let the beats move you!</p>
         </div>
     </div>
+
+    <div id="musicUploadLoader" class="music-upload-loader" style="display: none;">
+    <div class="vinyl">
+        <div class="vinyl-center"></div>
+    </div>
     
+    
+    <div class="music-wave">
+        <div class="music-bar"></div>
+        <div class="music-bar"></div>
+        <div class="music-bar"></div>
+        <div class="music-bar"></div>
+        <div class="music-bar"></div>
+    </div>
+    
+    <div class="upload-status">Uploading Your Music...</div>
+    <div class="upload-details" id="uploadDetails">Preparing files</div>
+    
+    <div class="upload-progress">
+        <div class="progress-bar" id="uploadProgressBar"></div>
+    </div>
+</div>
+
+<div id="uploadChoiceModal" class="upload-modal-overlay">
+  <div class="upload-modal">
+    <button class="upload-close-btn" onclick="closeModal()">×</button>
+    <h2>🎵 UPLOAD MUSIC 🎵</h2>
+    <p>How would you like to upload your music?</p>
+    <div class="upload-modal-buttons">
+      <button onclick="handleFolderUpload()">📁 Folder</button>
+      <button onclick="handleFileUpload()">🎶 Singles</button>
+    </div>
+  </div>
+</div>
+
+
+
 
     <script>
     // Load events from JSON file
@@ -852,15 +1207,244 @@ document.addEventListener('DOMContentLoaded', function () {
         window.open("https://wa.me/" + phoneNumber, "_blank");
     }
     
-    //  Run Python script 
-    function runPython() {
-        fetch("http://127.0.0.1:5000/run-python")
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("result").innerText = data.message || data.error;
-            })
-            .catch(error => console.error("Error:", error));
+
+   // Function to open the editor
+    function openEditor() {
+        window.open('http://127.0.0.1:5000/edit-music-list', '_blank');
     }
+    
+
+function chooseUploadType() {
+  document.getElementById('uploadChoiceModal').style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('uploadChoiceModal').style.display = 'none';
+}
+
+function handleFolderUpload() {
+  closeModal();
+  uploadMusicFolder();
+}
+
+function handleFileUpload() {
+  closeModal();
+  uploadMusicFiles();
+}
+
+function uploadMusicFiles() {
+  const loader = document.getElementById('musicUploadLoader');
+  const progressBar = document.getElementById('uploadProgressBar');
+  const uploadDetails = document.getElementById('uploadDetails');
+
+  // Show loader
+  loader.style.display = 'flex';
+  progressBar.style.width = '0%';
+  uploadDetails.innerHTML = '<p>Preparing to upload files...</p><ul id="fileDetailsList"></ul>';
+
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.name = 'music_files[]';
+  fileInput.multiple = true;
+  fileInput.accept = '.mp3,.wma';
+
+  fileInput.onchange = async (event) => {
+    const files = event.target.files;
+    if (!files.length) {
+      loader.style.display = 'none';
+      return;
+    }
+
+    const fileDetailsList = document.getElementById('fileDetailsList');
+    fileDetailsList.innerHTML = '';
+
+    const formData = new FormData();
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      formData.append('music_files[]', file);
+
+      const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+      const fileInfo = `<li><strong>${file.name}</strong> - ${sizeMB} MB - ${file.type}</li>`;
+      fileDetailsList.innerHTML += fileInfo;
+
+      const prepProgress = Math.round(((i + 1) / files.length) * 50);
+      progressBar.style.width = `${prepProgress}%`;
+      uploadDetails.querySelector('p').textContent = `Preparing: ${file.name} (${prepProgress}%)`;
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+
+    uploadDetails.querySelector('p').textContent = 'Uploading...';
+
+    const xhr = new XMLHttpRequest();
+    xhr.timeout = 30000;
+
+    xhr.ontimeout = () => {
+      loader.style.display = 'none';
+      alert('❌ Upload timed out after 30 seconds.');
+    };
+
+    xhr.upload.onprogress = (e) => {
+      if (e.lengthComputable) {
+        const uploadProgress = 50 + (e.loaded / e.total) * 50;
+        progressBar.style.width = `${uploadProgress}%`;
+        uploadDetails.querySelector('p').textContent = `Uploading: ${Math.round(uploadProgress)}%`;
+      }
+    };
+
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        try {
+          const response = JSON.parse(xhr.responseText);
+          progressBar.style.width = '100%';
+          uploadDetails.querySelector('p').textContent = '✅ Upload complete!';
+
+          if (response.output) {
+            console.log('🎵 Python Output:', response.output);
+            alert('✅ Upload & text generated successfully!');
+          } else {
+            alert('⚠️ Upload succeeded but no output from script.');
+          }
+
+          setTimeout(() => {
+            loader.style.display = 'none';
+          }, 1000);
+        } catch (e) {
+          loader.style.display = 'none';
+          alert('❌ Failed to parse server response.');
+        }
+      } else {
+        loader.style.display = 'none';
+        alert('❌ Upload failed: ' + xhr.statusText);
+      }
+    };
+
+    xhr.onerror = () => {
+      loader.style.display = 'none';
+      alert('❌ Upload failed. Please try again.');
+    };
+
+    xhr.open('POST', 'upload_singles.php');
+    xhr.send(formData);
+  };
+
+  fileInput.click();
+}
+
+
+
+function uploadMusicFolder() {
+  const loader = document.getElementById('musicUploadLoader');
+  const progressBar = document.getElementById('uploadProgressBar');
+  const uploadDetails = document.getElementById('uploadDetails');
+
+  // Show loader & reset
+  loader.style.display = 'flex';
+  progressBar.style.width = '0%';
+  uploadDetails.innerHTML = '<p>Preparing to upload folder...</p><ul id="folderFileList"></ul>';
+
+  // Create hidden file input for folder selection
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.webkitdirectory = true; // Allow folder selection
+  fileInput.multiple = true;
+
+  fileInput.onchange = async (event) => {
+    const files = event.target.files;
+    if (!files.length) {
+      loader.style.display = 'none';
+      return;
+    }
+
+    const fileList = document.getElementById('folderFileList');
+    fileList.innerHTML = '';
+    const formData = new FormData();
+
+    // Append files & list them
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      // Append with relative path to preserve folder structure
+      formData.append('folder_files[]', file, file.webkitRelativePath);
+
+      const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+      fileList.innerHTML += `<li><strong>${file.webkitRelativePath}</strong> - ${sizeMB} MB</li>`;
+
+      // Update progress bar for preparation (optional)
+      const prepProgress = Math.round(((i + 1) / files.length) * 30);
+      progressBar.style.width = `${prepProgress}%`;
+      uploadDetails.querySelector('p').textContent = `Preparing: ${file.name} (${prepProgress}%)`;
+
+      // Small delay to show progress
+      await new Promise(r => setTimeout(r, 50));
+    }
+
+    uploadDetails.querySelector('p').textContent = 'Uploading...';
+
+    // Upload with XMLHttpRequest to track progress
+    const xhr = new XMLHttpRequest();
+    xhr.timeout = 60000; // 60 seconds timeout
+
+    xhr.ontimeout = () => {
+      loader.style.display = 'none';
+      alert('❌ Upload timed out.');
+    };
+
+    xhr.upload.onprogress = (e) => {
+      if (e.lengthComputable) {
+        const uploadProgress = 30 + (e.loaded / e.total) * 70;
+        progressBar.style.width = `${uploadProgress}%`;
+        uploadDetails.querySelector('p').textContent = `Uploading: ${Math.round(uploadProgress)}%`;
+      }
+    };
+
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        try {
+          const response = JSON.parse(xhr.responseText);
+          progressBar.style.width = '100%';
+
+          // Show completion message + list uploaded files
+          let msg = '✅ Folder upload complete!<br><strong>Uploaded files:</strong><ul>';
+          (response.uploaded_files || []).forEach(f => {
+            msg += `<li>${f}</li>`;
+          });
+          msg += '</ul>';
+
+          if (response.output) {
+            msg += `<pre style="background:#eee; padding:10px; max-height:150px; overflow:auto;">${response.output}</pre>`;
+          }
+
+          uploadDetails.innerHTML = msg;
+
+          // Hide loader after a short delay so user can see message
+          setTimeout(() => {
+            loader.style.display = 'none';
+          }, 4000);
+
+        } catch (e) {
+          loader.style.display = 'none';
+          alert('❌ Failed to parse server response.');
+        }
+      } else {
+        loader.style.display = 'none';
+        alert('❌ Upload failed: ' + xhr.statusText);
+      }
+    };
+
+    xhr.onerror = () => {
+      loader.style.display = 'none';
+      alert('❌ Upload failed. Please try again.');
+    };
+
+    xhr.open('POST', 'upload.php');
+    xhr.send(formData);
+  };
+
+  fileInput.click();
+}
+
 </script>
+<div id="output"></div>
+
 </body>
 </html>

@@ -2,101 +2,793 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Music List</title>
-</head>
-<body>
-    <h2>Music Editing</h2>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A menu with a css-only marquee hover effect" />
+    <meta name="keywords" content="marquee, css, animation, loop, infinite, hover, menu, navigation" />
+    <title>Update Music</title>
 
-    <!-- Table to display music data -->
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Artist</th>
-                <th>Featured Artist</th>
-                <th>Title</th>
-                <th>Label</th>
-                <th>Genre</th>
-                <th>Release Date</th>
-                <th>Duration</th>
-                <th>Price</th>
-                <th>Image</th>
-                <th>Audio</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for music in music_data %}
-                <tr id="music-{{ music.id }}">
-                    <td>{{ music.id }}</td>
-                    <td><input type="text" id="artist-{{ music.id }}" value="{{ music.artist }}"></td>
-                    <td><input type="text" id="ft_artist-{{ music.id }}" value="{{ music.ft_artist }}"></td>
-                    <td><input type="text" id="title-{{ music.id }}" value="{{ music.title }}"></td>
-                    <td><input type="text" id="label-{{ music.id }}" value="{{ music.label }}"></td>
-                    <td><input type="text" id="genre-{{ music.id }}" value="{{ music.genre }}"></td>
-                    <td><input type="text" id="release_date-{{ music.id }}" value="{{ music.release_date }}"></td>
-                    <td><input type="text" id="duration-{{ music.id }}" value="{{ music.duration }}"></td>
-                    <td><input type="text" id="price-{{ music.id }}" value="{{ music.price }}"></td>
-                    <td><img src="{{ music.image }}" alt="{{ music.artist }}" width="50" height="50"></td>
-                    <td><a href="{{ music.audio }}" target="_blank">Listen</a></td>
-                    <td>
-                        <button onclick="updateMusic({{ music.id }})">Update</button>
-                        <button onclick="deleteMusic({{ music.id }})">Delete</button>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTGHpAS2o8G4c_0KPAr8MTxgMPFGamduI6jQ&s">
+    <link rel="stylesheet" href="https://use.typekit.net/zhq0vyf.css">
 
-    <!-- Script to handle button clicks -->
+    <link rel="stylesheet" type="text/css" href="https://geo-w-static.traxsource.com/css/ts_plugs.min.css?ts=1560271691">
+  <link rel="stylesheet" type="text/css" href="https://geo-w-static.traxsource.com/scripts/src.php/1707232980/css/ts_index.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
+
+  <link href='https://fonts.googleapis.com/css?family=Oswald:700,400' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:700,400' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Noto+Sans:700,400' rel='stylesheet' type='text/css'>
     <script>
-        function updateMusic(id) {
-            const updatedData = {
-                artist: document.getElementById(`artist-${id}`).value,
-                ft_artist: document.getElementById(`ft_artist-${id}`).value,
-                title: document.getElementById(`title-${id}`).value,
-                label: document.getElementById(`label-${id}`).value,
-                genre: document.getElementById(`genre-${id}`).value,
-                release_date: document.getElementById(`release_date-${id}`).value,
-                duration: document.getElementById(`duration-${id}`).value,
-                price: document.getElementById(`price-${id}`).value
-            };
-
-            fetch(`/update-music/${id}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(updatedData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Music updated successfully!');
-                    location.reload();
-                } else {
-                    alert('Error updating music: ' + data.error);
-                }
-            });
-        }
-
-        function deleteMusic(id) {
-            if (confirm('Are you sure you want to delete this entry?')) {
-                fetch(`/delete-music/${id}`, {
-                    method: 'DELETE'
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Music deleted successfully!');
-                        document.getElementById(`music-${id}`).remove();
-                    } else {
-                        alert('Error deleting music: ' + data.error);
-                    }
-                });
-            }
-        }
+        document.documentElement.className = "js";
+        var supportsCssVars = function () { var e, t = document.createElement("style"); return t.innerHTML = "root: { --tmp-var: bold; }", document.head.appendChild(t), e = !!(window.CSS && window.CSS.supports && window.CSS.supports("font-weight", "var(--tmp-var)")), t.parentNode.removeChild(t), e };
+        supportsCssVars() || alert("Please view this demo in a modern browser that supports CSS Variables.");
     </script>
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://geo-static.traxsource.com/img/apple-touch-icon-180x180.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="https://geo-static.traxsource.com/img/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="https://geo-static.traxsource.com/img/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="https://geo-static.traxsource.com/img/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="https://geo-static.traxsource.com/img/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://geo-static.traxsource.com/img/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="https://geo-static.traxsource.com/img/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="https://geo-static.traxsource.com/img/apple-touch-icon-57x57.png">
+
+
+
+  <meta name="msapplication-TileImage" content="https://geo-static.traxsource.com/img/apple-touch-icon-144x144.png">
+  <meta name="msapplication-TileColor" content="#262626">
+  <link rel="stylesheet" type="text/css" href="https://geo-w-static.traxsource.com/css/ts_plugs.min.css?ts=1560271691">
+  <link rel="stylesheet" type="text/css" href="https://geo-w-static.traxsource.com/scripts/src.php/1707232980/css/ts_index.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Oswald:700,400' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:700,400' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Noto+Sans:700,400' rel='stylesheet' type='text/css'>
+
+  <script type="text/javascript" src="https://geo-w-static.traxsource.com/js/ts_plugs.min.js?ts=1495471120"></script>
+  <script type="text/javascript" src="https://geo-w-static.traxsource.com/js/playlist.ts.v2.min.js?ts=1687965120"></script>
+  <script type="text/javascript" src="https://geo-w-static.traxsource.com/scripts/src.php/1687965180/js/traxsource.global.min.js"></script>
+  <script type="text/javascript" src="https://geo-w-static.traxsource.com/js/tsmain.min.js?ts=1695743105"></script>
+  <script type="text/javascript" src="https://geo-w-static.traxsource.com/js/tspage.min.js?ts=1707232320"></script>
+  
+  <!-- Add Font Awesome  -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  
+
+  <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="wtvqrvq57ffh13q"></script>
+
+  <!-- Start of traxsource Zendesk Widget script -->
+    <script>/*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(e){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var e=this.createElement("script");n&&(this.domain=n),e.id="js-iframe-async",e.src="https://assets.zendesk.com/embeddable_framework/main.js",this.t=+new Date,this.zendeskHost="traxsource.zendesk.com",this.zEQueue=a,this.body.appendChild(e)},o.write('<body onload="document._l();">'),o.close()}();/*]]>*/</script>
+  </head>
+    <script src="//tympanus.net/codrops/adpacks/analytics.js"></script>
+
+<style>
+/* Add to your existing CSS */
+.music-upload-loader {
+    /* Your existing styles */
+    z-index: 10000; /* Ensure it's above everything */
+    background-color: rgba(0, 0, 0, 0.85); /* Darker background for better visibility */
+}
+
+.delete-progress {
+    color: #ff6b6b; /* Red tint for delete operations */
+}
+
+    .music-upload-loader {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.8);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: sans-serif;
+}
+
+.upload-progress {
+  width: 80%;
+  background: #333;
+  height: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background-color: #4caf50;
+  transition: width 0.3s ease;
+}
+
+
+    .glass-container {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 16px;
+        padding: 30px;
+        width: 100%;
+        max-width: 1200px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    h2 {
+        text-align: center;
+        color:rgb(243, 243, 243);
+        font-size: 3em;
+        margin-bottom: 30px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    thead {
+        background: rgba(80, 80, 80, 0.69);
+        color: white;
+    }
+
+    thead th {
+        padding: 12px;
+    }
+
+    tbody td {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        color: #000;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    input[type="text"] {
+        width: 95%;
+        padding: 6px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(4px);
+    }
+
+    button {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        margin: 2px;
+        font-weight: bold;
+        transition: 0.3s;
+        color: white;
+    }
+
+    button:nth-child(1) {
+        background-color: #4caf50;
+    }
+
+    button:nth-child(2) {
+        background-color: #f44336;
+    }
+
+    button:hover {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+
+    a {
+        text-decoration: none;
+        color: #0288d1;
+        font-weight: bold;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    img {
+        border-radius: 4px;
+        object-fit: cover;
+        width: 50px;
+        height: 50px;
+    }
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎵 House Music Kitchen - Track Editor</title>
+  <style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background: rgba(12, 11, 11, 0.63);
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin: 0;
+        padding: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+    }
+
+    .glass-container {
+      width: 95%;
+      max-width: 1400px;
+      margin: 20px auto;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      padding: 20px;
+      overflow-x: auto;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1200px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    th {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 6px;
+      border-radius: 6px;
+      border: none;
+      font-size: 14px;
+    }
+
+    img {
+      height: 50px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: transform 0.3s ease;
+    }
+
+    img:hover {
+      transform: scale(1.1);
+    }
+
+    button {
+      padding: 6px 12px;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-right: 5px;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ddd;
+    }
+
+    a {
+      color: #ffd700;
+      text-decoration: none;
+    }
+
+    .fixed-buttons {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .upload-btn {
+      font-size: 16px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      border: 2px solid #ccc;
+      border-radius: 50px;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .upload-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .search-box {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .search-box input {
+      padding: 10px;
+      width: 280px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+
+ /* Music Upload Loader Styles */
+.music-upload-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.music-wave {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    margin-bottom: 30px;
+}
+
+.music-bar {
+    background: linear-gradient(to top, #8e44ad, #3498db);
+    width: 10px;
+    height: 20px;
+    margin: 0 3px;
+    border-radius: 5px;
+    animation: musicWave 1.5s infinite ease-in-out;
+}
+
+.music-bar:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.music-bar:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.music-bar:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+.music-bar:nth-child(5) {
+    animation-delay: 0.8s;
+}
+
+@keyframes musicWave {
+    0%, 100% {
+        height: 20px;
+    }
+    50% {
+        height: 80px;
+    }
+}
+
+.upload-progress {
+    width: 80%;
+    max-width: 400px;
+    background: #333;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.progress-bar {
+    height: 10px;
+    background: linear-gradient(to right, #3498db, #8e44ad);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.upload-status {
+    margin-top: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.upload-details {
+    margin-top: 10px;
+    color: #aaa;
+}
+
+.vinyl {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #111 50%, #333 50%);
+    position: relative;
+    margin-bottom: 30px;
+    animation: spin 2s linear infinite;
+}
+
+.vinyl-center {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+  </style>
+</head>
+
+<body>
+
+  <!-- Fixed Search Box -->
+  <div class="search-box">
+    <input type="text" id="trackSearch" placeholder="🔍 Search by Artist, Title, Label..." onkeyup="filterTracks()" />
+  </div>
+
+  <!-- Fixed Upload Button -->
+  <div class="fixed-buttons">
+    <button class="upload-btn" onclick="uploadMusic()">
+      <i class="fas fa-cloud-upload"></i> Upload Music
+    </button>
+    <button class="upload-btn" onclick="deleteSelectedTracks()">
+      <i class="fas fa-trash"></i> Delete Selected
+    </button>
+
+  </div>
+
+  <!-- Main Content -->
+  <div class="glass-container">
+    <h2>🎵 House Music Kitchen Track Update 🎵</h2>
+
+    <!-- Track Table -->
+    <table id="musicTable">
+      <thead>
+        <tr>
+           <th><input type="checkbox" onclick="toggleAll(this)" /></th> <!-- 🔁 Select all -->
+          <th>ID</th>
+          <th>Artist</th>
+          <th>Featured</th>
+          <th>Title</th>
+          <th>Label</th>
+          <th>Genre</th>
+          <th>Release</th>
+          <th>Duration</th>
+          <th>Price</th>
+          <th>Image</th>
+          <th>Audio</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for music in music_data %}
+        <tr id="music-{{ music.id }}">
+          <td><input type="checkbox" class="track-checkbox" data-id="{{ music.id }}"></td>
+          <td>{{ music.id }}</td>
+          <td><input type="text" id="artist-{{ music.id }}" value="{{ music.artist }}"></td>
+          <td><input type="text" id="ft_artist-{{ music.id }}" value="{{ music.ft_artist }}"></td>
+          <td><input type="text" id="title-{{ music.id }}" value="{{ music.title }}"></td>
+          <td><input type="text" id="label-{{ music.id }}" value="{{ music.label }}"></td>
+          <td><input type="text" id="genre-{{ music.id }}" value="{{ music.genre }}"></td>
+          <td><input type="text" id="release_date-{{ music.id }}" value="{{ music.release_date }}"></td>
+          <td><input type="text" id="duration-{{ music.id }}" value="{{ music.duration }}"></td>
+          <td><input type="text" id="price-{{ music.id }}" value="{{ music.price }}"></td>
+          <td>
+            <img src="{{ music.image }}" alt="Cover" onclick="triggerImageUpload({{ music.id }})" id="image-{{ music.id }}" style="cursor:pointer;" />
+            <input type="file" id="file-{{ music.id }}" accept="image/*" style="display:none;" onchange="uploadNewImage({{ music.id }})">
+          </td>
+          <td><a href="{{ music.audio }}" target="_blank">🎧 Listen</a></td>
+          <td>
+            <button onclick="updateMusic({{ music.id }})">✅ Update</button>
+            <button onclick="deleteMusic({{ music.id }})">🗑️ Delete</button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+
+   <!--  =====  UPDATE MUSIC ===== -->
+<!-- Add this loader HTML before your scripts -->
+<div id="musicUploadLoader" class="music-upload-loader" style="display: none;">
+    <div class="vinyl">
+        <div class="vinyl-center"></div>
+    </div>
+    
+    <div class="music-wave">
+        <div class="music-bar"></div>
+        <div class="music-bar"></div>
+        <div class="music-bar"></div>
+        <div class="music-bar"></div>
+        <div class="music-bar"></div>
+    </div>
+    
+    <div class="upload-status" id="uploadStatus">Processing Your Music...</div>
+    <div class="upload-details" id="uploadDetails">Preparing files</div>
+    
+    <div class="upload-progress">
+        <div class="progress-bar" id="uploadProgressBar"></div>
+    </div>
+</div>
+
+
+
+  <!-- Scripts -->
+  <script>
+    // ===== UPDATE MUSIC =====
+    function updateMusic(id) {
+      const updatedData = {
+        artist: document.getElementById(`artist-${id}`).value,
+        ft_artist: document.getElementById(`ft_artist-${id}`).value,
+        title: document.getElementById(`title-${id}`).value,
+        label: document.getElementById(`label-${id}`).value,
+        genre: document.getElementById(`genre-${id}`).value,
+        release_date: document.getElementById(`release_date-${id}`).value,
+        duration: document.getElementById(`duration-${id}`).value,
+        price: document.getElementById(`price-${id}`).value
+      };
+
+      fetch(`/update-music/${id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert('✅ Music updated successfully!');
+        } else {
+          alert('❌ Error updating music: ' + data.error);
+        }
+      });
+    }
+
+    // ===== DELETE MUSIC =====
+    function deleteMusic(id) {
+      if (confirm('Are you sure you want to delete this entry?')) {
+        fetch(`/delete-music/${id}`, {
+          method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert('🗑️ Music deleted successfully!');
+            document.getElementById(`music-${id}`).remove();
+          } else {
+            alert('❌ Error deleting music: ' + data.error);
+          }
+        });
+      }
+    }
+
+    // ===== IMAGE UPLOAD HANDLER =====
+    function triggerImageUpload(id) {
+      document.getElementById(`file-${id}`).click();
+    }
+
+    function uploadNewImage(id) {
+      const fileInput = document.getElementById(`file-${id}`);
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('id', id);
+
+      fetch(`/update-music-image/${id}`, {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.newImageUrl) {
+          document.getElementById(`image-${id}`).src = data.newImageUrl + '?t=' + Date.now();
+          alert("✅ Image updated successfully!");
+        } else {
+          alert("❌ Failed to update image.");
+        }
+      })
+      .catch(err => {
+        console.error('Error:', err);
+        alert("❌ Error uploading image.");
+      });
+    }
+
+    // ===== FILE UPLOAD FOR MUSIC FILES =====
+async function uploadMusic() {
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.multiple = true;
+  fileInput.accept = '.mp3,.wma';
+
+  fileInput.onchange = () => {
+    const files = fileInput.files;
+    if (!files.length) return;
+
+    const formData = new FormData();
+    for (let file of files) {
+      formData.append('music_files[]', file);
+    }
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/upload-music', true);
+
+    // Show loader
+    document.getElementById('musicUploadLoader').style.display = 'flex';
+
+    // Track upload progress
+    xhr.upload.onprogress = function (e) {
+      if (e.lengthComputable) {
+        const percentComplete = (e.loaded / e.total) * 100;
+        document.getElementById('uploadProgressBar').style.width = percentComplete + '%';
+        document.getElementById('uploadDetails').textContent = `Uploaded ${Math.round(percentComplete)}%`;
+      }
+    };
+
+    // On complete
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        const result = JSON.parse(xhr.responseText);
+        if (result.success) {
+          document.getElementById('uploadDetails').textContent = "Upload complete!";
+          alert("✅ " + result.added.length + " track(s) uploaded successfully!");
+          location.reload();
+        } else {
+          alert("❌ Upload failed: " + result.error);
+        }
+      } else {
+        alert("⚠️ Upload failed: Server error");
+      }
+
+      document.getElementById('musicUploadLoader').style.display = 'none';
+    };
+
+    xhr.onerror = function () {
+      alert("⚠️ Upload failed: Network error");
+      document.getElementById('musicUploadLoader').style.display = 'none';
+    };
+
+    xhr.send(formData);
+  };
+
+  fileInput.click();
+}
+
+
+    // ===== SEARCH FILTER =====
+    function filterTracks() {
+      const input = document.getElementById("trackSearch").value.toLowerCase();
+      const rows = document.querySelectorAll("#musicTable tbody tr");
+
+      rows.forEach(row => {
+        const cells = row.querySelectorAll("td");
+        let match = false;
+
+        for (let i = 1; i <= 7; i++) { // Skip ID column
+          const val = cells[i].querySelector("input")?.value.toLowerCase() || "";
+          if (val.includes(input)) {
+            match = true;
+            break;
+          }
+        }
+
+        row.style.display = match ? "" : "none";
+      });
+    }
+  </script>
+
+  <script>
+  function toggleAll(source) {
+    const checkboxes = document.querySelectorAll('.track-checkbox');
+    checkboxes.forEach(cb => cb.checked = source.checked);
+  }
+
+function deleteSelectedTracks() {
+    const selectedCheckboxes = document.querySelectorAll('.track-checkbox:checked');
+    const selectedIds = Array.from(selectedCheckboxes).map(checkbox => {
+        return parseInt(checkbox.getAttribute('data-id'));
+    });
+
+    if (selectedIds.length === 0) {
+        alert("⚠️ Please select at least one track to delete.");
+        return;
+    }
+
+    if (!confirm(`Are you sure you want to permanently delete ${selectedIds.length} track(s)? This cannot be undone.`)) {
+        return;
+    }
+
+    // Show loader
+    const loader = document.getElementById('musicUploadLoader');
+    loader.style.display = 'flex';
+    document.getElementById('uploadStatus').textContent = 'Deleting Tracks...';
+    document.getElementById('uploadDetails').textContent = `Processing ${selectedIds.length} tracks`;
+    document.getElementById('uploadProgressBar').style.width = '0%';
+
+    fetch('/delete-multiple-music', {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ids: selectedIds })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            // Update progress bar to 100%
+            document.getElementById('uploadProgressBar').style.width = '100%';
+            document.getElementById('uploadStatus').textContent = '✅ Deletion Complete';
+            document.getElementById('uploadDetails').textContent = data.message;
+
+            // Remove deleted tracks from UI
+            selectedIds.forEach(id => {
+                const row = document.getElementById(`music-${id}`);
+                if (row) row.remove();
+            });
+
+            setTimeout(() => {
+                loader.style.display = 'none';
+                alert(`Successfully deleted ${selectedIds.length} track(s)`);
+            }, 1000);
+        } else {
+            throw new Error(data.error || 'Unknown error occurred');
+        }
+    })
+    .catch(error => {
+        loader.style.display = 'none';
+        console.error('Error:', error);
+        alert(`❌ Failed to delete tracks: ${error.message}`);
+    });
+}
+</script>
+
+
 </body>
 </html>

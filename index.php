@@ -45,7 +45,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Animated Image Columns | Codrops</title>
+		<title>House Music Kitchen</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTGHpAS2o8G4c_0KPAr8MTxgMPFGamduI6jQ&s">
 		<meta name="description" content="A template with animated columns and a content preview." />
 		<meta name="keywords" content="layout, uidesign, template, css, javascript, columns, grid" />
 		<meta name="author" content="Codrops" />
@@ -317,10 +319,12 @@ form .btn input[type="submit"]{
 				<div class="frame__title-wrap">
 					<h1 class="frame__title">By Mabhelan</h1>
 				</div>
+
 				<div class="frame__links">
-			    <a href="https://tympanus.net/Tutorials/underwater-navigation/" target="_blank">
-			        <i class="fab fa-whatsapp"></i>
-			    </a>
+          <a href="javascript:void(0)" onclick="openWhatsApp()">
+              <i class="fab fa-whatsapp"></i>
+          </a>
+
 			    <a href="https://tympanus.net/codrops/?p=40486" target="_blank">
 			        <i class="fab fa-instagram"></i>
 			    </a>
@@ -775,6 +779,11 @@ document.addEventListener("DOMContentLoaded", function () {
         validateForm();
     });
 });
+
+    function openWhatsApp() {
+        var phoneNumber = "27686764623"; // WhatsApp requires country code, South Africa is +27
+        window.open("https://wa.me/" + phoneNumber, "_blank");
+    }
 </script>
 
 

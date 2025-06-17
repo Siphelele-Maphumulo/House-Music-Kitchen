@@ -43,11 +43,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animated Image Columns | Codrops</title>
+	<title>House Music Kitchen</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTGHpAS2o8G4c_0KPAr8MTxgMPFGamduI6jQ&s">
     <meta name="description" content="A template with animated columns and a content preview." />
     <meta name="keywords" content="layout, uidesign, template, css, javascript, columns, grid" />
     <meta name="author" content="Codrops" />
-    <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="https://use.typekit.net/bml8yys.css">
     <link rel="stylesheet" type="text/css" href="base.css" />
